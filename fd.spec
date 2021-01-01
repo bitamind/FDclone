@@ -1,5 +1,6 @@
 %define lang ja
 %define mansec 1
+%global debug_package %{nil}
 
 Summary: a file & directory maintenance tool.
 Name: FDclone
