@@ -1,276 +1,276 @@
 ############################################################
 #
-#	FDclone Ver. 3.01 $B$K4X$7$F(B
+#	FDclone Ver. 3.01 に関して
 #
 #	Takashi SHIRAI, <shirai@unixusers.net>
 #	Jul 27, 2019
 #
 ############################################################
 
-$B!!(BFDclone $B$O!"(B1989$BG/$K(B A.Idei <SDI00544@niftyserve.or.jp> $B;a(B
-$B$N<j$K$h$C$F(B MS-DOS $BMQ$K:n@.$5$l$?!X#F#D!Y$rLO$7$?!"(BUNIX $B%Y(B
-$B!<%9$N(B OS ($B0J2<JX59>eC1$K(B "UNIX" $B$H8F$V(B) $BHFMQ$N%U%!%$%k(B & $B%G(B
-$B%#%l%/%H%j4IM}%D!<%k$G$9!#(B
-$B!!;EMMItJ,$K4X$7$F$O!"$G$-$k$@$1%*%j%8%J%k$N!X#F#D!Y$K6aIU$1(B
-$B$k$h$&$K$7$^$7$?$,!"%$%s%W%j%a%s%H$K4X$7$F$OA4$/$N%*%j%8%J%k(B
-$B:nIJ$G$9!#(B
+　FDclone は、1989年に A.Idei <SDI00544@niftyserve.or.jp> 氏
+の手によって MS-DOS 用に作成された『ＦＤ』を模した、UNIX ベ
+ースの OS (以下便宜上単に "UNIX" と呼ぶ) 汎用のファイル & デ
+ィレクトリ管理ツールです。
+　仕様部分に関しては、できるだけオリジナルの『ＦＤ』に近付け
+るようにしましたが、インプリメントに関しては全くのオリジナル
+作品です。
 
-$B!!%/%m!<%s$H>N$7$F$$$kM}M3$O!"!X#F#D!Y$,M>$j$KIa5Z$7$?$?$a!"(B
-MS-DOS $B%f!<%6$K$H$C$F$O$3$N(B "FD" $B$H$$$&8F>N$,%U%!%$%k4IM}%D(B
-$B!<%k$NBeL>;l$H$7$FDjCe$7$F$7$^$C$F$$$k$3$H$K5/0x$7$^$9!#(B
-$B!!$+$D$F!"I.<T$b:n@.$K4X$o$C$?$3$H$N$"$k(B UNIX $BMQ%U%!%$%k4IM}(B
-$B%D!<%k$K!"(Bfu ($BEDBe(B $BBn(B <PDC02432@niftyserve.or.jp> $B;a:n(B)$B$H$$(B
-$B$&$b$N$,$"$j$^$7$?$,!"$3$N8x3+8e$NMxMQ>u67$rJ9$$$F$_$k$H!"%7(B
-$B%'%k$N(B alias $B5!G=$G(B "fd" $B$K2~L>$7$F;H$C$F$$$k$H$$$&%f!<%6$b(B
-$B$+$J$jB?$+$C$?$H$$$&$3$H$G$9!#(B
-$B!!(BMS-DOS $B$+$i(B UNIX $B$KF~$C$?%f!<%6$K$H$C$F$O!"%?%$%W$70W$5$b(B
-$B4^$a$F!"$3$NL>>N$,0lHVFk@w$s$G$$$k$H;W$($^$9!#(B
-$B!!$H$J$l$P!"$G$-$l$P;EMM>e$b$3$l$K=`$8$?$b$N$r(B UNIX $B>e$G:n$k(B
-$B$3$H$O!"(BMS-DOS $B%f!<%6=P?H$N(B UNIX $B=i?4<T$K$H$C$F!"<+A3$K(B UNIX
-$B4D6-$K47$l$F$$$/$?$a$KM-8z$J$3$H$G$O$J$$$+$H9M$($^$7$?!#(B
+　クローンと称している理由は、『ＦＤ』が余りに普及したため、
+MS-DOS ユーザにとってはこの "FD" という呼称がファイル管理ツ
+ールの代名詞として定着してしまっていることに起因します。
+　かつて、筆者も作成に関わったことのある UNIX 用ファイル管理
+ツールに、fu (田代 卓 <PDC02432@niftyserve.or.jp> 氏作)とい
+うものがありましたが、この公開後の利用状況を聞いてみると、シ
+ェルの alias 機能で "fd" に改名して使っているというユーザも
+かなり多かったということです。
+　MS-DOS から UNIX に入ったユーザにとっては、タイプし易さも
+含めて、この名称が一番馴染んでいると思えます。
+　となれば、できれば仕様上もこれに準じたものを UNIX 上で作る
+ことは、MS-DOS ユーザ出身の UNIX 初心者にとって、自然に UNIX
+環境に慣れていくために有効なことではないかと考えました。
 
-$B!!0J>e$N$h$&$JM}M3$+$i!"$3$N(B FDclone $B$O:n$i$l$^$7$?!#ESCf!"(B
-$BD9$-JQA+$H6lFq$NF;$r7P$O$7$^$7$?$,!"$h$&$d$/40@.$N1?$S$H$J$j(B
-$B8x3+$K$3$.Ce$1$k$3$H$H$J$j9,$$$G$9!#(B
-
-
---
-$B!!(BFDclone-3.01 $B$N%Q%C%1!<%8$K$O!"0J2<$N%U%!%$%k$,4^$^$l$^$9!#(B
-
-README		$B$3$N%U%!%$%k(B
-README.eng	$B$3$N%U%!%$%k(B ($B1QJ8(B)
-HISTORY		$B$3$l$^$G$N2~DjMzNr(B
-HISTORY.eng	$B$3$l$^$G$N2~DjMzNr(B ($B1QJ8(B)
-FAQ		Q&A $B=8(B (Frequently Asked Question)
-FAQ.eng		Q&A $B=8(B (Frequently Asked Question, $B1QJ8(B)
-TECHKNOW	$B%F%/%K%+%k%N%&%O%&(B
-TECHKNOW.eng	$B%F%/%K%+%k%N%&%O%&(B ($B1QJ8(B)
-LICENSES	$B8"Mx5,Dj$K4X$9$k%I%-%e%a%s%H(B
-LICENSES.eng	$B8"Mx5,Dj$K4X$9$k%I%-%e%a%s%H(B ($B1QJ8(B)
-Install		FDclone $B$N%$%s%9%H!<%kJ}K!$N%I%-%e%a%s%H(B
-Install.eng	FDclone $B$N%$%s%9%H!<%kJ}K!$N%I%-%e%a%s%H(B ($B1QJ8(B)
-ToAdmin		FDclone $B$r1?MQ$9$k4IM}<TMQ%I%-%e%a%s%H(B
-ToAdmin.eng	FDclone $B$r1?MQ$9$k4IM}<TMQ%I%-%e%a%s%H(B ($B1QJ8(B)
-Configur	$B4D6-@_DjMQ%X%C%@$N<+F0@8@.%W%m%0%i%`(B (Makefile $BFb$G<B9T(B)
-Makefile	$B%a%$%/%U%!%$%k(B
-Makefile.in	$B%a%$%/%U%!%$%kK\BN(B ($B?w7?(B)
-fd.man		man $B%Z!<%8MQ(B roff $B%U%!%$%k(B (JIS $BHG(B)
-fd_e.man	man $B%Z!<%8MQ(B roff $B%U%!%$%k(B ($B1QJ8(B)
-fd.cat		man $B%Z!<%8MQ(B $B%W%l!<%s%F%-%9%H(B (JIS $BHG(B)
-fd_e.cat	man $B%Z!<%8MQ(B $B%W%l!<%s%F%-%9%H(B ($B1QJ8(B)
-
-mkmfsed.c	$B%a%$%/%U%!%$%k2C9)MQ$N(B sed $B%9%/%j%W%H@8@.%W%m%0%i%`(B
-kanjicnv.c	$B4J0W4A;z%3!<%I%3%s%P!<%?(B
-mkfunkno.c	$B%3%^%s%IHV9fDj?t$NDj5A%U%!%$%k:n@.%W%m%0%i%`(B
-expfunc.c	sh $B4X?tE83+%W%m%0%i%`(B ($B5l<0$N(B /bin/sh $BMQ(B)
-mkunitbl.c	UNICODE $BJQ49%F!<%V%k%U%!%$%k@8@.%W%m%0%i%`(B
-mkdict.c	$B$+$J4A;zJQ49%F!<%V%k%U%!%$%kJQ49%W%m%0%i%`(B
-mktankan.c	$BC14A;zJQ49%F!<%V%k%U%!%$%k@8@.%W%m%0%i%`(B
-mkkanji.c	kanji.h $BJQ49%W%m%0%i%`(B
-mkcat.c		$B%a%C%;!<%8%+%?%m%0@8@.%W%m%0%i%`(B
-mkdir_p.c	$B%G%#%l%/%H%j@8@.%W%m%0%i%`(B
-evalopt.c	$B%*%W%7%g%sJ8;zNs2r@O%b%8%e!<%k(B
-evalopt.h	evalopt.c $BMQ$N%X%C%@(B
-gentbl.c	$B%F!<%V%k@8@.%b%8%e!<%k(B
-gentbl.h	gentbl.h $BMQ$N%X%C%@(B
-mkmfsedg.sed	djgpp v1.xx $B8~$1%a%$%/%U%!%$%k2C9)MQ%9%/%j%W%H(B
-mkmfsedd.sed	djgpp v2.xx $B8~$1%a%$%/%U%!%$%k2C9)MQ%9%/%j%W%H(B
-mkmfdosl.sed	LSI C-86 3.5 $B8~$1%a%$%/%U%!%$%k2C9)MQ%9%/%j%W%H(B
-mkmfdosb.sed	Borland C++ $B8~$1%a%$%/%U%!%$%k2C9)MQ%9%/%j%W%H(B
-
-makefile.gpc	DOS/V $BMQ(B djgpp v1.xx $BHG%a%$%/%U%!%$%k(B
-makefile.g98	PC-98x1 $BMQ(B djgpp v1.xx $BHG%a%$%/%U%!%$%k(B
-makefile.dpc	DOS/V $BMQ(B djgpp v2.xx $BHG%a%$%/%U%!%$%k(B
-makefile.d98	PC-98x1 $BMQ(B djgpp v2.xx $BHG%a%$%/%U%!%$%k(B
-makefile.lpc	DOS/V $BMQ(B LSI C-86 3.5 $BHG%a%$%/%U%!%$%k(B
-makefile.l98	PC-98x1 $BMQ(B LSI C-86 3.5 $BHG%a%$%/%U%!%$%k(B
-makefile.bpc	DOS/V $BMQ(B Borland C++ $BHG%a%$%/%U%!%$%k(B
-makefile.b98	PC-98x1 $BMQ(B Borland C++ $BHG%a%$%/%U%!%$%k(B
-
-main.c		FDclone $B$N%a%$%s%=!<%9(B
-termio.c	$BC<KvF~=PNO%i%$%V%i%j%=!<%9(B
-termio.h	termio.c $BMQ$N%X%C%@(B
-term.c		termcap $B%i%$%V%i%j%=!<%9(B
-term.h		term.c $BMQ$N%X%C%@(B
-printf.c	$B%U%)!<%^%C%H=PNO4X?t%b%8%e!<%k(B
-printf.h	printf.c $BMQ$N%X%C%@(B
-string.c	$BJ8;zNsA`:n4X?t$NCV49$((B
-string.h	string.c $BMQ$N%X%C%@(B
-malloc.c	$B%a%b%j3NJ]4X?t$NCV49$((B
-malloc.h	malloc.c $BMQ$N%X%C%@(B
-stream.c	$B%9%H%j!<%`F~=PNO%i%$%V%i%j%=!<%9(B
-stream.h	stream.c $BMQ$N%X%C%@(B
-time.c		$B;~4V4X?t$NCV49$((B
-time.h		time.c $BMQ$N%X%C%@(B
-pathname.c	$B%Q%9L>A`:n$K4X$9$k%b%8%e!<%k(B
-pathname.h	pathname.c $BMQ$N%X%C%@(B
-system.c	/bin/sh $B8_49$N(B system(3) $BAjEv%b%8%e!<%k(B
-system.h	system.c $BMQ$N%X%C%@(B
-posixsh.c	system.c $B$G;H$&(B POSIX $B8_49%3%^%s%I(B
-posixsh.h	posixsh.c $BMQ$N%X%C%@(B
-doscom.c	system.c $B$G;H$&(B COMMAND.COM $BFbIt%3%^%s%I(B
-log.c		$B%m%0%U%!%$%k4XO"(B
-log.h		log.c $BMQ$N%X%C%@(B
-dosdisk.c	$B%U%m%C%T!<%I%i%$%V%I%i%$%PItJ,(B
-dosdisk.h	dosdisk.c $BMQ$N%X%C%@(B
-sysemu.c	$B%7%9%F%`4X?t72$N%U%m%C%T!<%I%i%$%VBP1~HG(B
-sysemu.h	sysemu.c $BMQ$N%X%C%@(B
-unixdisk.c	MS-DOS $BMQ%U%!%$%k@)8f4X?t72(B
-unixdisk.h	unixdisk.c $BMQ$N%X%C%@(B
-realpath.c	$B@dBP%Q%9$N@55,2=(B
-realpath.h	realpath.c $BMQ$N%X%C%@(B
-encode.c	MD5 (RFC1321) $B5Z$S(B BASE64 (RFC3548) $B4XO"(B
-encode.h	encode.c $BMQ$N%X%C%@(B
-pty.c		$B5?;wC<Kv4XO"(B
-termemu.c	$BC<Kv%(%_%e%l!<%7%g%s4XO"(B
-termemu.h	termemu.c $BMQ$N%X%C%@(B
-frontend.c	$BC<Kv%(%_%e%l!<%7%g%s$NA0=hM}(B
-backend.c	$BC<Kv%(%_%e%l!<%7%g%s$N8e=hM}(B
-libc.c		cc $B$NI8=`4X?t$N%"%l%s%8(B
-file.c		$B%U%!%$%kA`:n4XO"(B
-mntinfo.c	$B%^%&%s%H>pJs4XO"(B
-mntinfo.h	mntinfo.c $BMQ$N%X%C%@(B
-statfs.c	statfs() $B$NCV49$((B
-apply.c		$B%U%!%$%k$X$NO"B3E,MQ4XO"(B
-parse.c		$BJ8;zNs2r@O4XO"(B
-parse.h		parse.c $BMQ$N%X%C%@(B
-builtin.c	$BAH9~$_%3%^%s%I4XO"(B
-shell.c		$B%7%'%k%3%^%s%I4XO"(B
-socket.c	$B%=%1%C%H4X?t4XO"(B
-socket.h	socket.c $BMQ$N%X%C%@(B
-url.c		URL $B%Q!<%6(B
-url.h		url.c $BMQ$N%X%C%@(B
-auth.c		$BG'>Z(B (RFC2617) $B4XO"(B
-auth.h		auth.c $BMQ$N%X%C%@(B
-ftp.c		FTP (RFC959) $B4XO"(B
-html.c		HTML (RFC2616) $B4XO"(B
-html.h		html.c $BMQ$N%X%C%@(B
-http.c		HTTP $B4XO"(B
-urldisk.c	URL $B%I%i%$%V%I%i%$%PItJ,(B
-urldisk.h	urldisk.c $BMQ$N%X%C%@(B
-catalog.c	$B%a%C%;!<%8%+%?%m%04XO"(B
-catalog.h	catalog.c $BMQ$N%X%C%@(B
-kconv.c		$B4A;z%3!<%I%3%s%P!<%H4XO"(B
-kconv.h		kconv.c $BMQ$N%X%C%@(B
-input.c		$B%f!<%6F~NO4XO"(B
-ime.c		$B4J0WF|K\8l(B IME
-roman.c		$B%m!<%^;z$+$JJQ494XO"(B
-roman.h		roman.c $BMQ$N%X%C%@(B
-dict.c		$B4A;z<-=q8!:w4XO"(B
-hinsi.h		$BIJ;lJ8K!MQ$N%X%C%@(B
-info.c		$B3F<o>pJsI=<(MQ(B
-rockridg.c	ISO 9660 RockRidge $B3HD%4XO"(B
-lsparse.c	$B%U%!%$%k0lMw=PNO$N%Q!<%6(B
-lsparse.h	lsparse.c $BMQ$N%X%C%@(B
-archive.c	$B%"!<%+%$%P4XO"(B
-tree.c		$B%D%j!<I=<(4XO"(B
-custom.c	$B@_DjJQ994XO"(B
-command.c	$BFbIt%3%^%s%I4XO"(B
-browse.c	$B%V%i%&%62hLL4XO"(B
-
-fd.h		FDclone $B$N%+%9%?%^%$%:MQ%X%C%@(B
-machine.h	$B5!<o0MB8@-$r5[<}$9$k%X%C%@(B
-config.hin	$B%@%_!<$GMQ0U$7$F$"$k4D6-@_DjMQ%X%C%@(B
-headers.h	$B4pK\E*$J%X%C%@$r$^$H$a$?%X%C%@(B
-depend.h	$B%*%W%7%g%s<1JL;R$N0MB84X78$r$^$H$a$?%X%C%@(B
-types.h		$B3F<o7?@k8@(B
-namelist.h	$B%U%!%$%k%j%9%H$K4X$9$k%X%C%@(B
-kctype.h	$B4A;z%3!<%I$K4X$9$k%X%C%@(B
-typesize.h	$B7?%5%$%:$K4X$9$k%X%C%@(B
-wait.h		$B;R%W%m%;%9=hM}$K4X$9$k%X%C%@(B
-dirent.h	$B%G%#%l%/%H%jA`:n4X?tMQ%X%C%@(B
-unixemu.h	MS-DOS $B$G$N4X?t%(%_%e%l!<%7%g%sMQ$N%X%C%@(B
-fsinfo.h	$B%U%!%$%k%7%9%F%`>pJs$K4X$9$k%X%C%@(B
-device.h	$B%G%P%$%9(B ID $BMQ%X%C%@(B
-func.h		$B%W%m%H%?%$%W@k8@(B
-functabl.h	$BFbIt%3%^%s%I$NB0@-Dj5AMQ(B
-kanji.hin	$BF|K\8lJ8;zNs$N%=!<%9(B (JIS$BHG(B)
-version.h	$B%P!<%8%g%s(B
-
-_fdrc		.fd2rc $B$N$*<jK\(B
-_fdrc.dif	.fd2rc $B$K4X$9$k(B 1.03 $B$+$i$NJQ99E@(B
-fd.spec		RPM $BMQ%9%Z%C%/%U%!%$%k(B
+　以上のような理由から、この FDclone は作られました。途中、
+長き変遷と苦難の道を経はしましたが、ようやく完成の運びとなり
+公開にこぎ着けることとなり幸いです。
 
 
 --
-$B!!(BFDclone $B$NCx:n8"$O!"(B[ $BGr0f(B $BN4(B <shirai@unixusers.net> ] $B$,(B
-$BJ];}$7$^$9!#C"$7!"A4$F$N%=!<%9$NG[I[!"2~JQ!"0zMQ!"(B2 $B<!MxMQ$K(B
-$B$D$$$F$O!"2?$iB+G{$5$l$k$3$H$J$/<+M3$K9T$J$C$FD:$$$F9=$$$^$;(B
-$B$s!#(B
-$B!!(BFDclone $B$N%=!<%9$r85$K!";d$NCx:nJ*$+$i$^$??7$?$JH/E8$,8+$i(B
-$B$l$k$J$i$P!":n<T$H$7$F$bK\K>$G$9$N$G!"<+M3$K:FMxMQ$7$F2<$5$$!#(B
+　FDclone-3.01 のパッケージには、以下のファイルが含まれます。
 
-$B!!C"$7!"(BFDclone $B$NMxMQ!&G[I[$K@)8B$r2C$($F$7$^$&$h$&$J9T0Y!"(B
-$BNc$($P!"L5CG$G(B FDclone $B$K4X$9$k%Q%F%s%H?=@A$r9T$J$&$H$$$C$?(B
-$B$3$H$O!"%U%j!<%=%U%H%&%'%"$NM}G0$KH?$9$k9T0Y$H$J$k$N$G!"0l@Z(B
-$B$3$l$r6X;_$5$;$FD:$-$^$9!#(B
+README		このファイル
+README.eng	このファイル (英文)
+HISTORY		これまでの改定履歴
+HISTORY.eng	これまでの改定履歴 (英文)
+FAQ		Q&A 集 (Frequently Asked Question)
+FAQ.eng		Q&A 集 (Frequently Asked Question, 英文)
+TECHKNOW	テクニカルノウハウ
+TECHKNOW.eng	テクニカルノウハウ (英文)
+LICENSES	権利規定に関するドキュメント
+LICENSES.eng	権利規定に関するドキュメント (英文)
+Install		FDclone のインストール方法のドキュメント
+Install.eng	FDclone のインストール方法のドキュメント (英文)
+ToAdmin		FDclone を運用する管理者用ドキュメント
+ToAdmin.eng	FDclone を運用する管理者用ドキュメント (英文)
+Configur	環境設定用ヘッダの自動生成プログラム (Makefile 内で実行)
+Makefile	メイクファイル
+Makefile.in	メイクファイル本体 (雛型)
+fd.man		man ページ用 roff ファイル (JIS 版)
+fd_e.man	man ページ用 roff ファイル (英文)
+fd.cat		man ページ用 プレーンテキスト (JIS 版)
+fd_e.cat	man ページ用 プレーンテキスト (英文)
 
+mkmfsed.c	メイクファイル加工用の sed スクリプト生成プログラム
+kanjicnv.c	簡易漢字コードコンバータ
+mkfunkno.c	コマンド番号定数の定義ファイル作成プログラム
+expfunc.c	sh 関数展開プログラム (旧式の /bin/sh 用)
+mkunitbl.c	UNICODE 変換テーブルファイル生成プログラム
+mkdict.c	かな漢字変換テーブルファイル変換プログラム
+mktankan.c	単漢字変換テーブルファイル生成プログラム
+mkkanji.c	kanji.h 変換プログラム
+mkcat.c		メッセージカタログ生成プログラム
+mkdir_p.c	ディレクトリ生成プログラム
+evalopt.c	オプション文字列解析モジュール
+evalopt.h	evalopt.c 用のヘッダ
+gentbl.c	テーブル生成モジュール
+gentbl.h	gentbl.h 用のヘッダ
+mkmfsedg.sed	djgpp v1.xx 向けメイクファイル加工用スクリプト
+mkmfsedd.sed	djgpp v2.xx 向けメイクファイル加工用スクリプト
+mkmfdosl.sed	LSI C-86 3.5 向けメイクファイル加工用スクリプト
+mkmfdosb.sed	Borland C++ 向けメイクファイル加工用スクリプト
 
-$B!!(BCD-ROM $B$d3F<o%M%C%H%o!<%/$K$*$1$k<B9T%P%$%J%j$NHRI[$K$D$$(B
-$B$F$O!"JLES8DJL$K$4AjCL2<$5$$!#(B
-$B!!C"$7!"4{$KHRI[$5$l$F$$$k%P%$%J%j$NFs<!G[I[$K$D$$$F$O!"3F!9(B
-$B$NHRI[85$N>r7o$K=>$$$^$9$N$G!">r7o$N>\:Y$OHRI[85$K$*Ld$$9g$o(B
-$B$;2<$5$$!#(B
+makefile.gpc	DOS/V 用 djgpp v1.xx 版メイクファイル
+makefile.g98	PC-98x1 用 djgpp v1.xx 版メイクファイル
+makefile.dpc	DOS/V 用 djgpp v2.xx 版メイクファイル
+makefile.d98	PC-98x1 用 djgpp v2.xx 版メイクファイル
+makefile.lpc	DOS/V 用 LSI C-86 3.5 版メイクファイル
+makefile.l98	PC-98x1 用 LSI C-86 3.5 版メイクファイル
+makefile.bpc	DOS/V 用 Borland C++ 版メイクファイル
+makefile.b98	PC-98x1 用 Borland C++ 版メイクファイル
 
-$B!!HRI[%P%$%J%j$NHRI[85$NO"Mm@h$O!"(BHELP_MESSAGE $B%3%^%s%I$GI=(B
-$B<($5$l$k%X%k%W2hLL$N%U%!%s%/%7%g%s9T$KI=<($5$l$F$$$^$9!#(B
-$B!!$3$NI=<($N$J$$>l9g!"5Z$S%?%$%H%k9T$N%P!<%8%g%sHV9fKvHx$K(B #
-$B$NJ8;z$,E:$($i$l$F$$$J$$>l9g!":n<T$N5vBz$r<u$1$F$$$J$$Hs8x<0(B
-$B$NHRI[%P%$%J%j$G$9$N$G!"$4;HMQ$r95$($k$3$H$r$*>)$a$7$^$9!#(B
+main.c		FDclone のメインソース
+termio.c	端末入出力ライブラリソース
+termio.h	termio.c 用のヘッダ
+term.c		termcap ライブラリソース
+term.h		term.c 用のヘッダ
+printf.c	フォーマット出力関数モジュール
+printf.h	printf.c 用のヘッダ
+string.c	文字列操作関数の置換え
+string.h	string.c 用のヘッダ
+malloc.c	メモリ確保関数の置換え
+malloc.h	malloc.c 用のヘッダ
+stream.c	ストリーム入出力ライブラリソース
+stream.h	stream.c 用のヘッダ
+time.c		時間関数の置換え
+time.h		time.c 用のヘッダ
+pathname.c	パス名操作に関するモジュール
+pathname.h	pathname.c 用のヘッダ
+system.c	/bin/sh 互換の system(3) 相当モジュール
+system.h	system.c 用のヘッダ
+posixsh.c	system.c で使う POSIX 互換コマンド
+posixsh.h	posixsh.c 用のヘッダ
+doscom.c	system.c で使う COMMAND.COM 内部コマンド
+log.c		ログファイル関連
+log.h		log.c 用のヘッダ
+dosdisk.c	フロッピードライブドライバ部分
+dosdisk.h	dosdisk.c 用のヘッダ
+sysemu.c	システム関数群のフロッピードライブ対応版
+sysemu.h	sysemu.c 用のヘッダ
+unixdisk.c	MS-DOS 用ファイル制御関数群
+unixdisk.h	unixdisk.c 用のヘッダ
+realpath.c	絶対パスの正規化
+realpath.h	realpath.c 用のヘッダ
+encode.c	MD5 (RFC1321) 及び BASE64 (RFC3548) 関連
+encode.h	encode.c 用のヘッダ
+pty.c		疑似端末関連
+termemu.c	端末エミュレーション関連
+termemu.h	termemu.c 用のヘッダ
+frontend.c	端末エミュレーションの前処理
+backend.c	端末エミュレーションの後処理
+libc.c		cc の標準関数のアレンジ
+file.c		ファイル操作関連
+mntinfo.c	マウント情報関連
+mntinfo.h	mntinfo.c 用のヘッダ
+statfs.c	statfs() の置換え
+apply.c		ファイルへの連続適用関連
+parse.c		文字列解析関連
+parse.h		parse.c 用のヘッダ
+builtin.c	組込みコマンド関連
+shell.c		シェルコマンド関連
+socket.c	ソケット関数関連
+socket.h	socket.c 用のヘッダ
+url.c		URL パーザ
+url.h		url.c 用のヘッダ
+auth.c		認証 (RFC2617) 関連
+auth.h		auth.c 用のヘッダ
+ftp.c		FTP (RFC959) 関連
+html.c		HTML (RFC2616) 関連
+html.h		html.c 用のヘッダ
+http.c		HTTP 関連
+urldisk.c	URL ドライブドライバ部分
+urldisk.h	urldisk.c 用のヘッダ
+catalog.c	メッセージカタログ関連
+catalog.h	catalog.c 用のヘッダ
+kconv.c		漢字コードコンバート関連
+kconv.h		kconv.c 用のヘッダ
+input.c		ユーザ入力関連
+ime.c		簡易日本語 IME
+roman.c		ローマ字かな変換関連
+roman.h		roman.c 用のヘッダ
+dict.c		漢字辞書検索関連
+hinsi.h		品詞文法用のヘッダ
+info.c		各種情報表示用
+rockridg.c	ISO 9660 RockRidge 拡張関連
+lsparse.c	ファイル一覧出力のパーザ
+lsparse.h	lsparse.c 用のヘッダ
+archive.c	アーカイバ関連
+tree.c		ツリー表示関連
+custom.c	設定変更関連
+command.c	内部コマンド関連
+browse.c	ブラウザ画面関連
+
+fd.h		FDclone のカスタマイズ用ヘッダ
+machine.h	機種依存性を吸収するヘッダ
+config.hin	ダミーで用意してある環境設定用ヘッダ
+headers.h	基本的なヘッダをまとめたヘッダ
+depend.h	オプション識別子の依存関係をまとめたヘッダ
+types.h		各種型宣言
+namelist.h	ファイルリストに関するヘッダ
+kctype.h	漢字コードに関するヘッダ
+typesize.h	型サイズに関するヘッダ
+wait.h		子プロセス処理に関するヘッダ
+dirent.h	ディレクトリ操作関数用ヘッダ
+unixemu.h	MS-DOS での関数エミュレーション用のヘッダ
+fsinfo.h	ファイルシステム情報に関するヘッダ
+device.h	デバイス ID 用ヘッダ
+func.h		プロトタイプ宣言
+functabl.h	内部コマンドの属性定義用
+kanji.hin	日本語文字列のソース (JIS版)
+version.h	バージョン
+
+_fdrc		.fd2rc のお手本
+_fdrc.dif	.fd2rc に関する 1.03 からの変更点
+fd.spec		RPM 用スペックファイル
 
 
 --
-$B!!>\:Y$O3F<o%I%-%e%a%s%H$r;2>H$7$F2<$5$$!#(B`Install' $B$N;X<($K(B
-$B=>$C$F%3%s%Q%$%k$7!"5!G=>\:Y$O%$%s%9%H!<%k8e$N(B man $B%Z!<%8$r(B
-$B;2>H$7$F2<$5$$!#(B
-$B!!(BFAQ $B=8$bMQ0U$7$F$"$j$^$9$N$G!"2?$+;Y>c$N$"$C$?>l9g!":n<T$K(B
-$BO"Mm$9$kA0$K$^$:$3$l$i$N%I%-%e%a%s%H$r$*FI$_$K$J$k$3$H$r$*>)(B
-$B$a$7$^$9!#$[$H$s$I$N;Y>c$O(B FAQ $B$H(B man $B%Z!<%8$G2r7h$5$l$k$O$:(B
-$B$G$9!#(B
-$B!!3F<o(B UNIX $B4D6-$NB>!"(BMS-DOS $B$G$b%3%s%Q%$%k2DG=$K$7$F$"$j$^(B
-$B$9$,!"$3$N:]$K$O(B Makefile $B$N:9BX$($,I,MW$H$J$j$^$9!#(B
+　FDclone の著作権は、[ 白井 隆 <shirai@unixusers.net> ] が
+保持します。但し、全てのソースの配布、改変、引用、2 次利用に
+ついては、何ら束縛されることなく自由に行なって頂いて構いませ
+ん。
+　FDclone のソースを元に、私の著作物からまた新たな発展が見ら
+れるならば、作者としても本望ですので、自由に再利用して下さい。
+
+　但し、FDclone の利用・配布に制限を加えてしまうような行為、
+例えば、無断で FDclone に関するパテント申請を行なうといった
+ことは、フリーソフトウェアの理念に反する行為となるので、一切
+これを禁止させて頂きます。
+
+
+　CD-ROM や各種ネットワークにおける実行バイナリの頒布につい
+ては、別途個別にご相談下さい。
+　但し、既に頒布されているバイナリの二次配布については、各々
+の頒布元の条件に従いますので、条件の詳細は頒布元にお問い合わ
+せ下さい。
+
+　頒布バイナリの頒布元の連絡先は、HELP_MESSAGE コマンドで表
+示されるヘルプ画面のファンクション行に表示されています。
+　この表示のない場合、及びタイトル行のバージョン番号末尾に #
+の文字が添えられていない場合、作者の許諾を受けていない非公式
+の頒布バイナリですので、ご使用を控えることをお奨めします。
 
 
 --
-$B!!(BUNIX $B$O!"(BX/Open Company Ltd. $B$,%i%$%;%s%9$9$kEPO?>&I8$G$9!#(B
-$B$7$+$7!"(BFDclone $B$N3F%I%-%e%a%s%HFb$G8F$S<($5$l$k(B UNIX $B$H$$$&(B
-$B8F>N$O!"(BX/Open $B$K$h$C$F5vBz$5$l$?(B UNIX OS $B$r;X$9$b$N$G$O$J$/!"(B
-1969 $BG/!"(BAT&T $B%Y%k8&$G3+H/$5$l$?(B unics $B$+$iGI@8$9$k%7%j!<%:(B
-$B$N(B OS $BA4HL$r;X$9$b$N$H$7$^$9!#(B
-$B!!$3$l$O!"(BX/Open $B$N8"Mx$r?/32$9$kL\E*$G$O$J$/!"$3$l$i$rAm>N(B
-$B$9$k8F>N$,>C<:$7$F$7$^$C$?$3$H$K5/0x$9$k!"JX59>e$NI=8=$G$"$k(B
-$B$3$H$r$4M}2r2<$5$$!#(B
+　詳細は各種ドキュメントを参照して下さい。`Install' の指示に
+従ってコンパイルし、機能詳細はインストール後の man ページを
+参照して下さい。
+　FAQ 集も用意してありますので、何か支障のあった場合、作者に
+連絡する前にまずこれらのドキュメントをお読みになることをお奨
+めします。ほとんどの支障は FAQ と man ページで解決されるはず
+です。
+　各種 UNIX 環境の他、MS-DOS でもコンパイル可能にしてありま
+すが、この際には Makefile の差替えが必要となります。
 
 
 --
-$B<U<-(B
+　UNIX は、X/Open Company Ltd. がライセンスする登録商標です。
+しかし、FDclone の各ドキュメント内で呼び示される UNIX という
+呼称は、X/Open によって許諾された UNIX OS を指すものではなく、
+1969 年、AT&T ベル研で開発された unics から派生するシリーズ
+の OS 全般を指すものとします。
+　これは、X/Open の権利を侵害する目的ではなく、これらを総称
+する呼称が消失してしまったことに起因する、便宜上の表現である
+ことをご理解下さい。
 
-$B!!:G8e$K$J$j$^$7$?$,!"(BFDclone $B$N40@.$K:]$7$F$*@$OC$K$J$C$?0J(B
-$B2<$NJ}!9$K!"$3$N>l$r<Z$j$F46<U$N0U$rI=$5$;$FD:$-$^$9!#(B
-($B7I>NN,!"%"%k%U%!%Y%C%H=g!"!V(B@$B!W$r!V(B at $B!W$K$FI=5-(B)
 
-$B!&!X#F#D!Y$N:n<T$G(B FDclone $B$N8x3+$r2wBz$7$FD:$-$^$7$?!#(B
-	SDI00544 at niftyserve.or.jp ($B=P<M!!8|(B)
+--
+謝辞
 
-$B!&(BWINC $BJY6/2q(B ML $B$K$F!"%U%!%$%k%7%9%F%`$K4X$9$kAjCL$K>h$C$F(B
-$B!!D:$-$^$7$?!#(B
+　最後になりましたが、FDclone の完成に際してお世話になった以
+下の方々に、この場を借りて感謝の意を表させて頂きます。
+(敬称略、アルファベット順、「@」を「 at 」にて表記)
+
+・『ＦＤ』の作者で FDclone の公開を快諾して頂きました。
+	SDI00544 at niftyserve.or.jp (出射　厚)
+
+・WINC 勉強会 ML にて、ファイルシステムに関する相談に乗って
+　頂きました。
 	kenji at reseau.toyonaka.osaka.jp (Kenji Rikitake)
-	mori at chuo-computer.co.jp ($B?9!!=(OB(B)
-	ohm at kyoto.wide.ad.jp ($B?9Eg98G/(B)
-	saitoh at ics.es.osaka-u.ac.jp ($BsnF#L@5*(B)
+	mori at chuo-computer.co.jp (森　秀和)
+	ohm at kyoto.wide.ad.jp (森島晃年)
+	saitoh at ics.es.osaka-u.ac.jp (齊藤明紀)
 
-$B!&&B%F%9%HMQ(B ML $B$N4IM}1?1D$rC4Ev$7$FD:$-$^$7$?!#(B
+・βテスト用 ML の管理運営を担当して頂きました。
 	matusita at ics.es.osaka-u.ac.jp (Makoto MATSUSHITA)
 
-$B!&(Bfj.sources.d $B$G$NJg=8$r<u$1$F&B%F%9%H$K6(NO$7$FD:$-$^$7$?!#(B
-	7m2vej at ritp.ye.IHI.co.jp (UENO Fumihiro  $B>eLnJ8M5(B)
+・fj.sources.d での募集を受けてβテストに協力して頂きました。
+	7m2vej at ritp.ye.IHI.co.jp (UENO Fumihiro  上野文裕)
 	aki at pic.hitachi-sk.co.jp (Akiyoshi Sakaguchi)
 	ao at orient.tuins.cs.toyo.ac.jp (AOYAGI Yoichi)
-	daikoku at lang2.bs1.fc.nec.co.jp ($BBg9uMN;K(B)
+	daikoku at lang2.bs1.fc.nec.co.jp (大黒洋史)
 	fuku at amorph.rim.or.jp (FUKUSHIMA Osamu)
 	go at cclub.tutcc.tut.ac.jp (Go Watanabe)
 	h-inoue at is.aist-nara.ac.jp (Hiroyuki Inoue)
-	h-yagi at zero0.nsis.cl.nec.co.jp ($BH,LZ1QM:(B)
+	h-yagi at zero0.nsis.cl.nec.co.jp (八木英雄)
 	hashi at star.rcast.u-tokyo.ac.jp (TAKAHASHI Katsuyuki)
 	hide at mamoru.ee.sophia.ac.jp (Takahide Yamaguchi)
 	hiro at akinus1.aki.che.tohoku.ac.jp (Akiyasu Hirotani)
@@ -280,10 +280,10 @@ fd.spec		RPM $BMQ%9%Z%C%/%U%!%$%k(B
 	j0442 at cranesv.egg.kushiro-ct.ac.jp (Kazunori Yoshida)
 	j9194169 at ed.yama.sut.ac.jp (Keitarou Yoshimura)
 	jt at ng.nefs.nec.co.jp (Jiro_Takabatake)
-	katsu at cs.uec.ac.jp ($BNkLZ9nL@(B(Katsuaki Suzuki))
+	katsu at cs.uec.ac.jp (鈴木克明(Katsuaki Suzuki))
 	ke3057yt at ex.ecip.osaka-u.ac.jp (yosioka tuneo)
 	kimai at av.crl.sony.co.jp (IMAI Kenichi)
-	kjm at yonka.ngy.mhi.co.jp (KOJIMA Hajime/ $B>.EgH%(B)
+	kjm at yonka.ngy.mhi.co.jp (KOJIMA Hajime/ 小島肇)
 	kkubota at crl.go.jp (Kazuo Kubota)
 	kmiya at mm.rd.nttdata.jp (Kunio Miyamoto)
 	kobashi at comp.eng.himeji-tech.ac.jp (kobashi)
@@ -299,18 +299,18 @@ fd.spec		RPM $BMQ%9%Z%C%/%U%!%$%k(B
 	ohishi at otc.qnes.nec.co.jp (Isao Ohishi)
 	okubo at mem.cl.nec.co.jp (Shuichi OHKUBO)
 	ozawa at prince.pe.u-tokyo.ac.jp
-	roy at lit.cs.uec.ac.jp (SATOU Masaki / $B:4F#2m5,(B)
+	roy at lit.cs.uec.ac.jp (SATOU Masaki / 佐藤雅規)
 	ryoji at kgupyr.kwansei.ac.jp (Ryoji Nagai)
 	sakai at csl.cl.nec.co.jp (Junji SAKAI)
 	sakanaga at ds.kyoto.omronsoft.co.jp (Toshiyuki Sakanaga)
 	sawada at h3news1.kais.kyoto-u.ac.jp (Yutaka SAWADA)
-	senshu at astro.yamagata-cit.ac.jp (Hiroyuki Senshu / $B@i=)(B)
+	senshu at astro.yamagata-cit.ac.jp (Hiroyuki Senshu / 千秋)
 	shige at luck.imasy.or.jp (Shigechika Aikawa)
 	shirai at atropos.gen.u-tokyo.ac.jp (Izuru Shirai)
 	taka-mm at super.win.or.jp (Takahasi Mamoru)
 	tan at kei-n.huap.hokudai.ac.jp (Takushi Tanaka)
 	tanaka at inf.ptg.sony.co.jp ("T.Tanaka")
-	tomiyan at cv.sony.co.jp ($BIYED(B $B8wI'(B)
+	tomiyan at cv.sony.co.jp (富田 光彦)
 	tsuka at ohsaki.meidensha.co.jp (Yoshihiro Tsukamoto)
 	uno at meleager.mel.go.jp
 	wakui at casiogw.rd.casio.co.jp (WAKUI Kazuhiko)

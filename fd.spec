@@ -26,9 +26,9 @@ based OS.  It is a clone of "FD" for MS-DOS, made by Mr.
 A.Idei <SDI00544@niftyserve.or.jp> in 1989.
 
 %description(ja)
-FDclone �ϡ�1989ǯ�� A.Idei <SDI00544@niftyserve.or.jp> ���
-��ˤ�ä� MS-DOS �Ѥ˺������줿�أƣġ٤��Ϥ�����UNIX �١�
-���� OS ���ѤΥե����� & �ǥ��쥯�ȥ�����ġ���Ǥ���
+FDclone は、1989年に A.Idei <SDI00544@niftyserve.or.jp> 氏の
+手によって MS-DOS 用に作成された『ＦＤ』を模した、UNIX ベー
+スの OS 汎用のファイル & ディレクトリ管理ツールです。
 
 %prep
 %setup -q -n FD-%{version}
