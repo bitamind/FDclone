@@ -1,0 +1,1699 @@
+#
+#	Makefile for fd
+#
+
+TITLE	= FD-
+VERMAJ	= 3
+VERSION	= 3.01j
+PREFIX	=
+CONFDIR	=
+BUILD	=
+MANSEC	= 1
+BINTOP	= $(PREFIX)\bin
+BINDIR	= $(BUILD)$(BINTOP)
+DATATOP	= $(PREFIX)\share
+DATADIR	= $(BUILD)$(DATATOP)\fd
+MANTOP	= $(PREFIX)\man
+MANDIR	= $(BUILD)$(MANTOP)\man$(MANSEC)
+CATDIR	= $(BUILD)$(MANTOP)\cat$(MANSEC)
+JMANDIR	= $(BUILD)$(MANTOP)\man$(MANSEC)
+JCATDIR	= $(BUILD)$(MANTOP)\cat$(MANSEC)
+IPKWDIR	= .\ipk.work
+IPKTDIR	= .\ipk.tmp
+DEPDIR	= .\depend.tmp
+DIST	= none
+DEFRC	= $(CONFDIR)\fd2rc
+BLDRC	= $(BUILD)$(DEFRC)
+DOSRC	= ~FD\\fd2rc
+UNITBL	= fd-unicd.tbl
+DICTTBL	= fd-dict.tbl
+DICTTXT	= fd-dict.txt
+DICTSRC	=
+CATTBL	= fd-cat.ja
+ECATTBL	= fd-cat.C
+TABLES	= $(UNITBL) $(CATTBL) $(ECATTBL)
+
+SRC	= main.c printf.c termio.c term.c stream.c \
+	string.c malloc.c time.c \
+	pathname.c system.c posixsh.c doscom.c \
+	log.c sysemu.c dosdisk.c unixdisk.c \
+	realpath.c encode.c \
+	libc.c file.c mntinfo.c statfs.c apply.c \
+	pty.c termemu.c frontend.c backend.c \
+	parse.c builtin.c shell.c \
+	socket.c url.c auth.c \
+	ftp.c html.c http.c urldisk.c \
+	catalog.c \
+	kconv.c input.c ime.c dict.c roman.c \
+	info.c rockridg.c tree.c \
+	lsparse.c archive.c \
+	custom.c command.c browse.c
+HSRC	= evalopt.c gentbl.c \
+	mkunitbl.c mkdict.c mktankan.c \
+	mkkanji.c mkcat.c mkdir_p.c \
+	kanjicnv.c expfunc.c \
+	mkfuncno.c
+DSRC	= $(DEPDIR)\unitbl.c $(DEPDIR)\dicttbl.c
+HEADER	= fd.h \
+	headers.h machine.h \
+	depend.h \
+	printf.h kctype.h typesize.h \
+	string.h malloc.h time.h \
+	dirent.h sysemu.h log.h \
+	pathname.h system.h posixsh.h wait.h \
+	termio.h term.h stream.h \
+	types.h namelist.h \
+	dosdisk.h unixdisk.h unixemu.h \
+	realpath.h encode.h termemu.h \
+	mntinfo.h fsinfo.h device.h parse.h lsparse.h \
+	socket.h url.h auth.h html.h urldisk.h \
+	catalog.h \
+	evalopt.h gentbl.h \
+	kconv.h roman.h hinsi.h \
+	func.h functabl.h
+SSRC	= printf.c termio.c stream.c \
+	string.c malloc.c time.c \
+	pathname.c system.c posixsh.c doscom.c \
+	sysemu.c
+BSRC	= printf.c termio.c stream.c \
+	string.c malloc.c \
+	pathname.c system.c doscom.c \
+	sysemu.c
+NSRC	= printf.c termio.c stream.c \
+	string.c malloc.c time.c \
+	pathname.c system.c posixsh.c doscom.c \
+	sysemu.c \
+	realpath.c encode.c \
+	parse.c \
+	socket.c url.c auth.c \
+	ftp.c html.c http.c urldisk.c \
+	lsparse.c
+TSRC	= string.c roman.c kconv.c evalopt.c gentbl.c unitbl.c
+
+DOC	= README.eng HISTORY.eng FAQ.eng TECHKNOW.eng \
+	Install.eng ToAdmin.eng LICENSES.eng
+JDOC	= README HISTORY FAQ TECHKNOW \
+	Install ToAdmin LICENSES
+MANSRC	= fd_e.man
+MANCAT	= fd_e.cat
+JMANSRC	= fd.man
+JMANCAT	= fd.cat
+RUNCOM	= fdrc
+ARGS	= object.arg
+SARGS	= sobject.arg
+NARGS	= nobject.arg
+
+SRCS	= $(DOC) $(MANSRC) $(MANCAT) \
+	Configur Makefile Makefile.in $(SRC) $(HSRC) $(HEADER) \
+	makefile.gpc makefile.g98 \
+	makefile.dpc makefile.d98 \
+	makefile.lpc makefile.l98 \
+	makefile.bpc makefile.b98 \
+	mkmfdosg.sed mkmfdosd.sed mkmfdosl.sed mkmfdosb.sed \
+	mkmfsed.c \
+	config.hin version.h \
+	_fdrc _fdrc.dif fd.spec
+JSRCS	= $(JDOC) $(JMANSRC) $(JMANCAT) \
+	kanji.hin
+SOURCES	= $(SRCS) $(JSRCS)
+SHSOURCES = $(NSRC) \
+	headers.h machine.h \
+	depend.h \
+	printf.h kctype.h typesize.h \
+	string.h malloc.h time.h \
+	dirent.h sysemu.h log.h \
+	pathname.h system.h posixsh.h wait.h \
+	termio.h stream.h \
+	namelist.h \
+	unixemu.h \
+	realpath.h encode.h \
+	device.h parse.h lsparse.h \
+	socket.h url.h auth.h html.h urldisk.h \
+	kanjicnv.c expfunc.c mkmfsed.c \
+	Configur Makefile Makefile.in \
+	makefile.gpc makefile.g98 \
+	makefile.dpc makefile.d98 \
+	makefile.lpc makefile.l98 \
+	makefile.bpc makefile.b98 \
+	mkmfdosg.sed mkmfdosd.sed mkmfdosl.sed mkmfdosb.sed \
+	config.hin version.h
+
+CC	= lcc86
+HOSTCC	= $(CC)
+INSTALL	= copy /y
+MAKE	= make
+SHELL	= \bin\sh
+SED	= sed
+ECHO	= command /c echo
+CP	= copy /y
+RM	= del
+LN	= copy /y
+MV	= mv
+CHMOD	= chmod
+LINT	= lint
+TAR	= tar
+LHA	= lha
+SHAR	= shar
+EXE	= .exe
+OBJ	= .obj
+PROGRAM	= fd
+ALIAS	= fdsh
+DOSOBJS	= unixdisk$(OBJ)
+IMEOBJS	= ime$(OBJ) dict$(OBJ) roman$(OBJ)
+SCKOBJS	= socket$(OBJ) url$(OBJ) auth$(OBJ) \
+	ftp$(OBJ) html$(OBJ) http$(OBJ) urldisk$(OBJ)
+OBJ1	= main$(OBJ) printf$(OBJ) termio$(OBJ) term$(OBJ) stream$(OBJ) \
+	string$(OBJ) malloc$(OBJ) time$(OBJ)
+OBJ2	= pathname$(OBJ) system$(OBJ) posixsh$(OBJ) doscom$(OBJ) \
+	log$(OBJ) sysemu$(OBJ) dosdisk$(OBJ) $(DOSOBJS)
+OBJ3	= realpath$(OBJ) encode$(OBJ) \
+	libc$(OBJ) file$(OBJ) mntinfo$(OBJ) statfs$(OBJ) apply$(OBJ) \
+	pty$(OBJ) termemu$(OBJ) frontend$(OBJ) backend$(OBJ)
+OBJ4	= parse$(OBJ) builtin$(OBJ) shell$(OBJ)
+OBJ5	= catalog$(OBJ) \
+	kconv$(OBJ) input$(OBJ)
+OBJ6	= info$(OBJ) rockridg$(OBJ) tree$(OBJ) \
+	lsparse$(OBJ) archive$(OBJ) \
+	custom$(OBJ) command$(OBJ) browse$(OBJ)
+SOBJ1	= sprintf$(OBJ) stermio$(OBJ) sstream$(OBJ) \
+	sstring$(OBJ) smalloc$(OBJ) stime$(OBJ)
+SOBJ2	= spathnam$(OBJ) ssystem$(OBJ) sposixsh$(OBJ) sdoscom$(OBJ) \
+	ssysemu$(OBJ)
+BOBJ	= bprintf$(OBJ) btermio$(OBJ) bstream$(OBJ) \
+	bstring$(OBJ) bmalloc$(OBJ) \
+	bpathnam$(OBJ) bsystem$(OBJ) bdoscom$(OBJ) \
+	bsysemu$(OBJ)
+NOBJ1	= nprintf$(OBJ) ntermio$(OBJ) nstream$(OBJ) \
+	nstring$(OBJ) nmalloc$(OBJ) ntime$(OBJ)
+NOBJ2	= npathnam$(OBJ) nsystem$(OBJ) nposixsh$(OBJ) ndoscom$(OBJ) \
+	nsysemu$(OBJ) \
+	nrealpat$(OBJ) nencode$(OBJ)
+NOBJ3	= nparse$(OBJ) \
+	nsocket$(OBJ) nurl$(OBJ) nauth$(OBJ) \
+	nftp$(OBJ) nhtml$(OBJ) nhttp$(OBJ) nurldisk$(OBJ) \
+	nlsparse$(OBJ)
+KOBJ	= tevalopt$(OBJ)
+COBJ	= tevalopt$(OBJ) tgentbl$(OBJ)
+UOBJ	= tevalopt$(OBJ) tgentbl$(OBJ)
+TOBJ	= tstring$(OBJ) troman$(OBJ) tkconv$(OBJ) tevalopt$(OBJ) tgentbl$(OBJ)
+ALLOC	=
+DEBUG	=
+
+CFLAGS	= -O
+HOSTCFLAGS = $(CFLAGS)
+CPPFLAGS =
+HOSTCPPFLAGS = $(CPPFLAGS)
+LDFLAGS	=
+HOSTLDFLAGS = $(LDFLAGS)
+OSOPTS	= -DDOSV
+COPTS	= $(OSOPTS) $(DEBUG) $(CFLAGS)
+HOSTCOPTS = $(COPTS)
+FLDFLAGS = -lintlib -ltinymain.obj $(ALLOC) $(LDFLAGS)
+SLDFLAGS = -lintlib -ltinymain.obj $(ALLOC) $(LDFLAGS)
+NLDFLAGS = -lintlib -ltinymain.obj $(ALLOC) $(LDFLAGS)
+BUILDFLAGS = $(COPTS) $(CPPFLAGS)
+FDCFLAGS = $(BUILDFLAGS) -ml -h -k"-s 3000" -DFD=$(VERMAJ)
+SHCFLAGS = $(BUILDFLAGS) -mp -h -k"-s 8000" -DFDSH=$(VERMAJ)
+BSHCFLAGS = $(BUILDFLAGS) -ms -k"-s 8000" -DFDSH=$(VERMAJ) -DMINIMUMSHELL
+NSHCFLAGS = $(BUILDFLAGS) -mp -h -k"-s 8000" -DFDSH=$(VERMAJ) -DWITHNETWORK
+DEFCFLAGS = -DDEFRC=\\\"$(DOSRC)\\\"
+
+.SUFFIXES: .h .c .obj .exe
+
+############################################################
+#	Dependency Rules
+############################################################
+
+all: $(PROGRAM)$(EXE) $(PROGRAM).$(MANSEC) $(TABLES)
+
+$(PROGRAM)$(EXE): $(OBJ1) $(OBJ2) $(OBJ3) $(OBJ4) $(OBJ5) $(OBJ6) $(ARGS)
+#	@sleep 1
+	$(CC) -ml -h -k"-s 3000" -o $@ @$(ARGS) $(FLDFLAGS)
+#	@ren $@ $(PROGRAM)
+#	@aout2exe $(PROGRAM)
+#	@del $(PROGRAM)
+
+$(ARGS): $(OBJ1) $(OBJ2) $(OBJ3) $(OBJ4) $(OBJ5) $(OBJ6)
+#	@sleep 1
+	@$(ECHO) $(OBJ1) > $(ARGS)
+	@$(ECHO) $(OBJ2) >> $(ARGS)
+	@$(ECHO) $(OBJ3) >> $(ARGS)
+	@$(ECHO) $(OBJ4) >> $(ARGS)
+	@$(ECHO) $(OBJ5) >> $(ARGS)
+	@$(ECHO) $(OBJ6) >> $(ARGS)
+#	@sleep 1
+
+main$(OBJ): main.c
+	$(CC) $(FDCFLAGS) $(DEFCFLAGS)  -c -o $@ $*.c
+
+termio$(OBJ): termio.c
+	$(CC) $(FDCFLAGS)  -c -o $@ $*.c
+
+system$(OBJ): system.c
+	$(CC) $(FDCFLAGS) $(DEFCFLAGS) -c -o $@ $*.c
+
+custom$(OBJ): custom.c
+	$(CC) $(FDCFLAGS)  -c -o $@ $*.c
+
+.c.obj:
+	$(CC) $(FDCFLAGS) -c -o $@ $*.c
+
+
+############################################################
+# kanji using module
+
+$(PROGRAM).$(MANSEC): kanjicnv$(EXE) $(JMANSRC)
+	.\kanjicnv$(EXE) -s  $(JMANSRC) $@
+
+$(PROGRAM).$(MANSEC)c: kanjicnv$(EXE) $(JMANCAT)
+	.\kanjicnv$(EXE) -s $(JMANCAT) $@
+
+$(PROGRAM).eng: kanjicnv$(EXE) $(MANCAT)
+	.\kanjicnv$(EXE) -b $(MANCAT) $@
+
+$(PROGRAM).doc: kanjicnv$(EXE) $(JMANCAT)
+	.\kanjicnv$(EXE) -s -b $(JMANCAT) $@
+
+README.doc: kanjicnv$(EXE) README
+	.\kanjicnv$(EXE) -s README $@
+
+HISTORY.doc: kanjicnv$(EXE) HISTORY
+	.\kanjicnv$(EXE) -s HISTORY $@
+
+FAQ.doc: kanjicnv$(EXE) FAQ
+	.\kanjicnv$(EXE) -s FAQ $@
+
+LICENSES.doc: kanjicnv$(EXE) LICENSES
+	.\kanjicnv$(EXE) -s LICENSES $@
+
+kanjicnv$(EXE): kanjicnv$(OBJ) $(KOBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ kanjicnv$(OBJ) $(KOBJ)
+#	@ren $@ kanjicnv
+#	@aout2exe kanjicnv
+#	@del kanjicnv
+#	@sleep 1
+
+kanjicnv$(OBJ): kanjicnv.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS)  -c -o $@ $*.c
+
+
+############################################################
+# message catalog module
+
+kanji.h: mkkanji$(EXE) kanjicnv$(EXE) kanji.hin
+	.\mkkanji$(EXE) kanji.hin | \
+	.\kanjicnv$(EXE) -s   - $@
+#	@sleep 1
+
+mkkanji$(EXE): mkkanji$(OBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ mkkanji$(OBJ)
+#	@ren $@ mkkanji
+#	@aout2exe mkkanji
+#	@del mkkanji
+#	@sleep 1
+
+mkkanji$(OBJ): mkkanji.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ $*.c
+
+_fd-cat.ja: mkcat$(EXE) kanji.h
+	.\mkcat$(EXE) -c 1 kanji.h $@
+#	@sleep 1
+
+_fd-cat.C: mkcat$(EXE) kanji.h
+	.\mkcat$(EXE) -c 2 kanji.h $@
+#	@sleep 1
+
+fd-cat.ja: mkcat$(EXE) _fd-cat.ja
+	.\mkcat$(EXE) _fd-cat.ja $@
+
+fd-cat.C: mkcat$(EXE) _fd-cat.C
+	.\mkcat$(EXE) _fd-cat.C $@
+
+mkcat$(EXE): mkcat$(OBJ) $(COBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ mkcat$(OBJ) $(COBJ)
+#	@ren $@ mkcat
+#	@aout2exe mkcat
+#	@del mkcat
+#	@sleep 1
+
+mkcat$(OBJ): mkcat.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ $*.c
+
+
+############################################################
+# function list using module
+
+funcno.h: mkfuncno$(EXE)
+	.\mkfuncno$(EXE) $@
+#	@sleep 1
+
+mkfuncno$(EXE): mkfuncno$(OBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ mkfuncno$(OBJ)
+#	@ren $@ mkfuncno
+#	@aout2exe mkfuncno
+#	@del mkfuncno
+#	@sleep 1
+
+mkfuncno$(OBJ): mkfuncno.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -DFD=$(VERMAJ) -c -o $@ $*.c
+
+
+############################################################
+# UNICODE table generating module
+
+$(UNITBL): mkunitbl$(EXE)
+	.\mkunitbl$(EXE) $@
+
+unitbl.c: mkunitbl$(EXE)
+	.\mkunitbl$(EXE) -t $@
+
+$(DEPDIR)\unitbl.c: mkunitbl$(EXE)
+	[ -d $(DEPDIR) ] || mkdir $(DEPDIR)
+	.\mkunitbl$(EXE) -t -n $@
+
+mkunitbl$(EXE): mkunitbl$(OBJ) $(UOBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ mkunitbl$(OBJ) $(UOBJ)
+#	@ren $@ mkunitbl
+#	@aout2exe mkunitbl
+#	@del mkunitbl
+#	@sleep 1
+
+mkunitbl$(OBJ): mkunitbl.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ $*.c
+
+tunitbl$(OBJ): unitbl.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ unitbl.c
+
+
+############################################################
+# Kanji transfer table generating module
+
+$(DICTTBL): mkdict$(EXE) $(DICTSRC)
+	.\mkdict$(EXE)  $@ $(DICTSRC)
+
+dicttbl.c: mkdict$(EXE) $(DICTSRC)
+	.\mkdict$(EXE)  -t $@ $(DICTSRC)
+
+$(DEPDIR)\dicttbl.c: mkdict$(EXE) $(DICTSRC)
+	[ -d $(DEPDIR) ] || mkdir $(DEPDIR)
+	.\mkdict$(EXE)  -t -n $@ $(DICTSRC)
+
+mkdict$(EXE): mkdict$(OBJ) $(TOBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ mkdict$(OBJ) $(TOBJ)
+#	@ren $@ mkdict
+#	@aout2exe mkdict
+#	@del mkdict
+#	@sleep 1
+
+mktankan$(EXE): mktankan$(OBJ) $(TOBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ mktankan$(OBJ) $(TOBJ)
+#	@ren $@ mktankan
+#	@aout2exe mktankan
+#	@del mktankan
+#	@sleep 1
+
+mkdict$(OBJ): mkdict.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ $*.c
+
+mktankan$(OBJ): mktankan.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ $*.c
+
+tstring$(OBJ): string.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ string.c
+
+troman$(OBJ): roman.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ roman.c
+
+tkconv$(OBJ): kconv.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ kconv.c
+
+tevalopt$(OBJ): evalopt.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ evalopt.c
+
+tgentbl$(OBJ): gentbl.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ gentbl.c
+
+rmdict:
+	-$(RM) $(DICTTBL)
+
+$(DICTTXT): mktankan$(EXE)
+	.\mktankan$(EXE) $@
+#	@sleep 1
+
+
+############################################################
+# Directory generating module
+
+mkdir_p$(EXE): mkdir_p$(OBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ mkdir_p$(OBJ)
+#	@ren $@ mkdir_p
+#	@aout2exe mkdir_p
+#	@del mkdir_p
+#	@sleep 1
+
+mkdir_p$(OBJ): mkdir_p.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ $*.c
+
+
+############################################################
+# to install all
+
+install: install-bin install-runcom install-man install-jman
+
+install-bin: $(PROGRAM)$(EXE) mkdir_p$(EXE) install-table
+	[ -d $(BINDIR) ] || .\mkdir_p$(EXE) $(BINDIR)
+	$(INSTALL)  $(PROGRAM)$(EXE) $(BINDIR)
+	$(CHMOD) a+rx $(BINDIR)\$(PROGRAM)$(EXE)
+	-$(RM) $(BINDIR)\$(ALIAS)$(EXE)
+	$(LN) $(BINDIR)\$(PROGRAM)$(EXE) $(BINDIR)\$(ALIAS)$(EXE)
+	$(CHMOD) a+rx $(BINDIR)\$(ALIAS)$(EXE)
+
+install-runcom:
+	-if [ -f $(RUNCOM) ]; then \
+		$(INSTALL) $(RUNCOM) $(BLDRC); \
+		$(CHMOD) a+r-x $(BLDRC); \
+	fi
+
+install-table: $(TABLE) mkdir_p$(EXE)
+	-if [ -f $(UNITBL) ]; then \
+		[ -d $(BINDIR) ] || .\mkdir_p$(EXE) $(BINDIR); \
+		$(INSTALL) $(UNITBL) $(BINDIR); \
+		$(CHMOD) a+r-x $(BINDIR)\$(UNITBL); \
+	fi
+	-if [ -f $(DICTTBL) ]; then \
+		[ -d $(BINDIR) ] || .\mkdir_p$(EXE) $(BINDIR); \
+		$(INSTALL) $(DICTTBL) $(BINDIR); \
+		$(CHMOD) a+r-x $(BINDIR)\$(DICTTBL); \
+	fi
+	-if [ -f $(CATTBL) ]; then \
+		[ -d $(BINDIR) ] || .\mkdir_p$(EXE) $(BINDIR); \
+		$(INSTALL) $(CATTBL) $(BINDIR); \
+		$(CHMOD) a+r-x $(BINDIR)\$(CATTBL); \
+	fi
+	-if [ -f $(ECATTBL) ]; then \
+		[ -d $(BINDIR) ] || .\mkdir_p$(EXE) $(BINDIR); \
+		$(INSTALL) $(ECATTBL) $(BINDIR); \
+		$(CHMOD) a+r-x $(BINDIR)\$(ECATTBL); \
+	fi
+
+install-man: $(MANSRC) mkdir_p$(EXE)
+	[ -d $(MANDIR) ] || .\mkdir_p$(EXE) $(MANDIR)
+	$(INSTALL) $(MANSRC) $(MANDIR)\$(PROGRAM).$(MANSEC)
+	$(CHMOD) a+r-x $(MANDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(MANDIR)\$(ALIAS).$(MANSEC)
+	$(LN) $(MANDIR)\$(PROGRAM).$(MANSEC) $(MANDIR)\$(ALIAS).$(MANSEC)
+	$(CHMOD) a+r-x $(MANDIR)\$(ALIAS).$(MANSEC)
+
+install-jman: $(PROGRAM).$(MANSEC) mkdir_p$(EXE)
+	[ -d $(JMANDIR) ] || .\mkdir_p$(EXE) $(JMANDIR)
+	[ "$(JMANDIR)" = "$(MANDIR)" ] || \
+	$(INSTALL) $(PROGRAM).$(MANSEC) $(JMANDIR)\$(PROGRAM).$(MANSEC)
+	$(CHMOD) a+r-x $(JMANDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(JMANDIR)\$(ALIAS).$(MANSEC)
+	$(LN) $(JMANDIR)\$(PROGRAM).$(MANSEC) $(JMANDIR)\$(ALIAS).$(MANSEC)
+	$(CHMOD) a+r-x $(JMANDIR)\$(ALIAS).$(MANSEC)
+
+catman: $(MANCAT) mkdir_p$(EXE)
+	[ -d $(CATDIR) ] || .\mkdir_p$(EXE) $(CATDIR)
+	$(INSTALL) $(MANCAT) $(CATDIR)\$(PROGRAM).$(MANSEC)
+	$(CHMOD) a+r-x $(CATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(CATDIR)\$(ALIAS).$(MANSEC)
+	$(LN) $(CATDIR)\$(PROGRAM).$(MANSEC) $(CATDIR)\$(ALIAS).$(MANSEC)
+	$(CHMOD) a+r-x $(CATDIR)\$(ALIAS).$(MANSEC)
+
+catman-b: $(PROGRAM).eng mkdir_p$(EXE)
+	[ -d $(CATDIR) ] || .\mkdir_p$(EXE) $(CATDIR)
+	$(INSTALL) $(PROGRAM).eng $(CATDIR)\$(PROGRAM).$(MANSEC)
+	$(CHMOD) a+r-x $(CATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(CATDIR)\$(ALIAS).$(MANSEC)
+	$(LN) $(CATDIR)\$(PROGRAM).$(MANSEC) $(CATDIR)\$(ALIAS).$(MANSEC)
+	$(CHMOD) a+r-x $(CATDIR)\$(ALIAS).$(MANSEC)
+
+compman: catman
+	-$(RM) $(CATDIR)\$(ALIAS).$(MANSEC)
+	compress -f $(CATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(CATDIR)\$(ALIAS).$(MANSEC).Z
+	$(LN) $(CATDIR)\$(PROGRAM).$(MANSEC).Z $(CATDIR)\$(ALIAS).$(MANSEC).Z
+
+compman-b: catman-b
+	-$(RM) $(CATDIR)\$(ALIAS).$(MANSEC)
+	compress -f $(CATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(CATDIR)\$(ALIAS).$(MANSEC).Z
+	$(LN) $(CATDIR)\$(PROGRAM).$(MANSEC).Z $(CATDIR)\$(ALIAS).$(MANSEC).Z
+
+jcatman: catman $(PROGRAM).$(MANSEC)c mkdir_p$(EXE)
+	[ -d $(JCATDIR) ] || .\mkdir_p$(EXE) $(JCATDIR)
+	$(INSTALL) $(PROGRAM).$(MANSEC)c $(JCATDIR)\$(PROGRAM).$(MANSEC)
+	$(CHMOD) a+r-x $(JCATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(JCATDIR)\$(ALIAS).$(MANSEC)
+	$(LN) $(JCATDIR)\$(PROGRAM).$(MANSEC) $(JCATDIR)\$(ALIAS).$(MANSEC)
+	$(CHMOD) a+r-x $(JCATDIR)\$(ALIAS).$(MANSEC)
+
+jcatman-b: catman-b $(PROGRAM).doc mkdir_p$(EXE)
+	[ -d $(JCATDIR) ] || .\mkdir_p$(EXE) $(JCATDIR)
+	$(INSTALL) $(PROGRAM).doc $(JCATDIR)\$(PROGRAM).$(MANSEC)
+	$(CHMOD) a+r-x $(JCATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(JCATDIR)\$(ALIAS).$(MANSEC)
+	$(LN) $(JCATDIR)\$(PROGRAM).$(MANSEC) $(JCATDIR)\$(ALIAS).$(MANSEC)
+	$(CHMOD) a+r-x $(JCATDIR)\$(ALIAS).$(MANSEC)
+
+jcompman: compman jcatman
+	-$(RM) $(JCATDIR)\$(ALIAS).$(MANSEC)
+	compress -f $(JCATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(JCATDIR)\$(ALIAS).$(MANSEC).Z
+	$(LN) $(JCATDIR)\$(PROGRAM).$(MANSEC).Z $(JCATDIR)\$(ALIAS).$(MANSEC).Z
+
+jcompman-b: compman-b jcatman-b
+	-$(RM) $(JCATDIR)\$(ALIAS).$(MANSEC)
+	compress -f $(JCATDIR)\$(PROGRAM).$(MANSEC)
+	-$(RM) $(JCATDIR)\$(ALIAS).$(MANSEC).Z
+	$(LN) $(JCATDIR)\$(PROGRAM).$(MANSEC).Z $(JCATDIR)\$(ALIAS).$(MANSEC).Z
+
+
+############################################################
+# to make dependency
+
+depend: $(SRC) $(HSRC) $(DSRC) config.h kanji.h funcno.h
+	[ -d $(DEPDIR) ] || mkdir $(DEPDIR)
+	for f in $(SRC) $(HSRC); do \
+		$(SED) -e 's:^\(# *\)include "\(.*\).h":\1include "_\2.h":' \
+		$${f} > $(DEPDIR)\$${f}; \
+	done
+	for f in $(DSRC); do \
+		$(SED) -e 's:^\(# *\)include "\(.*\).h":\1include "_\2.h":' \
+		$${f} > $${f}o; \
+		$(MV) $${f}o $${f}; \
+	done
+	for f in $(SSRC); do \
+		$(RM) $(DEPDIR)\s$${f}; \
+		$(LN) $(DEPDIR)\$${f} $(DEPDIR)\s$${f}; \
+	done
+	for f in $(BSRC); do \
+		$(RM) $(DEPDIR)\b$${f} && \
+		$(LN) $(DEPDIR)\$${f} $(DEPDIR)\b$${f}; \
+	done
+	for f in $(NSRC); do \
+		$(RM) $(DEPDIR)\n$${f} && \
+		$(LN) $(DEPDIR)\$${f} $(DEPDIR)\n$${f}; \
+	done
+	for f in $(TSRC); do \
+		$(RM) $(DEPDIR)\t$${f} && \
+		$(LN) $(DEPDIR)\$${f} $(DEPDIR)\t$${f}; \
+	done
+	for f in $(HEADER) config.h kanji.h funcno.h version.h; do \
+		$(SED) -e 's:^\(# *\)include "\(.*\).h":\1include "_\2.h":' \
+		$${f} > $(DEPDIR)\_$${f}; \
+	done
+	$(CP) Makefile.in Makefile.tmp $(DEPDIR)
+	$(CP) Makefile.tmp $(DEPDIR)\Makefile.sh
+	$(CP) Makefile.tmp $(DEPDIR)\Makefile.bsh
+	$(CP) Makefile.tmp $(DEPDIR)\Makefile.nsh
+	$(CP) Makefile.tmp $(DEPDIR)\Makefile.tr
+	cd $(DEPDIR); makedepend \
+		-s "# DO NOT DELETE THIS LINE -- make depend depends on it." \
+		-f Makefile.tmp -- $(FDCFLAGS) -- \
+		$(SRC) \
+		`for f in $(DSRC); do $(ECHO) $${f}|$(SED) -e 's:^.*\::'; done`
+	cd $(DEPDIR); makedepend \
+		-s "# DO NOT DELETE THIS LINE -- make depend depends on it." \
+		-f Makefile.sh -- $(SHCFLAGS) -- \
+		`for f in $(SSRC); do $(ECHO) s$${f}; done`
+	cd $(DEPDIR); makedepend \
+		-s "# DO NOT DELETE THIS LINE -- make depend depends on it." \
+		-f Makefile.bsh -- $(BSHCFLAGS) -- \
+		`for f in $(BSRC); do $(ECHO) b$${f}; done`
+	cd $(DEPDIR); makedepend \
+		-s "# DO NOT DELETE THIS LINE -- make depend depends on it." \
+		-f Makefile.nsh -- $(NSHCFLAGS) -- \
+		`for f in $(NSRC); do $(ECHO) n$${f}; done`
+	cd $(DEPDIR); makedepend \
+		-s "# DO NOT DELETE THIS LINE -- make depend depends on it." \
+		-f Makefile.tr -- $(HOSTCOPTS) -- \
+		$(HSRC) \
+		`for f in $(TSRC); do $(ECHO) t$${f}; done`
+	$(SED) -e '\^# DO NOT DELETE THIS LINE\,$$d' $(DEPDIR)\Makefile.in \
+		> Makefile.in
+	$(ECHO) "# DO NOT DELETE THIS LINE -- make depend depends on it." \
+		>> Makefile.in
+	$(SED) -e '1,\^# DO NOT DELETE THIS LINE\d' \
+		-e 's:^\(........\).*\.o:\1.o:' \
+		-e 's:\\[^ ]* *::g' \
+		-e 's:\.o:\$$(OBJ):g' \
+		-e 's:_\([^ ]*.h\):\1:g' \
+		-e 's: *$$::' \
+		-e '\: *$$\d' $(DEPDIR)\Makefile.tmp >> Makefile.in
+	$(SED) -e '1,\^# DO NOT DELETE THIS LINE\d' \
+		-e 's:^\(........\).*\.o:\1.o:' \
+		-e 's:\\[^ ]* *::g' \
+		-e 's:\.o:\$$(OBJ):g' \
+		-e 's:_\([^ ]*.h\):\1:g' \
+		-e 's: *$$::' \
+		-e '\: *$$\d' $(DEPDIR)\Makefile.sh >> Makefile.in
+	$(SED) -e '1,\^# DO NOT DELETE THIS LINE\d' \
+		-e 's:^\(........\).*\.o:\1.o:' \
+		-e 's:\\[^ ]* *::g' \
+		-e 's:\.o:\$$(OBJ):g' \
+		-e 's:_\([^ ]*.h\):\1:g' \
+		-e 's: *$$::' \
+		-e '\: *$$\d' $(DEPDIR)\Makefile.bsh >> Makefile.in
+	$(SED) -e '1,\^# DO NOT DELETE THIS LINE\d' \
+		-e 's:^\(........\).*\.o:\1.o:' \
+		-e 's:\\[^ ]* *::g' \
+		-e 's:\.o:\$$(OBJ):g' \
+		-e 's:_\([^ ]*.h\):\1:g' \
+		-e 's: *$$::' \
+		-e '\: *$$\d' $(DEPDIR)\Makefile.nsh >> Makefile.in
+	$(SED) -e '1,\^# DO NOT DELETE THIS LINE\d' \
+		-e 's:^\(........\).*\.o:\1.o:' \
+		-e 's:\\[^ ]* *::g' \
+		-e 's:\.o:\$$(OBJ):g' \
+		-e 's:_\([^ ]*.h\):\1:g' \
+		-e 's: *$$::' \
+		-e '\: *$$\d' $(DEPDIR)\Makefile.tr >> Makefile.in
+	-rm -rf $(DEPDIR)
+
+
+############################################################
+# to verify sources
+
+lint: $(SRC) $(HSRC) config.h kanji.h funcno.h
+	$(LINT) $(OSOPTS) -DFD=$(VERMAJ) `$(SED) -e "s:\$(OBJ):\.c:g" $(ARGS)`
+	SRCS=`$(ECHO) $(UOBJ)|$(SED) -e "s:t\([^ ]*\)\$(OBJ):\1\.c:g"`; \
+	$(LINT) $(OSOPTS) mkunitbl.c $${SRCS}
+	SRCS=`$(ECHO) $(TOBJ)|$(SED) -e "s:t\([^ ]*\)\$(OBJ):\1\.c:g"`; \
+	$(LINT) $(OSOPTS) mkdict.c $${SRCS}; \
+	$(LINT) $(OSOPTS) mktankan.c $${SRCS}
+	$(LINT) $(OSOPTS) mkkanji.c
+	SRCS=`$(ECHO) $(COBJ)|$(SED) -e "s:t\([^ ]*\)\$(OBJ):\1\.c:g"`; \
+	$(LINT) $(OSOPTS) mkcat.c $${SRCS}
+	$(LINT) $(OSOPTS) mkdir_p.c
+	SRCS=`$(ECHO) $(KOBJ)|$(SED) -e "s:t\([^ ]*\)\$(OBJ):\1\.c:g"`; \
+	$(LINT) $(OSOPTS) kanjicnv.c $${SRCS}
+	$(LINT) $(OSOPTS) expfunc.c
+	$(LINT) $(OSOPTS) mkfuncno.c
+
+
+############################################################
+# to make configuration file manually
+
+config: Configur expfunc.c
+	-if ($(ECHO) 't() { echo $1; }; t test' | $(SHELL) >\dev\null 2>&1); then \
+		$(SED) -e "2,3d" -e "s:__cc__:lcc86:" Configur \
+		| $(SHELL) > config.h; \
+	elif $(MAKE) -f Makefile.tmp expfunc$(EXE); then \
+		$(SED) -e "2,3d" -e "s:__cc__:lcc86:" Configur \
+		| .\expfunc$(EXE) | $(SHELL) > config.h; \
+	fi
+#	@sleep 1
+
+config.h: config.hin
+	$(CP) config.hin $@
+#	@sleep 1
+
+expfunc$(EXE): expfunc$(OBJ)
+#	@sleep 1
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTLDFLAGS) -o $@ expfunc$(OBJ)
+#	@ren $@ expfunc
+#	@aout2exe expfunc
+#	@del expfunc
+#	@sleep 1
+
+expfunc$(OBJ): expfunc.c
+	$(HOSTCC) $(HOSTCOPTS) $(HOSTCPPFLAGS) -c -o $@ $*.c
+
+
+############################################################
+# sample program for pseudo system(3)
+
+sh: fdsh$(EXE)
+
+fdsh$(EXE): $(SOBJ1) $(SOBJ2) $(SARGS)
+#	@sleep 1
+	$(CC) -mp -h -k"-s 8000" -o $@ @$(SARGS) $(SLDFLAGS)
+#	@ren $@ fdsh
+#	@aout2exe fdsh
+#	@del fdsh
+
+$(SARGS): $(SOBJ1) $(SOBJ2)
+#	@sleep 1
+	@$(ECHO) $(SOBJ1) > $(SARGS)
+	@$(ECHO) $(SOBJ2) >> $(SARGS)
+#	@sleep 1
+
+sprintf$(OBJ): printf.c
+	$(CC) $(SHCFLAGS) -c -o $@ printf.c
+
+stermio$(OBJ): termio.c
+	$(CC) $(SHCFLAGS)  -c -o $@ termio.c
+
+sstream$(OBJ): stream.c
+	$(CC) $(SHCFLAGS) -c -o $@ stream.c
+
+sstring$(OBJ): string.c
+	$(CC) $(SHCFLAGS) -c -o $@ string.c
+
+smalloc$(OBJ): malloc.c
+	$(CC) $(SHCFLAGS) -c -o $@ malloc.c
+
+stime$(OBJ): time.c
+	$(CC) $(SHCFLAGS) -c -o $@ time.c
+
+spathnam$(OBJ): pathname.c
+	$(CC) $(SHCFLAGS) -c -o $@ pathname.c
+
+ssystem$(OBJ): system.c
+	$(CC) $(SHCFLAGS) -c -o $@ system.c
+
+sposixsh$(OBJ): posixsh.c
+	$(CC) $(SHCFLAGS) -c -o $@ posixsh.c
+
+sdoscom$(OBJ): doscom.c
+	$(CC) $(SHCFLAGS) -c -o $@ doscom.c
+
+ssysemu$(OBJ): sysemu.c
+	$(CC) $(SHCFLAGS) -c -o $@ sysemu.c
+
+
+############################################################
+# Bourne shell
+
+bsh: fdbsh$(EXE)
+
+fdbsh$(EXE): $(BOBJ)
+#	@sleep 1
+	$(CC) -ms -k"-s 8000" -o $@ $(BOBJ) $(SLDFLAGS)
+#	@ren $@ fdbsh
+#	@aout2exe fdbsh
+#	@del fdbsh
+
+bprintf$(OBJ): printf.c
+	$(CC) $(BSHCFLAGS) -c -o $@ printf.c
+
+btermio$(OBJ): termio.c
+	$(CC) $(BSHCFLAGS)  -c -o $@ termio.c
+
+bstream$(OBJ): stream.c
+	$(CC) $(BSHCFLAGS) -c -o $@ stream.c
+
+bstring$(OBJ): string.c
+	$(CC) $(BSHCFLAGS) -c -o $@ string.c
+
+bmalloc$(OBJ): malloc.c
+	$(CC) $(BSHCFLAGS) -c -o $@ malloc.c
+
+bpathnam$(OBJ): pathname.c
+	$(CC) $(BSHCFLAGS) -c -o $@ pathname.c
+
+bsystem$(OBJ): system.c
+	$(CC) $(BSHCFLAGS) -c -o $@ system.c
+
+bdoscom$(OBJ): doscom.c
+	$(CC) $(BSHCFLAGS) -c -o $@ doscom.c
+
+bsysemu$(OBJ): sysemu.c
+	$(CC) $(BSHCFLAGS) -c -o $@ sysemu.c
+
+
+############################################################
+# Network shell
+
+nsh: fdnsh$(EXE)
+
+fdnsh$(EXE): $(NOBJ1) $(NOBJ2) $(NOBJ3) $(NARGS)
+#	@sleep 1
+	$(CC) -mp -h -k"-s 8000" -o $@ @$(NARGS) $(NLDFLAGS)
+#	@ren $@ fdnsh
+#	@aout2exe fdnsh
+#	@del fdnsh
+
+$(NARGS): $(NOBJ1) $(NOBJ2) $(NOBJ3)
+#	@sleep 1
+	@$(ECHO) $(NOBJ1) > $(NARGS)
+	@$(ECHO) $(NOBJ2) >> $(NARGS)
+	@$(ECHO) $(NOBJ3) >> $(NARGS)
+#	@sleep 1
+
+nprintf$(OBJ): printf.c
+	$(CC) $(NSHCFLAGS) -c -o $@ printf.c
+
+ntermio$(OBJ): termio.c
+	$(CC) $(NSHCFLAGS)  -c -o $@ termio.c
+
+nstream$(OBJ): stream.c
+	$(CC) $(NSHCFLAGS) -c -o $@ stream.c
+
+nstring$(OBJ): string.c
+	$(CC) $(NSHCFLAGS) -c -o $@ string.c
+
+nmalloc$(OBJ): malloc.c
+	$(CC) $(NSHCFLAGS) -c -o $@ malloc.c
+
+ntime$(OBJ): time.c
+	$(CC) $(NSHCFLAGS) -c -o $@ time.c
+
+npathnam$(OBJ): pathname.c
+	$(CC) $(NSHCFLAGS) -c -o $@ pathname.c
+
+nsystem$(OBJ): system.c
+	$(CC) $(NSHCFLAGS) -c -o $@ system.c
+
+nposixsh$(OBJ): posixsh.c
+	$(CC) $(NSHCFLAGS) -c -o $@ posixsh.c
+
+ndoscom$(OBJ): doscom.c
+	$(CC) $(NSHCFLAGS) -c -o $@ doscom.c
+
+nsysemu$(OBJ): sysemu.c
+	$(CC) $(NSHCFLAGS) -c -o $@ sysemu.c
+
+nrealpat$(OBJ): realpath.c
+	$(CC) $(NSHCFLAGS) -c -o $@ realpath.c
+
+nencode$(OBJ): encode.c
+	$(CC) $(NSHCFLAGS) -c -o $@ encode.c
+
+nparse$(OBJ): parse.c
+	$(CC) $(NSHCFLAGS) -c -o $@ parse.c
+
+nsocket$(OBJ): socket.c
+	$(CC) $(NSHCFLAGS) -c -o $@ socket.c
+
+nurl$(OBJ): url.c
+	$(CC) $(NSHCFLAGS) -c -o $@ url.c
+
+nauth$(OBJ): auth.c
+	$(CC) $(NSHCFLAGS) -c -o $@ auth.c
+
+nftp$(OBJ): ftp.c
+	$(CC) $(NSHCFLAGS) -c -o $@ ftp.c
+
+nhtml$(OBJ): html.c
+	$(CC) $(NSHCFLAGS) -c -o $@ html.c
+
+nhttp$(OBJ): http.c
+	$(CC) $(NSHCFLAGS) -c -o $@ http.c
+
+nurldisk$(OBJ): urldisk.c
+	$(CC) $(NSHCFLAGS) -c -o $@ urldisk.c
+
+nlsparse$(OBJ): lsparse.c
+	$(CC) $(NSHCFLAGS) -c -o $@ lsparse.c
+
+
+############################################################
+# for programer's maintenance
+
+tar: $(SOURCES)
+	$(TAR) cvf $(TITLE)$(VERSION).tar $(SOURCES)
+	compress -f $(TITLE)$(VERSION).tar
+
+gtar: $(SOURCES)
+	$(TAR) cvf $(TITLE)$(VERSION).tar $(SOURCES)
+	gzip -f $(TITLE)$(VERSION).tar
+
+shtar: $(SHSOURCES)
+	(VER=`date '+%y%m%d'`; \
+	$(TAR) cvf $(TITLE)sh-$${VER}.tar $(SHSOURCES); \
+	gzip -f $(TITLE)sh-$${VER}.tar)
+
+lzh: $(SOURCES)
+	-$(RM) $(TITLE)$(VERSION).lzh
+	$(LHA) a $(TITLE)$(VERSION).lzh $(SOURCES)
+
+shar: $(SOURCES)
+	-$(RM) $(TITLE)$(VERSION).shar.[0-9][0-9]
+	$(SHAR) -L50 -apc -n $(TITLE)$(VERSION) -o $(TITLE)$(VERSION).shar \
+	-T $(SRCS) -C $(JSRCS)
+
+ipk: $(PROGRAM)$(EXE) $(TABLES) mkdir_p$(EXE)
+	-[ -d $(IPKWDIR)\$(BINDIR) ] || .\mkdir_p$(EXE) $(IPKWDIR)\$(BINDIR)
+	-[ -d $(IPKWDIR)\$(BINDIR) ] || .\mkdir_p$(EXE) $(IPKWDIR)\$(BINDIR)
+	-[ -d $(IPKWDIR)\$(BINDIR) ] || .\mkdir_p$(EXE) $(IPKWDIR)\$(BINDIR)
+	-[ -d $(IPKWDIR)\$(CONFDIR) ] || .\mkdir_p$(EXE) $(IPKWDIR)\$(CONFDIR)
+	-[ -d $(IPKWDIR)\CONTROL ] || .\mkdir_p$(EXE) $(IPKWDIR)\CONTROL
+	-[ -d $(IPKTDIR) ] || .\mkdir_p$(EXE) $(IPKTDIR)
+	$(CP) -p $(PROGRAM)$(EXE) $(IPKWDIR)\$(BINDIR)
+	-[ -z "$(STRIP)" ] || $(STRIP) $(IPKWDIR)\$(BINDIR)\$(PROGRAM)$(EXE)
+	$(CHMOD) a+rx $(IPKWDIR)\$(BINDIR)\$(PROGRAM)$(EXE)
+	-$(RM) $(IPKWDIR)\$(BINDIR)\$(ALIAS)$(EXE)
+	$(LN) $(IPKWDIR)\$(BINDIR)\$(PROGRAM)$(EXE) \
+		$(IPKWDIR)\$(BINDIR)\$(ALIAS)$(EXE)
+	$(CHMOD) a+rx $(IPKWDIR)\$(BINDIR)\$(ALIAS)$(EXE)
+	$(SED) -e 's:#TMPDIR=.*:TMPDIR=\home\tmp:' \
+		-e 's:#LANGUAGE=.*:LANGUAGE=euc:' \
+		-e 's:#INPUTKCODE=.*:INPUTKCODE=euc:' \
+		-e 's:#FNAMEKCODE=.*:FNAMEKCODE=utf8:' \
+		-e '\# launcher definition\,\^$$\ {' \
+		-e  '\^$$\ {' \
+		-e   'i \' \
+		-e   'launch ".tar.Z"	"gzip -cd %C|tar tvf -"	"%a %u\%g %s %y-%m-%d %t %*f"' \
+		-e   'i \' \
+		-e   'launch ".taZ"	"gzip -cd %C|tar tvf -"	"%a %u\%g %s %y-%m-%d %t %*f"' \
+		-e   'i \' \
+		-e   'launch ".ipk"	"gzip -cd %C|tar xOf - .\data.tar.gz|gzip -cd|tar tvf -" \\' \
+		-e   'i \' \
+		-e   '				"%a %u\%g %s %y-%m-%d %t %*f"' \
+		-e   'i \' \
+		-e   'launch ".deb"	"ar -p %C data.tar.gz|gzip -cd|tar tvf -" \\' \
+		-e   'i \' \
+		-e   '				"%a %u\%g %s %y-%m-%d %t %*f"' \
+		-e  '}' \
+		-e '}' \
+		-e '\# archiver definition\,\^$$\ {' \
+		-e  '\^$$\ {' \
+		-e   'i \' \
+		-e   'arch ".tar.Z"	"echo ERROR; false"		"gzip -cd %C|tar xf - %TA"' \
+		-e   'i \' \
+		-e   'arch ".taZ"	"echo ERROR; false"		"gzip -cd %C|tar xf - %TA"' \
+		-e   'i \' \
+		-e   'arch ".ipk"	"echo ERROR; false" \\' \
+		-e   'i \' \
+		-e   '		"gzip -cd %C|tar xOf - .\data.tar.gz|gzip -cd|tar xf - %TA"' \
+		-e   'i \' \
+		-e   'arch ".deb"	"echo ERROR; false" \\' \
+		-e   'i \' \
+		-e   '		"ar -p %C data.tar.gz|gzip -cd|tar xf - %TA"' \
+		-e  '}' \
+		-e '}' \
+		-e '$$ {' \
+		-e  'a \' \
+		-e  'if [ " $$TERM" = " vt100" -a " $$CONSOLE" = " \dev\console" ]; then' \
+		-e  'a \' \
+		-e  '	keymap BS	"^?"' \
+		-e  'a \' \
+		-e  '	keymap DEL	"\\033[3~"' \
+		-e  'a \' \
+		-e  '	keymap HOME	"\\033[H"' \
+		-e  'a \' \
+		-e  '	keymap END	"\\033[F"' \
+		-e  'a \' \
+		-e  'fi' \
+		-e '}' \
+	_fdrc > $(IPKWDIR)\$(BLDRC)
+	$(CHMOD) a+r-x $(IPKWDIR)\$(BLDRC)
+	-if [ -f $(UNITBL) ]; then \
+		cp -p $(UNITBL) $(IPKWDIR)\$(BINDIR); \
+		$(CHMOD) a+r-x $(IPKWDIR)\$(BINDIR)\$(UNITBL); \
+	fi
+	-if [ -f $(DICTTBL) ]; then \
+		cp -p $(DICTTBL) $(IPKWDIR)\$(BINDIR); \
+		$(CHMOD) a+r-x $(IPKWDIR)\$(BINDIR)\$(DICTTBL); \
+	fi
+	-if [ -f $(CATTBL) ]; then \
+		cp -p $(CATTBL) $(IPKWDIR)\$(BINDIR); \
+		$(CHMOD) a+r-x $(IPKWDIR)\$(BINDIR)\$(CATTBL); \
+	fi
+	-if [ -f $(ECATTBL) ]; then \
+		cp -p $(ECATTBL) $(IPKWDIR)\$(BINDIR); \
+		$(CHMOD) a+r-x $(IPKWDIR)\$(BINDIR)\$(ECATTBL); \
+	fi
+	$(ECHO) "Package: fd" > $(IPKWDIR)\CONTROL\control
+	$(ECHO) "Priority: optional" >> $(IPKWDIR)\CONTROL\control
+	$(ECHO) "Section: extras" >> $(IPKWDIR)\CONTROL\control
+	$(ECHO) "Maintainer: $(DIST)" >> $(IPKWDIR)\CONTROL\control
+	$(ECHO) "Architecture: arm" >> $(IPKWDIR)\CONTROL\control
+	$(ECHO) "Version: $(VERSION)-1" >> $(IPKWDIR)\CONTROL\control
+	$(ECHO) "Depends: ncurses" >> $(IPKWDIR)\CONTROL\control
+	$(ECHO) "Description: a file & directory maintenance tool." \
+		>> $(IPKWDIR)\CONTROL\control
+	(cd $(IPKWDIR); tar cf ..\data.tar --exclude=CONTROL .)
+	(cd $(IPKWDIR)\CONTROL; tar cf ..\..\control.tar .)
+	gzip .\data.tar
+	$(MV) .\data.tar.gz $(IPKTDIR)
+	gzip .\control.tar
+	$(MV) .\control.tar.gz $(IPKTDIR)
+	$(ECHO) "2.0" > $(IPKTDIR)\debian-binary
+	(cd $(IPKTDIR); \
+	tar cf ..\ipk.tar .\debian-binary .\data.tar.gz .\control.tar.gz)
+	gzip .\ipk.tar
+	$(MV) .\ipk.tar.gz .\fd_$(VERSION)-1_arm.ipk
+	-$(RM) -r $(IPKWDIR) $(IPKTDIR)
+
+clean:
+	-$(RM) core
+	-$(RM) *$(OBJ)
+	-$(RM) funcno.h
+	-$(RM) kanji.h
+	-$(RM) _fd-cat.ja
+	-$(RM) _fd-cat.C
+	-$(RM) fd-cat.*
+	-$(RM) kanjicnv$(EXE)
+	-$(RM) expfunc$(EXE)
+	-$(RM) mkdir_p$(EXE)
+	-$(RM) mkfuncno$(EXE)
+	-$(RM) mkunitbl$(EXE)
+	-$(RM) mkdict$(EXE)
+	-$(RM) mktankan$(EXE)
+	-$(RM) mkkanji$(EXE)
+	-$(RM) mkcat$(EXE)
+	-$(RM) fdsh$(EXE)
+	-$(RM) fdbsh$(EXE)
+	-$(RM) fdnsh$(EXE)
+	-$(RM) $(PROGRAM)$(EXE)
+	-$(RM) $(PROGRAM).$(MANSEC)
+	-$(RM) $(PROGRAM).$(MANSEC)c
+	-$(RM) $(PROGRAM).eng
+	-$(RM) $(PROGRAM).doc
+	-$(RM) $(ARGS)
+	-$(RM) $(SARGS)
+	-$(RM) $(NARGS)
+	-$(RM) $(UNITBL)
+	-$(RM) unitbl.c
+	-$(RM) dicttbl.c
+	-$(RM) $(DICTTXT)
+	-$(RM) $(DICTTBL)
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+main$(OBJ): fd.h headers.h machine.h config.h
+main$(OBJ): depend.h printf.h
+main$(OBJ): stream.h kctype.h
+main$(OBJ): string.h malloc.h time.h log.h termio.h
+main$(OBJ): realpath.h
+main$(OBJ): parse.h kconv.h func.h sysemu.h dirent.h unixemu.h
+main$(OBJ): pathname.h
+main$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+main$(OBJ): kanji.h catalog.h version.h system.h wait.h
+main$(OBJ): termemu.h roman.h urldisk.h url.h auth.h
+printf$(OBJ): headers.h machine.h config.h
+printf$(OBJ): depend.h printf.h stream.h kctype.h
+printf$(OBJ): typesize.h string.h
+printf$(OBJ): kconv.h
+termio$(OBJ): headers.h machine.h config.h
+termio$(OBJ): depend.h typesize.h sysemu.h dirent.h
+termio$(OBJ): unixemu.h
+termio$(OBJ): stream.h termio.h
+term$(OBJ): headers.h machine.h config.h
+term$(OBJ): depend.h printf.h
+term$(OBJ): stream.h kctype.h
+term$(OBJ): typesize.h string.h termio.h
+term$(OBJ): term.h
+stream$(OBJ): headers.h machine.h config.h
+stream$(OBJ): depend.h typesize.h malloc.h sysemu.h
+stream$(OBJ): dirent.h unixemu.h
+stream$(OBJ): stream.h pathname.h termio.h
+stream$(OBJ): socket.h
+string$(OBJ): headers.h machine.h config.h
+string$(OBJ): kctype.h depend.h
+string$(OBJ): string.h
+malloc$(OBJ): headers.h machine.h config.h
+malloc$(OBJ): printf.h stream.h depend.h malloc.h
+malloc$(OBJ): sysemu.h dirent.h unixemu.h
+time$(OBJ): headers.h machine.h config.h
+time$(OBJ): typesize.h
+time$(OBJ): string.h time.h
+pathname$(OBJ): fd.h headers.h machine.h config.h
+pathname$(OBJ): depend.h printf.h stream.h kctype.h
+pathname$(OBJ): string.h malloc.h
+pathname$(OBJ): dirent.h unixemu.h
+pathname$(OBJ): sysemu.h pathname.h typesize.h
+pathname$(OBJ): url.h
+system$(OBJ): fd.h headers.h machine.h config.h
+system$(OBJ): depend.h printf.h stream.h kctype.h
+system$(OBJ): string.h malloc.h
+system$(OBJ): term.h types.h typesize.h lsparse.h namelist.h kconv.h
+system$(OBJ): dirent.h unixemu.h
+system$(OBJ): sysemu.h system.h pathname.h termio.h
+system$(OBJ): wait.h
+system$(OBJ): termemu.h posixsh.h socket.h url.h
+system$(OBJ): urldisk.h auth.h
+posixsh$(OBJ): fd.h headers.h machine.h config.h
+posixsh$(OBJ): depend.h printf.h stream.h kctype.h
+posixsh$(OBJ): string.h malloc.h
+posixsh$(OBJ): sysemu.h dirent.h unixemu.h
+posixsh$(OBJ): system.h pathname.h typesize.h
+posixsh$(OBJ): termio.h
+posixsh$(OBJ): wait.h
+posixsh$(OBJ): termemu.h time.h posixsh.h term.h
+doscom$(OBJ): fd.h headers.h machine.h config.h
+doscom$(OBJ): depend.h printf.h stream.h kctype.h
+doscom$(OBJ): string.h malloc.h
+doscom$(OBJ): term.h types.h typesize.h lsparse.h namelist.h dirent.h
+doscom$(OBJ): unixemu.h
+doscom$(OBJ): sysemu.h system.h pathname.h termio.h
+doscom$(OBJ): wait.h
+doscom$(OBJ): realpath.h urldisk.h url.h auth.h
+log$(OBJ): fd.h headers.h machine.h config.h
+log$(OBJ): depend.h printf.h
+log$(OBJ): stream.h kctype.h
+log$(OBJ): string.h malloc.h func.h sysemu.h dirent.h unixemu.h
+log$(OBJ): pathname.h
+log$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+sysemu$(OBJ): fd.h headers.h machine.h config.h
+sysemu$(OBJ): depend.h printf.h stream.h kctype.h
+sysemu$(OBJ): string.h malloc.h
+sysemu$(OBJ): kconv.h sysemu.h dirent.h unixemu.h
+sysemu$(OBJ): log.h pathname.h typesize.h termio.h
+sysemu$(OBJ): realpath.h dosdisk.h socket.h
+sysemu$(OBJ): urldisk.h namelist.h url.h auth.h
+dosdisk$(OBJ): headers.h machine.h config.h
+dosdisk$(OBJ): depend.h kctype.h
+dosdisk$(OBJ): string.h time.h sysemu.h dirent.h
+dosdisk$(OBJ): unixemu.h
+dosdisk$(OBJ): stream.h pathname.h typesize.h dosdisk.h unixdisk.h kconv.h
+unixdisk$(OBJ): headers.h machine.h config.h
+unixdisk$(OBJ): depend.h kctype.h
+unixdisk$(OBJ): string.h sysemu.h dirent.h unixemu.h
+unixdisk$(OBJ): stream.h
+unixdisk$(OBJ): pathname.h typesize.h dosdisk.h unixdisk.h
+realpath$(OBJ): fd.h headers.h machine.h config.h
+realpath$(OBJ): depend.h printf.h stream.h kctype.h
+realpath$(OBJ): string.h malloc.h
+realpath$(OBJ): sysemu.h dirent.h unixemu.h
+realpath$(OBJ): pathname.h typesize.h realpath.h
+realpath$(OBJ): url.h
+encode$(OBJ): headers.h machine.h config.h
+encode$(OBJ): kctype.h depend.h
+encode$(OBJ): sysemu.h dirent.h unixemu.h
+encode$(OBJ): stream.h
+encode$(OBJ): pathname.h typesize.h encode.h
+libc$(OBJ): fd.h headers.h machine.h config.h
+libc$(OBJ): depend.h printf.h
+libc$(OBJ): stream.h kctype.h
+libc$(OBJ): string.h malloc.h log.h realpath.h parse.h kconv.h func.h
+libc$(OBJ): sysemu.h dirent.h unixemu.h
+libc$(OBJ): pathname.h typesize.h term.h types.h
+libc$(OBJ): lsparse.h namelist.h dosdisk.h kanji.h catalog.h system.h
+libc$(OBJ): termio.h
+libc$(OBJ): wait.h
+libc$(OBJ): termemu.h url.h
+file$(OBJ): fd.h headers.h machine.h config.h
+file$(OBJ): depend.h printf.h
+file$(OBJ): stream.h kctype.h
+file$(OBJ): string.h malloc.h time.h termio.h
+file$(OBJ): realpath.h
+file$(OBJ): kconv.h func.h sysemu.h dirent.h unixemu.h
+file$(OBJ): pathname.h typesize.h term.h types.h
+file$(OBJ): lsparse.h namelist.h dosdisk.h kanji.h catalog.h urldisk.h
+file$(OBJ): url.h auth.h
+mntinfo$(OBJ): headers.h machine.h config.h
+mntinfo$(OBJ): kctype.h depend.h
+mntinfo$(OBJ): string.h malloc.h pathname.h
+mntinfo$(OBJ): typesize.h mntinfo.h fsinfo.h
+statfs$(OBJ): headers.h machine.h config.h
+statfs$(OBJ): fsinfo.h
+apply$(OBJ): fd.h headers.h machine.h config.h
+apply$(OBJ): depend.h printf.h stream.h kctype.h
+apply$(OBJ): string.h malloc.h
+apply$(OBJ): time.h realpath.h parse.h func.h sysemu.h dirent.h unixemu.h
+apply$(OBJ): pathname.h
+apply$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+apply$(OBJ): kanji.h catalog.h
+pty$(OBJ): fd.h headers.h machine.h config.h
+pty$(OBJ): depend.h printf.h
+pty$(OBJ): stream.h kctype.h
+pty$(OBJ): string.h malloc.h sysemu.h dirent.h unixemu.h
+pty$(OBJ): pathname.h
+pty$(OBJ): typesize.h termio.h
+termemu$(OBJ): fd.h headers.h machine.h config.h
+termemu$(OBJ): depend.h printf.h stream.h kctype.h
+termemu$(OBJ): string.h malloc.h
+termemu$(OBJ): wait.h unixemu.h termio.h
+termemu$(OBJ): func.h sysemu.h dirent.h
+termemu$(OBJ): pathname.h
+termemu$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+termemu$(OBJ): kanji.h catalog.h system.h termemu.h
+frontend$(OBJ): fd.h headers.h machine.h config.h
+frontend$(OBJ): depend.h printf.h stream.h kctype.h
+frontend$(OBJ): string.h malloc.h
+frontend$(OBJ): wait.h unixemu.h parse.h func.h
+frontend$(OBJ): sysemu.h dirent.h
+frontend$(OBJ): pathname.h typesize.h term.h
+frontend$(OBJ): types.h lsparse.h namelist.h dosdisk.h funcno.h kanji.h
+frontend$(OBJ): catalog.h system.h termio.h
+frontend$(OBJ): termemu.h
+frontend$(OBJ): roman.h
+backend$(OBJ): fd.h headers.h machine.h config.h
+backend$(OBJ): depend.h printf.h stream.h kctype.h
+backend$(OBJ): string.h malloc.h
+backend$(OBJ): termio.h
+backend$(OBJ): kconv.h func.h sysemu.h
+backend$(OBJ): dirent.h unixemu.h
+backend$(OBJ): pathname.h typesize.h term.h types.h
+backend$(OBJ): lsparse.h namelist.h dosdisk.h system.h wait.h
+backend$(OBJ): termemu.h
+parse$(OBJ): fd.h headers.h machine.h config.h
+parse$(OBJ): depend.h printf.h stream.h kctype.h
+parse$(OBJ): string.h malloc.h
+parse$(OBJ): pathname.h typesize.h term.h types.h lsparse.h namelist.h
+parse$(OBJ): kconv.h sysemu.h dirent.h unixemu.h
+parse$(OBJ): realpath.h parse.h system.h termio.h
+parse$(OBJ): wait.h
+builtin$(OBJ): fd.h headers.h machine.h config.h
+builtin$(OBJ): depend.h printf.h stream.h kctype.h
+builtin$(OBJ): string.h malloc.h
+builtin$(OBJ): encode.h parse.h kconv.h func.h sysemu.h dirent.h unixemu.h
+builtin$(OBJ): pathname.h
+builtin$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+builtin$(OBJ): funcno.h kanji.h catalog.h system.h termio.h
+builtin$(OBJ): wait.h
+builtin$(OBJ): termemu.h roman.h
+shell$(OBJ): fd.h headers.h machine.h config.h
+shell$(OBJ): depend.h printf.h stream.h kctype.h
+shell$(OBJ): string.h malloc.h
+shell$(OBJ): realpath.h parse.h kconv.h func.h sysemu.h dirent.h unixemu.h
+shell$(OBJ): pathname.h
+shell$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+shell$(OBJ): kanji.h catalog.h system.h termio.h
+shell$(OBJ): wait.h
+shell$(OBJ): termemu.h
+socket$(OBJ): headers.h machine.h config.h
+socket$(OBJ): depend.h printf.h stream.h kctype.h
+socket$(OBJ): typesize.h malloc.h
+socket$(OBJ): sysemu.h dirent.h unixemu.h
+socket$(OBJ): termio.h
+socket$(OBJ): socket.h
+url$(OBJ): headers.h machine.h config.h
+url$(OBJ): depend.h printf.h
+url$(OBJ): stream.h kctype.h
+url$(OBJ): typesize.h string.h malloc.h sysemu.h dirent.h unixemu.h
+url$(OBJ): pathname.h url.h
+auth$(OBJ): headers.h machine.h config.h
+auth$(OBJ): depend.h printf.h
+auth$(OBJ): stream.h string.h malloc.h time.h pathname.h typesize.h
+auth$(OBJ): encode.h parse.h socket.h auth.h url.h
+auth$(OBJ): system.h termio.h
+auth$(OBJ): wait.h
+auth$(OBJ): unixemu.h kanji.h catalog.h
+ftp$(OBJ): headers.h machine.h config.h
+ftp$(OBJ): depend.h printf.h
+ftp$(OBJ): stream.h kctype.h
+ftp$(OBJ): string.h malloc.h time.h sysemu.h dirent.h unixemu.h
+ftp$(OBJ): pathname.h
+ftp$(OBJ): typesize.h termio.h
+ftp$(OBJ): parse.h
+ftp$(OBJ): lsparse.h namelist.h socket.h auth.h
+ftp$(OBJ): url.h urldisk.h
+html$(OBJ): headers.h machine.h config.h
+html$(OBJ): depend.h printf.h
+html$(OBJ): stream.h kctype.h
+html$(OBJ): typesize.h string.h malloc.h sysemu.h dirent.h unixemu.h
+html$(OBJ): pathname.h termio.h
+html$(OBJ): parse.h html.h urldisk.h
+html$(OBJ): namelist.h url.h auth.h
+http$(OBJ): headers.h machine.h config.h
+http$(OBJ): depend.h printf.h
+http$(OBJ): stream.h kctype.h
+http$(OBJ): string.h malloc.h time.h sysemu.h dirent.h unixemu.h
+http$(OBJ): pathname.h
+http$(OBJ): typesize.h termio.h
+http$(OBJ): parse.h
+http$(OBJ): lsparse.h namelist.h socket.h auth.h
+http$(OBJ): url.h html.h urldisk.h
+urldisk$(OBJ): headers.h machine.h config.h
+urldisk$(OBJ): depend.h printf.h stream.h string.h
+urldisk$(OBJ): malloc.h time.h sysemu.h dirent.h unixemu.h
+urldisk$(OBJ): pathname.h
+urldisk$(OBJ): typesize.h termio.h
+urldisk$(OBJ): realpath.h
+urldisk$(OBJ): lsparse.h namelist.h socket.h
+urldisk$(OBJ): urldisk.h url.h auth.h
+catalog$(OBJ): fd.h headers.h machine.h config.h
+catalog$(OBJ): depend.h printf.h stream.h kctype.h
+catalog$(OBJ): string.h malloc.h
+catalog$(OBJ): termio.h
+catalog$(OBJ): func.h sysemu.h dirent.h
+catalog$(OBJ): unixemu.h
+catalog$(OBJ): pathname.h typesize.h term.h types.h lsparse.h namelist.h
+catalog$(OBJ): dosdisk.h kanji.h catalog.h
+kconv$(OBJ): fd.h headers.h machine.h config.h
+kconv$(OBJ): depend.h printf.h stream.h kctype.h
+kconv$(OBJ): string.h malloc.h
+kconv$(OBJ): termio.h
+kconv$(OBJ): realpath.h parse.h func.h
+kconv$(OBJ): sysemu.h dirent.h unixemu.h
+kconv$(OBJ): pathname.h typesize.h term.h types.h
+kconv$(OBJ): lsparse.h namelist.h dosdisk.h kconv.h termemu.h
+input$(OBJ): fd.h headers.h machine.h config.h
+input$(OBJ): depend.h printf.h stream.h kctype.h
+input$(OBJ): string.h malloc.h
+input$(OBJ): wait.h unixemu.h parse.h kconv.h func.h
+input$(OBJ): sysemu.h dirent.h
+input$(OBJ): pathname.h typesize.h term.h types.h lsparse.h namelist.h
+input$(OBJ): dosdisk.h kanji.h catalog.h system.h termio.h
+input$(OBJ): termemu.h
+ime$(OBJ): fd.h headers.h machine.h config.h
+ime$(OBJ): depend.h printf.h
+ime$(OBJ): stream.h kctype.h
+ime$(OBJ): string.h malloc.h wait.h unixemu.h
+ime$(OBJ): parse.h kconv.h roman.h func.h sysemu.h dirent.h
+ime$(OBJ): pathname.h
+ime$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+ime$(OBJ): kanji.h catalog.h termemu.h
+dict$(OBJ): fd.h headers.h machine.h config.h
+dict$(OBJ): depend.h printf.h
+dict$(OBJ): stream.h kctype.h
+dict$(OBJ): string.h malloc.h termio.h
+dict$(OBJ): roman.h
+dict$(OBJ): hinsi.h func.h sysemu.h dirent.h unixemu.h
+dict$(OBJ): pathname.h typesize.h term.h types.h
+dict$(OBJ): lsparse.h namelist.h dosdisk.h parse.h kconv.h
+roman$(OBJ): headers.h machine.h config.h
+roman$(OBJ): depend.h kctype.h
+roman$(OBJ): typesize.h string.h kconv.h roman.h
+info$(OBJ): fd.h headers.h machine.h config.h
+info$(OBJ): depend.h printf.h
+info$(OBJ): stream.h kctype.h
+info$(OBJ): string.h malloc.h dirent.h unixemu.h
+info$(OBJ): sysemu.h pathname.h typesize.h term.h
+info$(OBJ): types.h lsparse.h namelist.h funcno.h kanji.h catalog.h
+info$(OBJ): unixdisk.h mntinfo.h fsinfo.h
+rockridg$(OBJ): fd.h headers.h machine.h config.h
+rockridg$(OBJ): depend.h printf.h stream.h kctype.h
+rockridg$(OBJ): string.h malloc.h
+rockridg$(OBJ): device.h parse.h func.h sysemu.h dirent.h unixemu.h
+rockridg$(OBJ): pathname.h
+rockridg$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+tree$(OBJ): fd.h headers.h machine.h config.h
+tree$(OBJ): depend.h printf.h
+tree$(OBJ): stream.h kctype.h
+tree$(OBJ): string.h malloc.h func.h sysemu.h dirent.h unixemu.h
+tree$(OBJ): pathname.h
+tree$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+tree$(OBJ): kanji.h catalog.h
+lsparse$(OBJ): fd.h headers.h machine.h config.h
+lsparse$(OBJ): depend.h printf.h stream.h kctype.h
+lsparse$(OBJ): string.h malloc.h
+lsparse$(OBJ): time.h dirent.h unixemu.h
+lsparse$(OBJ): pathname.h typesize.h device.h
+lsparse$(OBJ): parse.h lsparse.h namelist.h kconv.h
+archive$(OBJ): fd.h headers.h machine.h config.h
+archive$(OBJ): depend.h printf.h stream.h kctype.h
+archive$(OBJ): string.h malloc.h
+archive$(OBJ): realpath.h kconv.h func.h sysemu.h dirent.h unixemu.h
+archive$(OBJ): pathname.h
+archive$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+archive$(OBJ): kanji.h catalog.h system.h termio.h
+archive$(OBJ): wait.h
+archive$(OBJ): termemu.h
+custom$(OBJ): fd.h headers.h machine.h config.h
+custom$(OBJ): depend.h printf.h stream.h kctype.h
+custom$(OBJ): string.h malloc.h
+custom$(OBJ): parse.h kconv.h func.h sysemu.h dirent.h unixemu.h
+custom$(OBJ): pathname.h
+custom$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+custom$(OBJ): funcno.h kanji.h catalog.h system.h termio.h
+custom$(OBJ): wait.h
+custom$(OBJ): termemu.h urldisk.h url.h auth.h
+command$(OBJ): fd.h headers.h machine.h config.h
+command$(OBJ): depend.h printf.h stream.h kctype.h
+command$(OBJ): string.h malloc.h
+command$(OBJ): parse.h func.h sysemu.h dirent.h unixemu.h
+command$(OBJ): pathname.h
+command$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+command$(OBJ): funcno.h kanji.h catalog.h system.h termio.h
+command$(OBJ): wait.h
+command$(OBJ): termemu.h functabl.h
+browse$(OBJ): fd.h headers.h machine.h config.h
+browse$(OBJ): depend.h printf.h stream.h kctype.h
+browse$(OBJ): string.h malloc.h
+browse$(OBJ): device.h parse.h kconv.h func.h sysemu.h dirent.h unixemu.h
+browse$(OBJ): pathname.h
+browse$(OBJ): typesize.h term.h types.h lsparse.h namelist.h dosdisk.h
+browse$(OBJ): funcno.h kanji.h catalog.h termemu.h
+unitbl$(OBJ): headers.h machine.h config.h
+dicttbl$(OBJ): headers.h machine.h config.h
+
+sprintf$(OBJ): headers.h machine.h config.h
+sprintf$(OBJ): depend.h printf.h stream.h kctype.h
+sprintf$(OBJ): typesize.h string.h
+stermio$(OBJ): headers.h machine.h config.h
+stermio$(OBJ): depend.h typesize.h sysemu.h dirent.h
+stermio$(OBJ): unixemu.h
+stermio$(OBJ): stream.h termio.h
+sstream$(OBJ): headers.h machine.h config.h
+sstream$(OBJ): depend.h typesize.h malloc.h sysemu.h
+sstream$(OBJ): dirent.h unixemu.h
+sstream$(OBJ): stream.h pathname.h termio.h
+sstring$(OBJ): headers.h machine.h config.h
+sstring$(OBJ): kctype.h depend.h
+sstring$(OBJ): string.h
+smalloc$(OBJ): headers.h machine.h config.h
+smalloc$(OBJ): printf.h stream.h depend.h malloc.h
+smalloc$(OBJ): sysemu.h dirent.h unixemu.h
+stime$(OBJ): headers.h machine.h config.h
+stime$(OBJ): typesize.h string.h time.h
+spathnam$(OBJ): headers.h machine.h config.h
+spathnam$(OBJ): depend.h
+spathnam$(OBJ): printf.h stream.h kctype.h
+spathnam$(OBJ): string.h malloc.h dirent.h unixemu.h
+spathnam$(OBJ): sysemu.h
+spathnam$(OBJ): pathname.h typesize.h
+ssystem$(OBJ): headers.h machine.h config.h
+ssystem$(OBJ): depend.h printf.h stream.h kctype.h
+ssystem$(OBJ): string.h malloc.h
+ssystem$(OBJ): dirent.h unixemu.h
+ssystem$(OBJ): sysemu.h system.h pathname.h
+ssystem$(OBJ): typesize.h termio.h
+ssystem$(OBJ): wait.h
+ssystem$(OBJ): termemu.h time.h posixsh.h
+sposixsh$(OBJ): headers.h machine.h config.h
+sposixsh$(OBJ): depend.h printf.h stream.h kctype.h
+sposixsh$(OBJ): string.h malloc.h
+sposixsh$(OBJ): sysemu.h dirent.h unixemu.h
+sposixsh$(OBJ): system.h pathname.h typesize.h
+sposixsh$(OBJ): termio.h
+sposixsh$(OBJ): wait.h
+sposixsh$(OBJ): termemu.h time.h posixsh.h
+sdoscom$(OBJ): headers.h machine.h config.h
+sdoscom$(OBJ): depend.h printf.h stream.h kctype.h
+sdoscom$(OBJ): string.h malloc.h
+sdoscom$(OBJ): dirent.h unixemu.h
+sdoscom$(OBJ): sysemu.h system.h pathname.h
+sdoscom$(OBJ): typesize.h termio.h
+sdoscom$(OBJ): wait.h
+ssysemu$(OBJ): headers.h machine.h config.h
+ssysemu$(OBJ): depend.h printf.h stream.h kctype.h
+ssysemu$(OBJ): string.h malloc.h
+ssysemu$(OBJ): sysemu.h dirent.h unixemu.h
+ssysemu$(OBJ): log.h pathname.h typesize.h termio.h
+ssysemu$(OBJ): realpath.h
+
+bprintf$(OBJ): headers.h machine.h config.h
+bprintf$(OBJ): depend.h printf.h stream.h kctype.h
+bprintf$(OBJ): typesize.h string.h
+btermio$(OBJ): headers.h machine.h config.h
+btermio$(OBJ): depend.h typesize.h sysemu.h dirent.h
+btermio$(OBJ): unixemu.h
+btermio$(OBJ): stream.h termio.h
+bstream$(OBJ): headers.h machine.h config.h
+bstream$(OBJ): depend.h typesize.h malloc.h sysemu.h
+bstream$(OBJ): dirent.h unixemu.h
+bstream$(OBJ): stream.h pathname.h termio.h
+bstring$(OBJ): headers.h machine.h config.h
+bstring$(OBJ): kctype.h depend.h
+bstring$(OBJ): string.h
+bmalloc$(OBJ): headers.h machine.h config.h
+bmalloc$(OBJ): printf.h stream.h depend.h malloc.h
+bmalloc$(OBJ): sysemu.h dirent.h unixemu.h
+bpathnam$(OBJ): headers.h machine.h config.h
+bpathnam$(OBJ): depend.h
+bpathnam$(OBJ): printf.h stream.h kctype.h
+bpathnam$(OBJ): string.h malloc.h dirent.h unixemu.h
+bpathnam$(OBJ): sysemu.h
+bpathnam$(OBJ): pathname.h typesize.h
+bsystem$(OBJ): headers.h machine.h config.h
+bsystem$(OBJ): depend.h printf.h stream.h kctype.h
+bsystem$(OBJ): string.h malloc.h
+bsystem$(OBJ): dirent.h unixemu.h
+bsystem$(OBJ): sysemu.h system.h pathname.h
+bsystem$(OBJ): typesize.h termio.h
+bsystem$(OBJ): wait.h
+bsystem$(OBJ): termemu.h
+bdoscom$(OBJ): headers.h machine.h config.h
+bdoscom$(OBJ): depend.h printf.h stream.h kctype.h
+bdoscom$(OBJ): string.h malloc.h
+bdoscom$(OBJ): dirent.h unixemu.h
+bdoscom$(OBJ): sysemu.h system.h pathname.h
+bdoscom$(OBJ): typesize.h termio.h
+bdoscom$(OBJ): wait.h
+bsysemu$(OBJ): headers.h machine.h config.h
+bsysemu$(OBJ): depend.h printf.h stream.h kctype.h
+bsysemu$(OBJ): string.h malloc.h
+bsysemu$(OBJ): sysemu.h dirent.h unixemu.h
+bsysemu$(OBJ): log.h pathname.h typesize.h termio.h
+bsysemu$(OBJ): realpath.h
+
+nprintf$(OBJ): headers.h machine.h config.h
+nprintf$(OBJ): depend.h printf.h stream.h kctype.h
+nprintf$(OBJ): typesize.h string.h
+ntermio$(OBJ): headers.h machine.h config.h
+ntermio$(OBJ): depend.h typesize.h sysemu.h dirent.h
+ntermio$(OBJ): unixemu.h
+ntermio$(OBJ): stream.h termio.h
+nstream$(OBJ): headers.h machine.h config.h
+nstream$(OBJ): depend.h typesize.h malloc.h sysemu.h
+nstream$(OBJ): dirent.h unixemu.h
+nstream$(OBJ): stream.h pathname.h termio.h
+nstream$(OBJ): socket.h
+nstring$(OBJ): headers.h machine.h config.h
+nstring$(OBJ): kctype.h depend.h
+nstring$(OBJ): string.h
+nmalloc$(OBJ): headers.h machine.h config.h
+nmalloc$(OBJ): printf.h stream.h depend.h malloc.h
+nmalloc$(OBJ): sysemu.h dirent.h unixemu.h
+ntime$(OBJ): headers.h machine.h config.h
+ntime$(OBJ): typesize.h string.h time.h
+npathnam$(OBJ): headers.h machine.h config.h
+npathnam$(OBJ): depend.h
+npathnam$(OBJ): printf.h stream.h kctype.h
+npathnam$(OBJ): string.h malloc.h dirent.h unixemu.h
+npathnam$(OBJ): sysemu.h
+npathnam$(OBJ): pathname.h typesize.h url.h
+nsystem$(OBJ): headers.h machine.h config.h
+nsystem$(OBJ): depend.h printf.h stream.h kctype.h
+nsystem$(OBJ): string.h malloc.h
+nsystem$(OBJ): dirent.h unixemu.h
+nsystem$(OBJ): sysemu.h system.h pathname.h
+nsystem$(OBJ): typesize.h termio.h
+nsystem$(OBJ): wait.h
+nsystem$(OBJ): termemu.h time.h posixsh.h socket.h
+nsystem$(OBJ): url.h urldisk.h namelist.h auth.h
+nposixsh$(OBJ): headers.h machine.h config.h
+nposixsh$(OBJ): depend.h printf.h stream.h kctype.h
+nposixsh$(OBJ): string.h malloc.h
+nposixsh$(OBJ): sysemu.h dirent.h unixemu.h
+nposixsh$(OBJ): system.h pathname.h typesize.h
+nposixsh$(OBJ): termio.h
+nposixsh$(OBJ): wait.h
+nposixsh$(OBJ): termemu.h time.h posixsh.h
+ndoscom$(OBJ): headers.h machine.h config.h
+ndoscom$(OBJ): depend.h printf.h stream.h kctype.h
+ndoscom$(OBJ): string.h malloc.h
+ndoscom$(OBJ): dirent.h unixemu.h
+ndoscom$(OBJ): sysemu.h system.h pathname.h
+ndoscom$(OBJ): typesize.h termio.h
+ndoscom$(OBJ): wait.h
+ndoscom$(OBJ): realpath.h urldisk.h namelist.h url.h
+ndoscom$(OBJ): auth.h
+nsysemu$(OBJ): headers.h machine.h config.h
+nsysemu$(OBJ): depend.h printf.h stream.h kctype.h
+nsysemu$(OBJ): string.h malloc.h
+nsysemu$(OBJ): sysemu.h dirent.h unixemu.h
+nsysemu$(OBJ): log.h pathname.h typesize.h termio.h
+nsysemu$(OBJ): realpath.h socket.h
+nsysemu$(OBJ): urldisk.h namelist.h url.h auth.h
+nrealpat$(OBJ): headers.h machine.h config.h
+nrealpat$(OBJ): depend.h
+nrealpat$(OBJ): printf.h stream.h kctype.h
+nrealpat$(OBJ): string.h sysemu.h dirent.h unixemu.h
+nrealpat$(OBJ): pathname.h
+nrealpat$(OBJ): typesize.h realpath.h url.h
+nencode$(OBJ): headers.h machine.h config.h
+nencode$(OBJ): kctype.h depend.h
+nencode$(OBJ): sysemu.h dirent.h unixemu.h
+nencode$(OBJ): stream.h
+nencode$(OBJ): pathname.h typesize.h encode.h
+nparse$(OBJ): headers.h machine.h config.h
+nparse$(OBJ): depend.h printf.h stream.h kctype.h
+nparse$(OBJ): string.h malloc.h
+nparse$(OBJ): sysemu.h dirent.h unixemu.h
+nparse$(OBJ): realpath.h parse.h system.h
+nparse$(OBJ): pathname.h typesize.h termio.h
+nparse$(OBJ): wait.h
+nsocket$(OBJ): headers.h machine.h config.h
+nsocket$(OBJ): depend.h printf.h stream.h kctype.h
+nsocket$(OBJ): typesize.h malloc.h
+nsocket$(OBJ): sysemu.h dirent.h unixemu.h
+nsocket$(OBJ): termio.h
+nsocket$(OBJ): socket.h
+nurl$(OBJ): headers.h machine.h config.h
+nurl$(OBJ): depend.h printf.h
+nurl$(OBJ): stream.h kctype.h
+nurl$(OBJ): typesize.h string.h malloc.h sysemu.h dirent.h unixemu.h
+nurl$(OBJ): pathname.h url.h
+nauth$(OBJ): headers.h machine.h config.h
+nauth$(OBJ): depend.h printf.h stream.h string.h
+nauth$(OBJ): malloc.h time.h pathname.h typesize.h encode.h parse.h
+nauth$(OBJ): socket.h auth.h url.h system.h
+nauth$(OBJ): termio.h
+nauth$(OBJ): wait.h unixemu.h
+nauth$(OBJ): sysemu.h dirent.h
+nftp$(OBJ): headers.h machine.h config.h
+nftp$(OBJ): depend.h printf.h
+nftp$(OBJ): stream.h kctype.h
+nftp$(OBJ): string.h malloc.h time.h sysemu.h dirent.h unixemu.h
+nftp$(OBJ): pathname.h
+nftp$(OBJ): typesize.h termio.h
+nftp$(OBJ): parse.h
+nftp$(OBJ): lsparse.h namelist.h socket.h auth.h
+nftp$(OBJ): url.h urldisk.h
+nhtml$(OBJ): headers.h machine.h config.h
+nhtml$(OBJ): depend.h printf.h stream.h kctype.h
+nhtml$(OBJ): typesize.h string.h
+nhtml$(OBJ): malloc.h sysemu.h dirent.h unixemu.h
+nhtml$(OBJ): pathname.h termio.h
+nhtml$(OBJ): parse.h html.h urldisk.h
+nhtml$(OBJ): namelist.h url.h auth.h
+nhttp$(OBJ): headers.h machine.h config.h
+nhttp$(OBJ): depend.h printf.h stream.h kctype.h
+nhttp$(OBJ): string.h malloc.h
+nhttp$(OBJ): time.h sysemu.h dirent.h unixemu.h
+nhttp$(OBJ): pathname.h typesize.h termio.h
+nhttp$(OBJ): parse.h lsparse.h namelist.h
+nhttp$(OBJ): socket.h auth.h url.h html.h
+nhttp$(OBJ): urldisk.h
+nurldisk$(OBJ): headers.h machine.h config.h
+nurldisk$(OBJ): depend.h printf.h stream.h string.h
+nurldisk$(OBJ): malloc.h time.h sysemu.h dirent.h unixemu.h
+nurldisk$(OBJ): pathname.h
+nurldisk$(OBJ): typesize.h termio.h
+nurldisk$(OBJ): realpath.h
+nurldisk$(OBJ): lsparse.h namelist.h socket.h
+nurldisk$(OBJ): urldisk.h url.h auth.h
+nlsparse$(OBJ): headers.h machine.h config.h
+nlsparse$(OBJ): depend.h kctype.h
+nlsparse$(OBJ): string.h malloc.h time.h dirent.h
+nlsparse$(OBJ): unixemu.h
+nlsparse$(OBJ): pathname.h typesize.h device.h parse.h lsparse.h namelist.h
+
+evalopt$(OBJ): headers.h machine.h config.h
+evalopt$(OBJ): evalopt.h
+gentbl$(OBJ): headers.h machine.h config.h
+gentbl$(OBJ): gentbl.h
+mkunitbl$(OBJ): headers.h machine.h config.h
+mkunitbl$(OBJ): typesize.h evalopt.h gentbl.h
+mkdict$(OBJ): headers.h machine.h config.h
+mkdict$(OBJ): kctype.h depend.h
+mkdict$(OBJ): typesize.h string.h kconv.h roman.h
+mkdict$(OBJ): hinsi.h evalopt.h gentbl.h
+mktankan$(OBJ): headers.h machine.h config.h
+mktankan$(OBJ): kctype.h depend.h
+mktankan$(OBJ): typesize.h kconv.h roman.h
+mkkanji$(OBJ): headers.h machine.h config.h
+mkkanji$(OBJ): typesize.h
+mkcat$(OBJ): headers.h machine.h config.h
+mkcat$(OBJ): kctype.h depend.h
+mkcat$(OBJ): typesize.h version.h evalopt.h gentbl.h
+mkdir_p$(OBJ): headers.h machine.h config.h
+mkdir_p$(OBJ): kctype.h depend.h
+mkdir_p$(OBJ): typesize.h
+kanjicnv$(OBJ): headers.h machine.h config.h
+kanjicnv$(OBJ): evalopt.h
+expfunc$(OBJ): headers.h machine.h config.h
+mkfuncno$(OBJ): fd.h headers.h machine.h config.h
+mkfuncno$(OBJ): depend.h types.h typesize.h stream.h
+mkfuncno$(OBJ): lsparse.h namelist.h functabl.h
+tstring$(OBJ): headers.h machine.h config.h
+tstring$(OBJ): kctype.h depend.h
+tstring$(OBJ): string.h
+troman$(OBJ): headers.h machine.h config.h
+troman$(OBJ): depend.h kctype.h
+troman$(OBJ): typesize.h string.h kconv.h roman.h
+tkconv$(OBJ): headers.h machine.h config.h
+tkconv$(OBJ): depend.h kctype.h
+tkconv$(OBJ): typesize.h string.h unixemu.h kconv.h
+tkconv$(OBJ): termemu.h pathname.h
+tevalopt$(OBJ): headers.h machine.h config.h
+tevalopt$(OBJ): evalopt.h
+tgentbl$(OBJ): headers.h machine.h config.h
+tgentbl$(OBJ): gentbl.h
+tunitbl$(OBJ): headers.h machine.h config.h

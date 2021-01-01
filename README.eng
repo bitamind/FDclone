@@ -1,0 +1,321 @@
+############################################################
+#
+#	About FDclone Ver. 3.01
+#
+#	Takashi SHIRAI, <shirai@unixusers.net>
+#	Jul 27, 2019
+#
+############################################################
+
+  FDclone is a file & directory maintenance tool for the UNIX
+based OS (called as "UNIX" expediently below). It is a clone
+of "FD" for MS-DOS, made by Mr. A.Idei <SDI00544@niftyserve.or.jp>
+in 1989.
+  I make it as similar as possible in its specifications, but
+implement it quite originally.
+
+  The reason why I called it a clone is based on the fact that
+"FD" is so popular that Japanese MS-DOS users treat the name
+of "FD" as the synonym of file maintenance tools.
+  Once, there was a file maintenance tool for UNIX named 'fu'
+(made by Mr. Takashi Tashiro <PDC02432@niftyserve.or.jp>),
+with which I was concerned to develop. I heard that many users
+rename it "fd" as alias.
+  I think that the users came from MS-DOS to UNIX adapt to
+this name, because of easy typing.
+  Therefore, it seemed effective that development of the tool
+based on it as its specifications made UNIX novices who came
+from MS-DOS adapt the UNIX environment naturally.
+
+  From the above reason, this FDclone is made. While there
+ware long transitions and difficulties on its way, at last,
+I complete and release it. I dare say I'm happy.
+
+
+--
+  FDclone-3.01 package includes the following files.
+
+README		this file (in Japanese)
+README.eng	this file
+HISTORY		amendment history up to now (in Japanese)
+HISTORY.eng	amendment history up to now
+FAQ		Q&A (Frequently Asked Question in Japanese)
+FAQ.eng		Q&A (Frequently Asked Question)
+TECHKNOW	technical knowhow (in Japanese)
+TECHKNOW.eng	technical knowhow
+LICENSES	document for licenses (in Japanese)
+LICENSES.eng	document for licenses
+Install		document to install FDclone (in Japanese)
+Install.eng	document to install FDclone
+ToAdmin		document for the administrator of FDclone (in Japanese)
+ToAdmin.eng	document for the administrator of FDclone
+Configur	auto configuration program (used in Makefile)
+Makefile	Makefile
+Makefile.in	template of Makefile
+fd.man		roff file for man page (in Japanese)
+fd_e.man	roff file for man page
+fd.cat		plain text for man page (in Japanese)
+fd_e.cat	plain text for man page
+
+mkmfsed.c	sed script generator for filtering Makefile
+kanjicnv.c	simple kanji code converter
+mkfunkno.c	command serial number generator
+expfunc.c	shell function expander (for obsolete /bin/sh)
+mkunitbl.c	UNICODE translation table generator
+mkdict.c	Kana-Kanji translation table convertor
+mktankan.c	Tan-Kanji translation table generator
+mkkanji.c	kanji.h convertor
+mkcat.c		message catalog generator
+mkdir_p.c	directory generator
+evalopt.c	option strings parser module
+evalopt.h	header for evalopt.c
+gentbl.c	table generator module
+gentbl.h	header for gentbl.c
+mkmfsedg.sed	sed script filtering Makefile for djgpp v1.xx
+mkmfsedd.sed	sed script filtering Makefile for djgpp v2.xx
+mkmfdosl.sed	sed script filtering Makefile for LSI C-86 3.5
+mkmfdosb.sed	sed script filtering Makefile for Borland C++
+
+makefile.gpc	Makefile for djgpp v1.xx on DOS/V
+makefile.g98	Makefile for djgpp v1.xx on PC-98x1
+makefile.dpc	Makefile for djgpp v2.xx on DOS/V
+makefile.d98	Makefile for djgpp v2.xx on PC-98x1
+makefile.lpc	Makefile for LSI C-86 3.5 on DOS/V
+makefile.l98	Makefile for LSI C-86 3.5 on PC-98x1
+makefile.bpc	Makefile Borland C++ on DOS/V
+makefile.b98	Makefile for Borland C++ on PC-98x1
+
+main.c		FDclone main source
+termio.c	terminal I/O library source
+termio.h	header for termio.c
+term.c		termcap library source
+term.h		header for term.c
+printf.c	formatted printing module
+printf.h	header for printf.c
+string.c	alternative string functions
+string.h	header for string.c
+malloc.c	alternative memoly allocation functions
+malloc.h	header for malloc.c
+stream.c	stream I/O library source
+stream.h	header for stream.c
+time.c		alternative time functions
+time.h		header for time.c
+pathname.c	pathname operation module
+pathname.h	header for pathname.c
+system.c	/bin/sh compatible system(3) module
+system.h	header for system.c
+posixsh.c	POSIX based builtin commands used in system.c
+posixsh.h	header for posix.c
+doscom.c	COMMAND.COM builtin commands used in system.c
+log.c		system logging module
+log.h		header for log.c
+dosdisk.c	floppy drive driver
+dosdisk.h	header for dosdisk.c
+sysemu.c	system call wrapper for floppy drive
+sysemu.h	header for sysemu.c
+unixdisk.c	file I/O functions for MS-DOS
+unixdisk.h	header for unixdisk.c
+realpath.c	canonicalization for absolute pathname
+realpath.h	header for realpath.c
+encode.c	MD5 (RFC1321) & BASE64 (RFC3548) module
+encode.h	header for encode.c
+pty.c		pseudo terminal module
+termemu.c	terminal emulation module
+termemu.h	header for termemu.c
+frontend.c	frontend module of terminal emulation
+backend.c	backend module of terminal emulation
+libc.c		arrangement of C standard library
+file.c		file I/O module
+mntinfo.c	mount information module
+mntinfo.h	header for mntinfo.c
+statfs.c	alternative statfs()
+apply.c		applying one after another module
+parse.c		strings parser module
+parse.h		header for parse.c
+builtin.c	builtin command module
+shell.c		shell command module
+socket.c	network socket functions
+socket.h	header for socket.c
+url.c		URL parser module
+url.h		header for url.c
+auth.c		authentication (RFC2617) module
+auth.h		header for auth,c
+ftp.c		FTP (RFC959) module
+html.c		HTML (RFC2616) module
+html.h		header for html.c
+http.c		HTTP module
+urldisk.c	URL drive driver
+urldisk.h	header for urldisk.c
+catalog.c	message catalog module
+catalog.h	header for catalog.c
+kconv.c		kanji code convert module
+kconv.h		header for kconv.c
+input.c		user input module
+ime.c		tiny Kanji Input Method Editor
+roman.c		Roman-Kana translation module
+roman.h		header for roman.c
+dict.c		Kanji dictionary searching module
+hinsi.h		header for Hinsi grammar
+info.c		various information module
+rockridg.c	ISO 9660 RockRidge extension module
+lsparse.c	parser for file list
+lsparse.h	header for lsparse.c
+archive.c	archiver module
+tree.c		tree screen module
+custom.c	customizer module
+command.c	internal command module
+browse.c	browser screen module
+
+fd.h		header for customizing FDclone
+machine.h	header for machine dependency
+config.hin	dummy header for environment setting
+headers.h	basic headers
+depend.h	headers for dependency of option identifiers
+types.h		variable type declarations
+namelist.h	header for file list
+kctype.h	header for kanji code
+typesize.h	header for size of types
+wait.h		header for child processes
+dirent.h	header for directory entries
+unixemu.h	header for system call emulation on MS-DOS
+fsinfo.h	header for file system information
+device.h	header for device ID
+func.h		prototype declarations
+functabl.h	header for attribute on internal command
+kanji.hin	Japanese strings
+version.h	version
+
+_fdrc		template for .fd2rc
+_fdrc.dif	changes from 1.03 about .fd2rc
+fd.spec		spec file for RPM
+
+
+--
+  The copyright of FDclone belongs to:
+	[ Takashi Shirai <shirai@unixusers.net> ]
+  However, you are allowed freely to distribute, change,
+include and use secondarily the all sources, without any
+restriction.
+  New development from my products, based on the source of
+FDclone, will satisfy me as author. You can recycle it
+freely.
+
+  But, an act which adds restriction to use and distribution
+of FDclone, for example applying the patent about FDclone
+without permission, is forbidden entirely, because it
+becomes the act against the ideology of free software.
+
+
+  Please tell me individually about distribution of the
+executable binary via CD-ROM or various networks.
+  However, secondary distribution of the already distributed
+binary follows licenses of each distributor, then you
+should tell them details.
+
+  The distributor's address of a distributed binary is
+displayed on the function line of the help screen, it is
+shown by HELP_MESSAGE command.
+  If there is not this address, or the version number in
+a title line don't suffix the character of '#', it is
+revealed to be an unofficial distributed binary. Then I
+have no responsibilities for it.
+
+
+--
+  Please refer to each document for details. Compile
+according to `Install', and see man page for operational
+details after installation.
+  I've prepared FAQ. When you got some troubles, read
+these documents before asking me. Almost troubles will
+be solved with FAQ and man page.
+  You can compile this not only on each UNIX but also on
+MS-DOS, compiling on MS-DOS makes you need to replace
+Makefile.
+
+
+--
+  UNIX is the registered trademark licensed by X/Open Company
+Ltd. However, the name of UNIX called in each document of
+FDclone is not means UNIX OS licensed by X/Open, but means
+the any OS derived from unics, AT&T Bell Laboratory developed.
+  Though I don't intend to invade the copyright of X/Open,
+the generic name means these all is disappeared, so I use
+this name expediently.
+
+
+--
+Acknowledgement
+
+  At last, thank the following persons for taking care of
+FDclone development.
+(in alphabetical order; "@" is described as " at ")
+
+o He is the author of "FD", and permit to release FDclone.
+	SDI00544 at niftyserve.or.jp (Atsushi Idei)
+
+o They guided me about file systems in the WINC workshop ML.
+	kenji at reseau.toyonaka.osaka.jp (Kenji Rikitake)
+	mori at chuo-computer.co.jp (Hidekazu Mori)
+	ohm at kyoto.wide.ad.jp (Akitoshi Morishima)
+	saitoh at ics.es.osaka-u.ac.jp (Akinori Saito)
+
+o Administrator of the beta test ML
+	matusita at ics.es.osaka-u.ac.jp (Makoto MATSUSHITA)
+
+o Beta testers
+	7m2vej at ritp.ye.IHI.co.jp (UENO Fumihiro)
+	aki at pic.hitachi-sk.co.jp (Akiyoshi Sakaguchi)
+	ao at orient.tuins.cs.toyo.ac.jp (AOYAGI Yoichi)
+	daikoku at lang2.bs1.fc.nec.co.jp (Hirosi Daikoku)
+	fuku at amorph.rim.or.jp (FUKUSHIMA Osamu)
+	go at cclub.tutcc.tut.ac.jp (Go Watanabe)
+	h-inoue at is.aist-nara.ac.jp (Hiroyuki Inoue)
+	h-yagi at zero0.nsis.cl.nec.co.jp (Hideo Yagi)
+	hashi at star.rcast.u-tokyo.ac.jp (TAKAHASHI Katsuyuki)
+	hide at mamoru.ee.sophia.ac.jp (Takahide Yamaguchi)
+	hiro at akinus1.aki.che.tohoku.ac.jp (Akiyasu Hirotani)
+	i4579 at info.nara-k.ac.jp (Kimura Masashi)
+	ishida at econ.shinshu-u.ac.jp (Akira Ishida)
+	ito at getz.isc.chubu.ac.jp (Maki ITO)
+	j0442 at cranesv.egg.kushiro-ct.ac.jp (Kazunori Yoshida)
+	j9194169 at ed.yama.sut.ac.jp (Keitarou Yoshimura)
+	jt at ng.nefs.nec.co.jp (Jiro_Takabatake)
+	katsu at cs.uec.ac.jp (Katsuaki Suzuki)
+	ke3057yt at ex.ecip.osaka-u.ac.jp (yosioka tuneo)
+	kimai at av.crl.sony.co.jp (IMAI Kenichi)
+	kjm at yonka.ngy.mhi.co.jp (KOJIMA Hajime)
+	kkubota at crl.go.jp (Kazuo Kubota)
+	kmiya at mm.rd.nttdata.jp (Kunio Miyamoto)
+	kobashi at comp.eng.himeji-tech.ac.jp (kobashi)
+	manabu at saskg.semicon.sony.co.jp (Niizato -Gamer- Manabu)
+	mat at azalea.gose.nara.jp (Matsuo Kazunori)
+	mats at cc.tuat.ac.jp (Seiji Matsumoto)
+	mhirano at avkk.yamaha.co.jp (Mitsuyuki HIRANO)
+	mino at kis-gw.msk.kis.co.jp (MINOMO Kazutoshi)
+	mori at isc.mew.co.jp (Shigeki Morimoto)
+	nino at windy.mech.utsunomiya-u.ac.jp (Nao NINOMIYA)
+	nyoshi at kaba.or.jp (YOSHIDA Nobuaki)
+	ohge at enzan.ee.kansai-u.ac.jp (Hiroki Ohge)
+	ohishi at otc.qnes.nec.co.jp (Isao Ohishi)
+	okubo at mem.cl.nec.co.jp (Shuichi OHKUBO)
+	ozawa at prince.pe.u-tokyo.ac.jp
+	roy at lit.cs.uec.ac.jp (SATOU Masaki)
+	ryoji at kgupyr.kwansei.ac.jp (Ryoji Nagai)
+	sakai at csl.cl.nec.co.jp (Junji SAKAI)
+	sakanaga at ds.kyoto.omronsoft.co.jp (Toshiyuki Sakanaga)
+	sawada at h3news1.kais.kyoto-u.ac.jp (Yutaka SAWADA)
+	senshu at astro.yamagata-cit.ac.jp (Hiroyuki Senshu)
+	shige at luck.imasy.or.jp (Shigechika Aikawa)
+	shirai at atropos.gen.u-tokyo.ac.jp (Izuru Shirai)
+	taka-mm at super.win.or.jp (Takahasi Mamoru)
+	tan at kei-n.huap.hokudai.ac.jp (Takushi Tanaka)
+	tanaka at inf.ptg.sony.co.jp ("T.Tanaka")
+	tomiyan at cv.sony.co.jp (Mitsuhiko Tomita)
+	tsuka at ohsaki.meidensha.co.jp (Yoshihiro Tsukamoto)
+	uno at meleager.mel.go.jp
+	wakui at casiogw.rd.casio.co.jp (WAKUI Kazuhiko)
+	watanabe at jis.ptg.sony.co.jp (ebaN)
+	yajima at ccedu.sendai-ct.ac.jp (Kuniaki YAJIMA)
+	yaku at jedi.seg.kobe-u.ac.jp (Masao Yakushijin)
+	yamakawa at crdl.pioneer.co.jp (Yuzo Yamakawa)
+	yamamoto at ogw.ei.hosei.ac.jp (Kouya Yamamoto)

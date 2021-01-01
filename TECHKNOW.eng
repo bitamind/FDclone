@@ -1,0 +1,1523 @@
+[TECHNICAL KNOWHOW ABOUT FDCLONE3]
+
+
+1.Identifiers for Machine Dependency
+
+  In machine.h, or config.h built by "make config", the
+various identifiers are defined. These identifiers are
+established to merge the differences from each OS.
+  If you cannot compile successfully or find some strange
+behaviors, you can define/undefine these identifiers to
+modify it.
+  The following is the meaning of each identifier.
+
+SYSV
+SVR4
+BSD4
+BSD43
+	This indicates the oriented type of OS. SYSV, SVR4
+	is referred in the latter part of machine.h for the
+	definition unique with OS. BSD4, BSD43 is defined
+	only as an information, not to be referred in actual
+	sources.
+
+OSTYPE
+	This indicates the OS name. It is used to setup the
+	floppy drive in the default value, according to each
+	OS.
+
+CODEEUC
+	This means to use EUC-JP (Extended Unix Code) as the
+	Kanji code. If undefined, it means Shift JIS is used.
+	This concerns the man page after installation, and
+	the default value when you don't define the Kanji
+	code, and so on.
+	You can dynamically change the Kanji code used in
+	input/output and filename, after compiled.
+DEFKCODE
+	This specifies the string which indicates Kanji code
+	used as the OS standard. If defined, it is used as
+	the default value of each internal variables for Kanji
+	code.
+UTF8DOC
+	This means to use UTF-8 as the Kanji code of documents.
+	If undefined, it follows the definition of CODEEUC.
+	You can also define the value of DEFKCODE as 'utf8-mac'
+	or 'utf8-iconv', which specified the UNICODE mapping.
+UTF8LANG
+	This specifies the string which indicates Kanji code
+	used as the OS standard and Kanji code of documents,
+	if the environment variable LANG includes "UTF". It
+	will be meaningless in case that LANG does not include
+	"UTF".
+NOMULTIKANJI
+	It is not necessary to consider the environment which
+	has multiple Kanji codes.
+PATHNOCASE
+	System calls ignore case for any filename.
+COMMNOCASE
+	Shell ignore case for any shell command name.
+ENVNOCASE
+	System calls ignore case for any environment variable.
+NOUID
+	Neither user ID nor group ID don't exist.
+NODIRLOOP
+	Any directory structure can never loop.
+NOSYMLINK
+	Symbolic link system is not implemented.
+BSPATHDELIM
+	The path delimiter is a backslash character.
+USECRNL
+	The character who indicates end of line is CR-NL.
+CWDINPATH
+	The current work directory is always included in
+	the command search path implicitly.
+DOUBLESLASH
+	The pathname which starts with // (or \\) is allowed
+	as the some special pathname (e.g. the shared folder
+	on Cygwin).
+USEMANLANG
+	The search pathname referred to man(1) includes the
+	string shown by the environment variable LANG, such
+	as '/usr/man/ja_JP.SJIS/', to support M17N.
+LANGWIDTH
+	In case that USEMANLANG is defined, this specifies
+	width of the string included by the search pathname
+	of man(1) from the beginning of the string shown by
+	the environment valiable LANG. It will be 2 or 5
+	letters with the standard NLS (Native Language
+	System).
+USEDATADIR
+	fd-unicd.tbl, which is the translation table for
+	UNICODE, and fd-dict.tbl, which is the Kana-Kanji
+	translation table for the Japanese input method
+	editor, are not placed on the same directory as the
+	executable binary of fd, but on the directory which
+	is specified by DATADIR in Makefile.in.
+SUPPORTSJIS
+	cc(1) or man(1) supports Shift JIS perfectly. Even
+	for the Kanji whose second byte is '\', this '\' is
+	not treated as a meta character.
+BSDINSTALL
+	The BSD-like install(1) is installed on the standard
+	command search path, and can use the option -c (copy)
+	and -s (strip).
+BSDINSTCMD
+	If the command name of the BSD-like install(1) is
+	not "install", you can define that command name.
+	It will be meaningless in case that BSDINSTALL is
+	not defined.
+TARUSESPACE
+	tar(1) with t option will output the list in which
+	each file mode string (Ex:rw-rw-rw-) is always followed
+	by spaces. In the BSDish OS, it seems usually followed
+	by not spaces but UID/GID. In the GNU tar, it is
+	followed by spaces.
+	Even if you are wrong to define, the description of
+	.fd2rc and /etc/fd2rc can change it dynamically.
+TARFROMPAX
+	The implementation of tar(1) comes from pax(1), and
+	the output of -t option follows the format used by
+	pax(1).
+	Even if you are wrong to define, the description of
+	.fd2rc and /etc/fd2rc can change it dynamically.
+BUGGYMAKE
+	make(1) cannot evaluate correctly a time relationship
+	between the files created continuously within 1 second.
+CPP7BIT
+	cpp(1) cannot pass through any 8bit character, such
+	as the Kanji.
+OLDARGINT
+	cc(1) treats any old-fashioned argument as integer.
+CCCOMMAND
+	This indicates the fullpath of the C compiler which
+	you want to use as standard. In some OS, both of BSD
+	version cc and SYSV version cc exists at once, you
+	should choose only one. If undefined, 'cc' is used.
+EXTENDCCOPT
+	This indicates the option gave to cc(1). If undefined,
+	"-O" is assigned. In case it cannot support "-O"
+	(Optimize), you should define null.
+CCOUTOPT
+	This indicates the option to give cc(1) the output
+	filename, when it only compile and don't link (with
+	-c option). This must include the make(1) macro for
+	output filename. You must define this, when you don't
+	need the default value "-o $@".
+CCLNKOPT
+	This indicates the option to give cc(1) the output
+	filename, when it links the executable file (without
+	-c option). This must include the make(1) macro for
+	output filename. You must define this, when you don't
+	need the default value "-o $@".
+USETERMINFO
+	The terminfo(5) library is used as the terminal database
+	instead of the termcap(5) library.
+TERMCAPLIB
+	This indicates the library which is need to be link
+	as the termcap(5) library. If undefined, -ltermcap
+	is assigned.
+REGEXPLIB
+	This indicates the library which is need to be link
+	as the regular expression library, if need.
+SOCKETLIB
+	This indicates the libraries which are need to be link
+	as the socket libraries, if need.
+EXTENDLIB
+	This indicates the other library which is need to be
+	link, if need.
+
+UNKNOWNFS
+	The OS adopts the filesystem except to be assumed by
+	FDclone. Or, you should define this for security,
+	when the directory writing function don't work
+	successfully.
+	Refer to the #2 for details.
+
+NOFILEMACRO
+	cc(1) cannot evaluate the macro __FILE__.
+NOFUNCMACRO
+	cc(1) cannot evaluate the macro __FUNCTION__.
+NOLINEMACRO
+	cc(1) cannot evaluate the macro __LINE__.
+FORCEDSTDC
+	Although __STDC__ is not pre-defined, the compiler
+	requires the ANSI standard C format in the prototype
+	declaration and so on. If you trust it is based on
+	ANSI, it is no problem to define this unconditionally.
+STRICTSTDC
+	The compiler has the strict ANSI standard C specifications
+	not to allow the coexistence of the modern type
+	prototype declaration and the classical type function
+	declaration of K&R. You should define this, when
+	there are a number of errors concerned the type of
+	function argument.
+NOSTDC
+	Although __STDC__ is pre-defined, the compiler expects
+	the classical C language specifications of K&R.
+NOCONST
+	Although __STDC__ is pre-defined, the compiler does
+	not support the "const" qualifier.
+NOVOID
+	The "void" type cannot be used.
+NOUINT
+	The "u_int" type cannot be used.
+NOLONGLONG
+	The "long long" type cannot be used.
+HAVELONGLONG
+	The "long long" type is supported.
+NOUID_T
+	uid_t, gid_t is not defined in <sys/type.h>
+USEPID_T
+	fork(2) and wait(2) treat a prosess ID as a type of
+	pid_t.
+DECLSIGLIST
+	The global variable sys_siglist[] is declared in
+	<signal.h>, not to need to declare again in the source
+	list.
+NOSIGLIST
+	The global variable sys_siglist[] don't exist in
+	the standard library.
+DECLERRLIST
+	The global variable sys_siglist[] is declared in
+	<stdio.h> or <errno.h>, not to need to declare again
+	in the source list.
+PWNEEDERROR
+	Linking /lib/libPW.a requires to prepare the global
+	variable Error[] in the source,
+NOERRNO
+	The global variable errno is not declared in <errno.h>.
+NOFILEMODE
+	The constant S_IRUSR, S_IWUSR, etc. are not declared
+	in <sys/stat.h>.
+NOUNISTDH
+	<unistd.h> don't exist.
+NOSTDLIBH
+	<stdlib.h> don't exist.
+NOTZFILEH
+	<tzfile.h> don't exist.
+USELEAPCNT
+	The structure tzhead has the member tzh_leapcnt.
+USESELECTH
+	The structure fd_set which is needed when use the
+	function select(2) is defined in <sys/select.h>.
+USESYSDIRH
+	The constant DEV_BSIZE which indicates the block
+	of the directory file is defined in <sys/dir.h>.
+USETIMEH
+	The structure tm is not defined in <sys/types.h>
+	nor <sys/time.h>, to require <time.h>.
+USESTDARGH
+	The type va_list for variable argument is defined
+	in <stdarg.h>.
+USEMKDEVH
+	The macro (or function) major()/minor() for the device
+	number is defined <sys/mkdev.h>.
+USEMKNODH
+	The macro (or function) major()/minor() for the device
+	number is defined <sys/mknod.h>.
+USELOCKFH
+	The constants which indicate the commands for the
+	function lockf(2) to lock files is defined in
+	<sys/lockf.h>.
+USETERMIO
+	The structure termio is used as the terminal interface.
+USETERMIOS
+	The structure termios is used as the terminal interface.
+	If both USETERMIO and USETERMIOS is undefined, the
+	structure sgttyb is used.
+HAVECLINE
+	The structure termios has the member c_line.
+USEDEVPTMX
+	The device file /dev/ptmx and /dev/pts/? are used for
+	the pseudo terminal.
+USEDEVPTY
+	The device file /dev/ptyXX and /dev/ttyXX are used for
+	the pseudo terminal.
+USEDIRECT
+	The structure direct is used instead of dirent.
+SYSVDIRENT
+	The structure dirent doesn't have the member d_fileno
+	and has the member d_ino.
+NODNAMLEN
+	The structure dirent doesn't have the member d_namlen.
+NODRECLEN
+	The structure dirent doesn't have the member d_reclen.
+	It has the member d_fd instead.
+DNAMESIZE
+	The size of tha member d_name of the structure dirent.
+HAVETIMEZONE
+	The global variable timezone indicates the offset
+	value from GMT.
+NOTMGMTOFF
+	The structure tm doesn't have the member tm_gmtoff.
+NOSTBLKSIZE
+	The structure stat doesn't have the member st_blksize.
+NOFLAGS
+	The structure stat has the member st_flags, which is
+	not supported actually.
+NOFTPH
+	<arpa/ftp.h> don't exist.
+USEINSYSTMH
+	<netinet/in_systm.h> is needed for <netinet/ip.h>.
+NOHADDRLIST
+	The structure hostent doesn't have the member h_addr_list.
+
+(The following 5 identifiers is exclusive. These can not be
+defined simultaneously.)
+USESTATVFSH
+	The functions declared in <sys/statvfs.h> is used to
+	get the filesystem information.
+USESTATFSH
+	The functions declared in <sys/statfs.h> is used to
+	get the filesystem information.
+USEVFSH
+	The functions declared in <sys/vfs.h> is used to get
+	the filesystem information.
+USEMOUNTH
+	The functions declared in <sys/mount.h> is used to
+	get the filesystem information.
+USEFSDATA
+	The functions using the structure fs_data is used to
+	get the filesystem information.
+
+USEFFSIZE
+	The structure statfs has the member f_fsize, which
+	indicates the block size of the filesystem. If undefined,
+	member f_bsize is referred.
+	In case that USESTATVFSH, USEFSDATA is defined, this
+	is meaningless.
+NOFBLOCKS
+	The structure statfs doesn't have the member f_blocks.
+NOFBFREE
+	The structure statfs doesn't have the member f_bfree.
+NOFFILES
+	The structure statfs doesn't have the member f_files.
+USESTATVFS_T
+	The structure statvfs_t is used instead of statvfs.
+STATFSARGS
+	This indicates the number of arguments used by
+	function statfs(2).
+	In case that USESTATVFSH, USEFSDATA is defined, this
+	is meaningless.
+USEFSTATFS
+	The function statfs(2) is unavailable to get the
+	filesystem information, and fstatfs(2) is used instead.
+
+(The following 10 identifiers is exclusive. These can not be
+defined simultaneously.)
+USEMNTENTH
+	The functions declared in <mntent.h> is used to get
+	the mount information.
+USEMNTTABH
+	The functions declared in <sys/mnttab.h> is used to
+	get the mount information.
+USEGETFSSTAT
+	The function getfsstat(2) is used to get the mount
+	information.
+USEGETVFSTAT
+	The function getvfsstat(2) is used to get the mount
+	information.
+USEMNTCTL
+	The function mntctl(3) is used to get the mount
+	information.
+USEMNTINFOR
+	The function getmntinfo_r(3) is used to get the mount
+	information.
+USEMNTINFO
+	The function getmntinfo(3) is used to get the mount
+	information.
+USEGETMNT
+	The function getmnt(3) is used to get the mount
+	information.
+USEGETFSENT
+	The function getfsent(3) is used to get the mount
+	information.
+	(This method can get only the information before mount,
+	not to be recommended. Suppose that it is a last
+	resort.)
+USEREADMTAB
+	/etc/mtab is read directly to get the mount
+	information.
+
+USEPROCMNT
+	The file /proc/mounts is used as the mount information
+	file.
+	(This method can get only the information from kernel,
+	instead of mount(8), not to be recommended. Suppose
+	that it is a last resort.)
+HAVEPROCMNT
+	The file /proc/mounts is used as the mount information
+	file only if /etc/mtab does not exist.
+
+(The following 2 identifiers is exclusive. These can not be
+defined simultaneously. In case that the identifier except
+USEMNTINFO is defined among the above 8 choices, this is
+meaningless.)
+USEVFCNAME
+	The structure vfsconf has the member vfc_name, which
+	indicates the string to mean the mount type. And,
+	getvfsbytype() is used to get the type vfsconf.
+USEFFSTYPE
+	The structure statfs has the member f_fdtypename,
+	which indicates the string to mean the mount type.
+
+(The following 3 identifiers is exclusive. These can not be
+defined simultaneously.)
+USERE_COMP
+	The function re_comp(3) is used to search the regular
+	expression.
+USEREGCOMP
+	The function regcomp(3) is used to search the regular
+	expression.
+USEREGCMP
+	The function regcmp(3) is used to search the regular
+	expression.
+
+USERAND48
+	The function for random number generator is not random(3)
+	but rand48(3).
+USESETENV
+	The function setenv(3) is available to set the environ
+	variables.
+NOSELECT
+	The function select(2) is unavailable for the low
+	level input/output.
+DEFFDSETSIZE
+	The function select(2) needs the FD_SETSIZE identifier
+	to be pre-defined as the maximum number of openable
+	files.
+SELECTRWONLY
+	The function select(2) cannot respond the file descriptor
+	opened as read/write.
+NOVSPRINTF
+	The function vsprintf(3) is unavailable for the
+	formatted output.
+NOTERMVAR
+	The termcap(5) library has not the global variables;
+	PC, ospeed, BC and UP.
+USEUTIME
+	The function utimes(2) is unavailable to set the
+	timestamp, and utime(3) is used instead.
+USEGETWD
+	The function getcwd(3) is unavailable to get the
+	current directory, and getwd(3) is used instead.
+ULONGIOCTL
+	The second argument of the I/O control function
+	inctl(2) must be the type of unsigned long.
+NOFTRUNCATE
+	The function ftruncate(2) is unavailable to resize
+	files.
+USEFCNTLOCK
+	The function fnctl(2) is used instead of flock(2) to
+	lock files.
+USELOCKF
+	The function flock(2) is unavailable to lock files,
+	and lockf(2) is used instead.
+NOFLOCK
+	Both of the function flock(2) and lockf(2) are
+	unavailable to lock files.
+NOSYSLOG
+	The function syslog(3) is unavailable for system
+	logger.
+USETIMELOCAL
+	The function timelocal(3) is available as the inverse
+	function of localtime(3) for the time conversion.
+USEMKTIME
+	The function mktime(3) is used instead of timelocal(3)
+	for the time conversion.
+USESYSCONF
+	The function sysconf(3) is used to get the system
+	configurations.
+USELLSEEK
+	The function _llseek(2) is used instead of lseek(2)
+	for the file control. In the 32bit Linux environment,
+	lseek(2) cannot specify the offset value over 2^32
+	bytes, so that _llseek(2) is necessary.
+USEUNAME
+	The function uname(2) is used instead of gethostname(2)
+	to get the hostname.
+NOKILLPG
+	The function killpg(2) is unavailable to manage the
+	process group.
+USEWAITPID
+	The function waitpid(2) is used instead of wait3(2)
+	to wait the software signals.
+USESIGACTION
+	The function sigaction(2) is used instead of signal(2)
+	to control the signals.
+USESIGPMASK
+	The function sigprocmask(2) is used instead of
+	sigsetmask(2) to control the signals.
+NODTABLESIZE
+	The function getdtablesize(2) is unavailable to get
+	the descriptor size.
+USERESOURCEH
+	The functions declared in <sys/resource.h> is used to
+	get/set the resource information.
+USEULIMITH
+	The functions declared in <ulimit.h> is used to get/set
+	the resource information.
+USEGETRUSAGE
+	The function getrusage(2) is used to get the process
+	time information.
+USETIMES
+	The function times(2) is used to get the process time
+	information.
+GETPGRPVOID
+	The function getpgrp(2) has no argument, to get the
+	process group.
+USESETPGID
+	The function setpgid(2) is used instead of setpgrp(2)
+	to set the process group.
+NOSETPGRP
+	The function setpgrp(2) is not available to set the
+	process group.
+USETCGETPGRP
+	The function tcgetpgrp(3)/tcsetpgrp(3) is used instead
+	of ioctl(2) to get/set the control terminal.
+USESETVBUF
+	The function setvbuf(3) is used instead of setlinebuf(3)
+	to buffer the stream.
+SIGARGINT
+	The second argument of the software signal function
+	signal(3) must be the pointer to the function which
+	returns the type int.
+SIGFNCINT
+	The second argument of the software signal function
+	signal(3) must be the pointer to the function which
+	has the argument of the type int.
+USESTRERROR
+	The function strerror(3) is used instead of sys_errlist[]
+	to get error messages.
+GETTODARGS
+	This indicates the number of arguments used by the
+	time-getting function gettimeofday(3). The default
+	value is 2.
+GETTODNULL
+	The second argument of the time-getting function
+	gettimeofday(3) must be NULL.
+USESETSID
+	The function setsid(2) can be used to control session.
+USEMMAP
+	The function mmap(2) can be used to map files.
+NOGETPASS
+	The function getpass(3) is not avaliable to input
+	password.
+USESOCKLEN
+	The third argument of the socket function bind(2)/
+	connect(2)/accept(2) must be the type socklen_t.
+NOSENDFLAGS
+	The fourth argument of the socket function send(2)
+	cannot be specified as flags.
+USEINETATON
+	The function inet_aton(3) is used instead of
+	inet_addr(3) to manipulate the Internet address.
+USEINETPTON
+	The function inet_pton(3) is used instead of
+	inet_addr(3) to manipulate the Internet address.
+NOGETPWENT
+	The function getpwent(3) is not available to get the
+	user ID.
+NOGETGRENT
+	The function getgrent(3) is not available to get the
+	group ID.
+USESETREUID
+	The function setreuid(2) is used instead of geteuid(2)
+	to set the user ID.
+USESETRESUID
+	The function setresuid(2) is used instead of geteuid(2)
+	to set the user ID.
+USESETREGID
+	The function setregid(2) is used instead of getegid(2)
+	to set the group ID.
+USESETRESGID
+	The function setresgid(2) is used instead of getegid(2)
+	to set the group ID.
+USEGETGROUPS
+	The function getgroups(2) is used to get the group
+	access list.
+
+SENSEPERSEC
+	This indicates the number to sense the key input per
+	second. It is suitable in case that the terminal
+	communication speed is slow. The default value is 50
+	per second.
+WAITKEYPAD
+	This indicates the time to wait after getting the
+	inputted keycode of ESC. It is suitable in case
+	that the terminal communication speed is slow. The
+	default value is 360ms.
+WAITTERMINAL
+	This indicates the time to wait for each characters
+	in the escape sequence received from the terminal.
+	It is suitable in case that the terminal response
+	is slow. The default value is inherited from the
+	value of WAITKEYPAD.
+WAITKANJI
+	This indicates the time to wait the next keycode
+	while some multi-byte character is inputted. It is
+	suitable in case that the terminal communication
+	speed is slow. The default value is 120ms.
+HDDMOUNT
+	This causes the floppy drive function to support the
+	hard disk drive. It will be defined in case that
+	you want this function on the environment except
+	PC-UNIX.
+
+
+2.Directory Writing Function
+
+  The command WRITE_DIR (w) can write the directory entry to
+the file system according to the displayed order.
+  But, this function is only established by analyzing the
+structure and behavior of the file system on the each OS,
+so that the directory writing function is unavailable in
+the unanalyzed file systems.
+  The string which means the file system type is referred
+from the mount information of the each file system, to judge
+whether if the analyzed file system or not.
+  The following file systems are supported in FDclone about
+the directory writing function.
+
+	4.3	NEWS-OS 3,4.x
+	4.2	SunOS 4.x
+	ufs	SVR4, OSF/1, FreeBSD, NetBSD
+	ffs	NetBSD, OpenBSD
+	hfs	HP-UX, HI-UX
+	ext2	Linux
+	ext3	Linux
+	jfs	AIX
+	efs	IRIX		(SGI original spec.)
+	sysv	SVR3		(SystemV Rel.3 spec.)
+	dg/ux	DG/UX		(SystemV Rel.3 spec.)
+
+  In the file system type except these, unfortunately, the
+directory writing function is unavailable.
+  More correctly, although it is possible that the directory
+writing function is available in the file system except
+the above, this function is invalidated for security because
+it is not confirmed.
+
+  If you are an explorer and regret that the directory writing
+function is unavailable in your own file system, I suggest
+trying to rewrite writablefs() in info.c.
+  Writing is possibly successful, or fail to make a mess of
+the directory contents.
+  If you are a heavier explorer, you should maybe analyze
+the structure of the file system at your hand, and change
+the directory writing algorithm itself.
+  If these changes can add to the supported object of the
+directory writing function, let the author know please. It
+will be reflected in the next release.
+
+  On the other hand, although the directory writing function
+should be available in your file system type, this function
+sometimes doesn't work well because of affairs from OS.
+  For example, in case of ext2/ext3 file systems, dir_index
+option will make the directory writing function ineffective.
+It is because of tune2fs(8).
+  Or, some OS may be unable to write directory in any file
+system.
+  In that case, you should defile UNKNOWNFS in compiling, to
+give top priority to safety.
+
+(Appendix) The directory writing algorithm
+	1.A temporary directory (assumed TMP) is made in the
+	  current directory. At this time, the file name of
+	  TMP must be as long as the file name of the file
+	  which will be placed ahead.
+	2.It is confirmed if TMP is physically ahead in the
+	  directory entry.
+	3.The all file but TMP (including directories) is
+	  moved under TMP.
+	4.If it is not ahead at 2., the name of TMP is renamed,
+	  to guarantee that TMP is ahead in this entry.
+	5.The files in TMP is move back in sorted order.
+	  But, the only file which should be ahead is remained.
+	6.Considering the block size of the directory, if a
+	  gap has made on the block boundary, the dummy file
+	  which has a short name is created to fill the gap.
+	7.After moving files, the name of TMP is renamed. As
+	  a result, TMP is placed at the tail of entries, and
+	  the space is placed at the head of entries.
+	8.The file which should be ahead is moved back from
+	  TMP.
+	9.TMP and the dummy files created at 6. is removed.
+	10.Finished.
+Notes) This is not accessing the directory file directly, it
+       needs quite long time with some directory size.
+
+
+3.File System Information
+
+  At the beta test, it was the most difficulty how to get the
+file system information which is different in every OS.
+  Generally classifying, the kinds of prepared methods are 5
+kinds about the file system information, and 8 kinds of method
+about the mount information. Some OS can support multiple
+methods among these.
+
+  When OS prepares multiple methods, there is a difficult
+problem which is used among them. Because some choice of method
+will cause any trouble in the OS.
+  The priority generally should maybe be taken to the order
+enumerated in 1., but some OS may seems this priority is not
+quite right.
+  Finally, you should try the all possible method, to choose
+the most suitable one among them after implementation.
+
+  If you cannot even compile it, it is a quite mistaken choice.
+If you succeeds to compile it, try to the command INFO_FILESYS (i)
+to the various directory path.
+  The output of the command INFO_FILESYS is almost the same
+as the output of df(1). If the obviously strange value is
+output considering a rounding error, it may be a mistaken
+choice.
+
+  The abnormal output value caused by mistaken choice seems
+to result from 2 reasons.
+	1.mistake the mount point.
+	2.mistake to get the file system information.
+  If the items of "File system" and "Mount point" in output
+informations are not right, try to change the choice about
+the method to get the mount information.
+  Or, while these items are right, when the capacity is not
+right, try to change the choice about the file system
+information.
+
+  In the worst case, any choice may not be able to cause the
+right output. In this case, you cannot but abandon.
+  But, though this output is wrong, these mistaken informations
+is not connected with any fatal faults in FDclone. Since
+these are used only in the command INFO_FILESYS, there is
+no problem as long as this command is not used.
+
+  However, any OS must prepare the right method to get these
+informations. If you know it, it is possible to implement
+the method on FDclone. Then if you find the method, please
+let the author know. It is reflected in the next release.
+
+
+4.Key Code
+
+  The input from the keyboard is generally received as an
+ASCII code which indicates the key top character, in case of
+the normal key. But, the keyboard sends some sequence beginning
+with ESC, in case of the special key.
+  In order to correctly distinguish these sequences and the
+ESC input itself, FDclone waits for 360ms after the ESC code
+is received, and regards it as the input of ESC itself when
+no input code follows it.
+  However, this value is experimental value at the environment
+around the author, and don't have any absolute reason. If
+this value is not suitable in some environment, you should
+try to define the value of WAITKEYPAD in machine.h as some
+larger value.
+
+  Moreover, it refers to descriptions in termcap/terminfo as
+the correspondence table of the key sequence and the actual
+key. If the key has no description, the keymap in the VT100
+compatible terminal is used as default value.
+  If this correspondence doesn't match with the actual sending
+code of the keyboard, getting the key will be impossible.
+In that case, I recommend you to change rightly the registration
+of termcap/terminfo.
+
+
+5.Registration of Archive Browser
+
+  When you newly register an archive browser, you must describe
+a format string in .fd2rc etc. I refer to the example which
+is not mentioned in the manual, in this sentence.
+  The format string is as follows.
+
+	"%n %n %n ... " top bottom
+
+  Most of the archivers seems to be able to avoid top and
+bottom, both of these values will be 0. If the both are 0,
+you can skip these descriptions.
+  Only if the excessive lines, such as a copyright, are displayed
+in addition to the archive file information, you must specify
+the number of lines from the top/bottom line, which is to be
+deleted.
+  You can also specify lines to be deleted as a pattern with
+-i option, and specify error message lines with -e option to
+treat their contents as an error.
+
+  The string showing the format is so similar to the format
+of printf(3) and scanf(3) that who is familiar with the C
+language will not be very puzzled.
+  It is perplexing that each field is not separated by spaces
+nor tabs. Some archivers display the independent informations
+continuously.
+  The next example is from the BSDish tar.
+
+rw-r--r--9999/999  17531 Aug  7 11:50 1995 main.c
+
+  There is no separator between the first string showing the
+file mode and the next string showing the user ID. In this
+case, you must specify the length of sequence showing the
+file mode.
+  In this example, it is the length of 9 letters, so that you
+can specify as "%9a". Therefore, the whole format string is
+as follows.
+
+	"%9a %u/%g %s %m %d %t %y %*f"
+
+  You can see a space after "%9a" in this example, a space
+matches 0 or more spaces or tabs, then this format string
+can also match the output which has no space such as the above
+example.
+  If the format string does not have this space, it cannot
+skip any space on the output. BSDish tar will insert some
+spaces before the user ID whose digits are less than 3, then
+the inserted spaces will be treated as a part of the field
+for the following "%u".
+  The behavior for the field with some spaces and tabs will
+differ with the type of field. Some types of field cannot
+allow any spaces in the field.
+  They will be ignored in the needless field. In the field
+specifying a filename, spaces at the end of line will be
+ignored and the rest spaces are regarded as a part of the
+filename. In the other field, only the spaces at the front
+or end of field will be ignored, but the format string will
+be inferior when there are the other candidates of format
+string.
+  By the way, the length of field for a filename is specified
+as "to the end of line" in this example, then whole string
+to the end of line with spaces and tabs will be regarded as
+a filename.
+
+
+  By the way, some archivers cannot display a year nor a time,
+or use a field as these double purpose. The following is the
+example of output by LHa.
+
+drwxr-xr-x  9999/999         0 ****** Jun  8 12:04 demo/
+-rw-r--r--  9999/999        49 100.0% Dec  8  1994 demo/Makefile
+
+  Thus, the time field and the year field are used as the
+same field, there is no time information in the file which
+has an old timestamp.
+  In that case, you should specify with { } as the year
+information and the time information share the same field,
+being ready for the strange display of the archive browser.
+  Then, the year is displayed as 2012 in the former example,
+and the time is displayed as 0:00 (Because the hour called
+1994 cannot exist.) in the latter example.
+  The following is the format string in this case.
+
+	"%a %u/%g %s %x %m %d %{yt} %*f"
+
+
+  Since the outputs of archivers are different from each
+other according to your environment, you should register
+multiple format strings to use generally in every environment.
+  While some different format strings are prepared by default
+for some archivers which are used rather popularly like as
+tar and LHa, you should analyze and register them by yourself
+for archivers except them.
+  But you should be careful with the order of description,
+because the multiple registered format strings will be compared
+in order of description. For example, the format string which
+regards a whole line as a filename, such as "%*f", will match
+any output line, then the format strings described after this
+are never used as candidates to be compared.
+
+
+6.Registration of Floppy Drive
+
+  If you want to treat the MS-DOS floppy disk like as general
+file systems, in the floppy disk drive as the attachment of
+your system, you must register the drive in .fd2rc etc.
+  For this registration, it is necessary that the driver for
+the floppy disk drive is installed in your OS, and that the
+interface as a special file to access the driver.
+  Depending on OS, this detail is often referred in the manual
+of fd(4).
+
+  Generally, some formats are supported in one physical drive.
+These formats may be automatically identified, or may be
+classified by the name of special file.
+  In the former case, you can describe the same special file
+name as the item of device file in the drive registration
+line, and each format is distinguished with parameters for
+the format.
+  In the latter case, you must describe the special file name
+according to each format for the same drive.
+  In addition, you had better describe the raw device as the
+device file, if possible.
+
+  The following is examples for the inside drive of the SPARC
+systems and NWS-4300 series.
+
+SPARC:
+	A:	"/dev/rfd0c"	2  18 80	(1440KB	2HD)
+	A:	"/dev/rfd0c"	2   9 80	(720KB	2DD)
+	A:	"/dev/rfd0c"	2 108 80	(640KB	2DD)
+
+NWS-3400:
+	A:	"/dev/rfd00a"	2  18 80	(1440KB	2HD)
+	A:	"/dev/rfd01a"	2   9 80	(720KB	2DD)
+	A:	"/dev/rfd03a"	2   8 80	(640KB	2DD)
+
+  These configurations depend on machines and structures even
+if they have the same OS, so that had better be set in the
+common configuration file rather than in the builtin setting
+when compiled.
+  Conversely, if it is the only machine which may use the compiled
+binary of FDclone, it is available to compile as builtin
+setting.
+  If you want to compile as builtin setting, you should change
+the value of the structure array fdtype in dosdisk.c. The
+set up factor is the same as the registration in .fd2rc etc.
+  But, the drive name is described as not the string like "A:"
+but an alphabetical letter. And it must be capital.
+
+  It is quite depend on OS and models which special file
+indicates what format of which drive, so that you should
+refer the OS manual or ask each maker directly.
+  Though the configurations for the inside drive on standard
+models will be builtin with the distributed package, you can
+change it in judgment of a person who install.
+
+  Moreover, the convert from the restriction on MS-DOS filenames
+keep the following rules. This is the same as the specification
+in BSD on Windows.
+	1.The part over 8+3 characters in filenames is deleted.
+	2.The . at the beginning of line or in after the
+	  second appearance is changed to $.
+	3.Any + is changed to `.
+	4.Any , is changed to '.
+	5.Any [ is changed to &.
+  When you look the filename in the floppy drive via FDclone,
+reverse convert of above 2.-5. is done.
+  But, when you specify a small letter as the drive name for
+the LFN access, this rule is not applied. The SFN generated
+in creating the new file follows the filename generation rule
+of Windows 95/98.
+
+
+  On PC-UNIX, the hard disk drive can be registered as well
+as the floppy disk drive. How to register is written in the
+manual. It is to describe the string "HDD" or "HDD98" instead
+of the item value of the number of heads, and so on.
+  The special file specified at this time must not be the one
+separated for each partition (slice), but the one prepared
+for every physical drive unit.
+  The following is the special file name prepared for every
+physical drive unit, on the typical PC-UNIX. With after the
+second unit, the place of '0' or 'a' in the following filename
+is replaced with the letter after '1' or 'b'. (On Solaris,
+it means '0' next to 'd')
+	Solaris	/dev/rdsk/c0d0p0 (IDE)	/dev/rdsk/c0t1d0p0 (SCSI)
+	Linux	/dev/hda (IDE)		/dev/sda (SCSI)
+	FreeBSD	/dev/rwd0 (IDE)		/dev/rsd0 (SCSI)
+	 or	/dev/rad0 (IDE)		/dev/rda0 (SCSI)
+	NetBSD	/dev/rwd0d (IDE)	/dev/rsd0d (SCSI)
+	OpenBSD	/dev/rwd0c (IDE)	/dev/rsd0c (SCSI)
+
+
+7.Function
+
+  It is the same as the function definition of sh(1). For your
+confirmation, the differences from the function implementation
+in Ver. 1.x is following.
+	1.It can be described in separate lines without '\'.
+	2.It is regarded as the function even if it appears
+	  at the beginning of the command line.
+	3.It can be used with the pipe and the redirectee.
+	4.It is impossible to use the parameter macro in the
+	  argument in the function definition.
+  1.-3. result from the FDclone shell-izing, as the bad effect,
+the extension as 4., it is just for FDclone, has been lost.
+  Then, in Ver. 2.00 or later, the builtin command evalmacro
+is prepared, which can make it possible to use the parameter
+macro, in the way to execute after evaluating the macro
+explicitly in the function.
+
+  I think that the merit from using the parameter macro is
+mainly to be able to use selected filenames as arguments.
+  For the example which can exercise this ability best, suppose
+the function which applies some commands to the filenames
+searched with the wildcard.
+
+	delete() {
+		MARK_FIND $1
+		DELETE_FILE
+	}
+
+  As an example to use, "delete '*.bak'" can delete all files
+that has the extension ".bak" in the current directory.
+  Note that "*.bak" is evaluated before this argument is given
+to the function delete, without ''.
+
+  In this case, the command line argument "*.bak" is substituted
+for the positional parameter $1, then the 1st line is evaluated
+into "MARK_FIND *.bak".
+  DELETE_FILE in the 2nd line doesn't need any arguments,
+and deletes all selected files if exist, then all files
+selected with "*.bak" at the 1st line are deleted.
+  It is important that, when no filename matches "*.bak" at
+the 1st line, the object file of DELETE_FILE is not selected
+and the object is forced to be the file on the cursor
+position.
+  But, DELETE_FILE requires the confirmation before deleting
+to let you notice, and it is safe that you place the cursor
+position, in advance, on the file which is unable to be
+deleted by DELETE_FILE, for example "..".
+  Incidentally, this function delete behaves the default
+action of MARK_FIND, i.e. requires to input the wildcard
+string, so that you can delete files interactively.
+
+  Now, see a little more complex case.
+
+	rename() {
+		MARK_ALL 0
+		MARK_FIND $1
+		evalmacro mv %%M $2
+	}
+
+  This is the function which renames appointed filenames all
+together. This time it is a little careful to insert clearing
+marks in the 1st line. In specifications, MARK_FIND will
+select without clearing existent marks.
+  Although it seems suitable that RENAME_FILE is used for
+renaming files in the 3rd line, the truth is that it is
+impossible. Because RENAME_FILE has only the specification
+to change the filename on the cursor position, doesn't have
+the ability to rename selected files continuously.
+  Therefore, the UNIX standard command mv(1) is used. For the
+continuous execution, we don't use the ability of mv(1) but
+the ability of the parameter macro. This is %M in the 3rd
+line.
+
+  Suppose that you input as "rename '*.c' '%XM.c.bak'" from
+the command line, all files which has the extension ".c" will
+be replaced the extension ".c.bak".
+  Note that "*.c" and "%XM" is evaluated before this argument
+is given to the function rename, without ''.
+
+  In this example, since $1="*.c", $2="%XM.c.bak", the 3rd
+line is evaluated into "mv %M %XM.c.bak". %M is the parameter
+macro for which the selected files is substituted one by one,
+%XM is what is removed the extension from that.
+  "*.c" is selected in the 2nd line, and these selected files
+is renamed into the form "*.c.bak" in the 3rd line.
+
+  It is important that the parameter macro "%M" is described
+as "%%M" in the function definition.
+  In specifications, the parameter macro is not evaluated in
+the initial configuration file and the input file of the
+source command as well as inside of the function, so that
+this description may be "%M".
+  But, when this function definition is executed in the command
+line of EXECUTE_SH, the parameter macro "%M" is evaluated
+before the function definition.
+  Therefore, you must specify "%%M" as the string which becomes
+"%M" after evaluating the parameter macro.
+  The description "'%M'" like the function argument also can
+leave "%M" unevaluated surely. But it doesn't cause the
+expected behavior. Since in the function definition "'" is
+not evaluated, this is defined "'%M'" as it is.
+  When you define the function with EXECUTE_SH, such a
+troublesome problem is included. You had better define the
+function in the initial configuration file or the input file
+of the source command, or in the fdsh (it runs by inputting
+the null line in EXECUTE_SH.).
+
+  This method to combine MARK_FIND something reminds us the
+RISC programming, and seems incomprehensible.
+  But, simply listing commands can be achieved also by the
+alias. If you intend to use perfectly the ability of just
+the function, you had better know such a usage.
+
+
+8.Functional Restriction in Compile
+
+  In compile, if you define the following identifiers, you
+can create the executable file in which each function is
+not implemented.
+
+	_NOARCHIVE	cannot use archive browser
+	_NODOSDRIVE	cannot access MS-DOS floppy drive
+	_NOUSELFN	cannot use LongFileName (MS-DOS version)
+	_NOTREE		cannot use tree screen
+	_NOROCKRIDGE	cannot use pseudo RockRidge extension
+	_NOCOMPLETE	cannot use filename completion
+	_NOWRITEFS	cannot use directory writing
+	_NOEDITMODE	cannot use alternative key in edit mode
+	_NOKANJICONV	cannot change kanji code dynamically
+	_NOKANJIFCONV	cannot change filename kanji code dynamically
+	_NOUNICODE	cannot support UNICODE
+	_NOENGMES	cannot display English messages
+	_NOJPNMES	cannot display Japanese messages
+	_NOCOLOR	cannot use color display
+	_NOKEYMAP	cannot use builtin command keymap, getkey
+	_NOORIGSHELL	cannot use internal shell
+	_NOUSEHASH	cannot use hash function for search path
+	_NOORIGGLOB	use regular expression library for globbing
+	_NOSPLITWIN	cannot use split window
+	_NOPRECEDE	cannot use preceding filename display
+	_NOCUSTOMIZE	cannot use customizer
+	_NOEXTRACOPY	cannot use extra copy
+	_NOBROWSE	cannot use browse the builtin command
+	_NOEXTRAMACRO	cannot use %T, %M the macro in statements
+	_NOTRADLAYOUT	cacnot use the traditional screen layout
+	_NODOSCOMMAND	cannot use COMMAND.COM builtins on UNIX
+	_NOEXTRAWIN	cannot resize each split window
+	_NOPTY		cannot use pseudo terminal
+	_NOEXTRAATTR	cannot use extra attribute changing command
+	_NOLOGGING	cannot use system logging
+	_NOIME		cannot use tiny Input Method Editor
+	_NOCATALOG	cannot use message calalog
+	_NODYNAMICLIST	cannot avoid limits of each registrations
+	_NOSOCKET	cannot use socket networking
+	_NOSOCKREDIR	cannot use socket redirections
+	_NOFTP		cannot use FTP connections
+	_NOHTTP		cannot use HTTP connections
+	_NOUNICDTBL	cannot use fd-unicd.tbl (but embed it)
+	_NODICTTBL	cannot use fd-dict.tbl (but embed it)
+
+  If you edit config.hin to add the definition of these
+identifiers, you can reduce functions to make size small,
+or you can restrict the function you don't want to used by
+end users.
+
+
+9.Synchronizing Floppy Drive on PC-UNIX
+
+  In the floppy drive function, the cached memory is used for
+the purpose of fast disk access.
+  When accessing the same place of the disk in succession, it
+refers to the saved data in the cached memory instead of the
+actual disk access, in after the 2nd access.
+  Therefore, if any process except FDclone accesses this disk
+simultaneously, the contents is sometimes different from each
+other temporarily.
+  Many PC-UNIX prepares the operation which mounts the MS-DOS
+file system and accesses it directly. The contents which is
+got with this operation is not synchronized with the contents
+of the floppy drive.
+
+  When you write some data into the MS-DOS file system, first
+it is written in the cached memory of the system, and at the
+later point in time it is written in the actual disk.
+  Even after written in the actual disk, FDclone cannot know
+this writing and then will keep referring to the old data
+while it reads its cache.
+  The contents of cached memory in the file system is affected
+to the actual disk, by calling the system call sync(2).
+  The contents of the disk is affected to the cached memory
+of the floppy drive, by re-opening the floppy drive or
+REREAD_DIR command.
+  And REREAD_DIR command calls sync(2) only when the floppy
+drive function is used, so that it can synchronize both of
+them at the same time.
+
+  When you write some data into the floppy drive, first it
+is written in the cached memory of FDclone, and at the later
+point in time it is written in the actual disk.
+  Even after written in the actual disk by the floppy drive,
+a file system generally accesses the disk with buffering
+and then will keep referring to the old data in its cached
+buffer while they exists in it.
+  The contents of cached memory in FDclone is synchronized
+with the actual disk, by closing the floppy drive or
+REREAD_DIR command. But the MS-DOS file system doesn't always
+reload them.
+  In this case, you must do "umount" the MS-DOS file system
+and re-do "mount" it again after closing the floppy drive or
+REREAD_DIR command, to surely reload the contents.
+
+
+  However, Linux has more problems. It is because Linux has
+no raw device as specific issue.
+
+  Except for Linux, if you select the raw device as the device
+name used in setting the floppy drive function, FDclone can
+access the device and the actual disk simultaneously.
+  But since Linux has no raw device and the device itself
+accesses the disk with buffering, this synchronization can
+never be realized.
+
+  First, about writing into the floppy drive, both of the
+buffer written by the floppy drive and the buffer read by
+the file system are written into the actual disk by calling
+sync(2).
+  Therefore, while the floppy drive rewrites data again and
+again, they are always overwritten by the buffer of the file
+system, not to be affected.
+  In order to avoid it, if the floppy drive has been already
+mounted as the file system when it is opened, FDclone treats
+the floppy drive as readonly, on Linux.
+
+  Next, about reading from the floppy drive, since only root
+has the permission to realize synchronization, general users
+can never know the contents of the actual disk.
+  Therefore, if you want to refer to the contents written by
+the MS-DOS file system from the MS-DOS file system, it is
+necessary to do "umount" the MS-DOS file system, as well as
+writing into the floppy drive.
+  But, while the device buffer is canceled by "umount" in the
+case that the disk is a removable medium like a floppy disk,
+it is not canceled by "umount" in the case of a fixed medium
+like a hard disk, in specifications.
+  In order to force it canceled, you cannot help ordering it
+with the root permission.
+  Opening the floppy drive and REREAD_DIR command call this
+order to cancel the Linux buffer, only when FDclone is running
+with the root permission.
+  If you want synchronize in any way on Linux, you should
+invoke FDclone with the root permission, and use the floppy
+drive function.
+
+
+  But, since the root cause of this synchronization issue is
+accessing one disk medium in two ways, I think that it is
+best to avoid by employment of not accessing simultaneously
+in different ways.
+  While you use the floppy drive function, you should manage
+to cover it, for example, you do "umount" the corresponding
+MS-DOS file system in advance, or you take care that the other
+users or processes may not access it, etc.
+
+
+10.Browse the Builtin Command
+
+  The manual describes only specifications then this document
+will refer to an usage for browse the builtin command with
+some samples.
+
+  The basic of browse is invoking browsers recursively, such
+as invoking a browser first, and invoking the next browser
+if you select a file, and then...
+  For a simple example, I will introduce the browse which
+shows the calendar of specified year and month.
+	browse \
+	'for i in 0 1 2 3 4 5 6 7 8 9; do echo 200$i; done' \
+	-f "%f" \
+	'for i in 1 2 3 4 5 6 7 8 9 10 11 12; do echo $i; done' \
+	-f "%f" \
+	'cal $1 $2%K'
+
+  Though each end of line has '\' because of separating
+each arguments by line for ease to look, these are a command
+line then should be described in one line.
+  The 1st line is a name of command. The 2nd line is the
+command macro to display strings from "2000" to "2009" line
+by line. I don't mention the shell syntax, then you should
+understand that this description can cause so.
+  The 3rd line is the format for an archive browser. This
+result outputted by the 2nd line does not include information
+of timestamp nor file size, so that only "%f" which means
+a filename is specified.
+  In this description, the browser is built such that lists
+filenames from "2000" to "2009" and lets you select a file
+from them.
+
+  When you select any of file, the next command in the 4th
+line is executed. This is the command macro to display strings
+from "1" to "12" line by line.
+  The 5th line is the format for an archive browser as same
+as above which means to pick up only the item of filename
+from the outputted result. As a result, the browser is built
+such that lets you select any of file from "1" to "12".
+
+  The 6th line executes 'cal' the external command. $1 and
+$2 the positional parameters hold the filenames selected till
+now, so that they hold the one from "1" to "12" and the one
+from "2000" to "2009" respectively.
+  Since no -f option follows this command, in this case,
+this output is just displayed to screen and it is done. You
+will not be able to have enough time to read the output if
+finished at that, then "%K" the macro waits for a key input.
+
+  In total, this command builds the following browser.
+	1. The first, you select a year.
+	2. The next, you select a month.
+	3. Then it shows the calendar of selected year and
+	   month.
+
+
+  And now, I will show you more complex example.
+	browse \
+	'echo "host1
+	host2
+	host3"' \
+	-f "%f" \
+	-p 'RHOST=$1; RPATH=' \
+	'rsh $RHOST "ls -lag $RPATH"' \
+	-f "%a %l %u %g %s %m %d %{yt} %*f" \
+	-i "total *" \
+	-p 'RPATH=$1; while [ "$#" -gt 2 ]; do shift; RPATH=$1/$RPATH; done' \
+	-d loop \
+	'rcp $RHOST:$RPATH ./${RPATH##*/}'
+
+  The 1st line is a name of command. The 2nd-4th line is
+the command macro to display strings "host1", "host2 and
+"host3" line by line. The 5th line is the format. It is
+less difference from the above example so far.
+  The -p option in the 6th line works a little specially.
+Though you could step the next selection when you select
+any of file, this option orders to execute the command
+such as "RHOST=$1; RPATH=" before then.
+  This is the command to substitute the selected filename
+for "RHOST" the internal variable and empty the value
+of "RPATH" the internal variable. So the next level of
+command will be executed when you select a file, you may
+think that it is enough to describe so in it. Yet there
+are two reasons why I don't so.
+  The one reason is that a loop is occurred, this will be
+mentioned after. The other reason is no definition of
+internal variables in the command whose output is used
+for an archive browser is left later.
+  In general, the shell pipeline with "|" will be executed
+in a child process, and any values set in a child process
+will not affect its parent process.
+  Of course, I could build the implementation in which
+the result output executed in the current process is
+passed to an archive browser, but I dare to take another
+specification. You should think as it is.
+
+  You can step the next selection if you select any of "host?".
+The command in the 7th line is execute then.
+  The internal variables already set by -p option are used
+at once. Rsh the external command requires the 1st argument
+as a remote host name, and the 2nd argument as the command
+string to be executed on the remote host.
+  The content of "RPATH" is empty, so "ls -lag" will be
+executed on the selected host. And the format in the 8th
+line specify the output form of ls.
+  -i option in the 10th line set a value of an internal
+variable as same as above. Though it looks like confusing,
+the value of "RPATH" finally becomes ".../$3/$2/$1".
+  Because of the condition such as `[ "$#" -gt 2 ]', it does
+not include the last positional parameter. Since the last
+positional parameter holds the filename selected first, it
+is the host name in this case.
+  The 11th line orders "Execute the same command as the last
+one instead of stepping the next, if the selected file is
+a directory". Whenever you select any directory, rsh will be
+used.
+  As a result, it is repeated that whenever you continue to
+select directories, the name is added to "RPATH" the internal
+variable and ls is executed with the content as an argument.
+  Because the loop has occurred in this line, the previous
+initialization for "RHOST" and "RPATH" must be described
+in -p option.
+
+  Meanwhile, how about in case that you select except
+directories ? Since the loop is not ordered with except
+directories, you will step the next 12th line.
+  Rcp the external command requires the 1st argument as a
+source filename, and the 2nd argument as a destination filename.
+The "hostname:" prefixed to each filename means a file on the
+remote host.
+  Since the command execution specified by the -p option
+in the 10th line precedes the execution of the 12th line,
+"RPATH" the internal variable will hold the fullpath name
+for the selected file.
+  And the description such as "${RPATH##*/}" extracts the
+last item of this fullpath name, so that this description
+means that the selected file on the selected remote host
+is copied to the current directory on the local machine
+as the same name.
+
+  In total, this command builds the following browser.
+	1. The first, you select a host.
+	2. The next, you select directories recursively.
+	3. The last, select a filename.
+	4. Then it copies the selected file in the selected
+	   directory from the selected remote host to the
+	   current directory on local machine.
+  As compared with the above example of a calendar, it looks
+like the browser more. The example with a similar structure
+is described with getftp() the function definition in _fdrc,
+you can analyze it if possible.
+
+
+  By the way, it is troublesome for browsing that you can
+only dig one-way directories. It is necessary to return to
+the parent directory and to re-enter another directory.
+  In the browser build by browse the builtin command, as written
+in a manual, the filename as ".." is treated specially. This
+is the same as general browsers.
+  Since ".." is clearly the filename which means the parent
+directory, even if no ".." appeared in the output passed to
+the archive browser, it will use as "the filename to return".
+Then you can return the parent directory with pushing the [Bs]
+key or selecting ".." in LOG_DIR the command, if no ".." is
+listed.
+  In this case, ".." is a directory absolutely, so that it
+will obey the order of -d option. In the above example, it
+continues to execute rsh instead of stepping rcp.
+  And it executes the command specified by -p option unless
+-d noprep is specified, then the value of "RPATH" will be
+also set in the above example.
+  Since the case that you push the [Bs] key is treated as
+you select "..", $1 will hold "..". Then "RPATH" will always
+keep a name of the current directory.
+
+  As look well, execution of shift in -p option of the 10th
+line seems to empty the all positional parameters. But these
+positional parameters will be restored when you select each
+file even if shift is done or set another value with set the
+builtin command, because they are set together when you select
+each file, as written in a manual.
+  Because there is no file selection from the execution of
+the command for -p option to the execution of the next command
+for an archive browser, you should note that, if you empty
+positional parameters in -p option, you cannot refer to it
+in the next command for an archive browser.
+
+
+  The last I refer to a difficult notice. It is that when
+you use the external command such as rsh and ftp in the examples,
+its output form will be different according to the OS or the
+environment.
+
+  In the general archive browser, since the output of each
+archiver which is the external command also relies on the
+environment, launch the builtin command needs registrations
+of the multiple format strings with -f option.
+  It is the same for browse the builtin command. Unlike the
+archiver command which has the only implementation on the
+only environment, the command using the network such as rsh
+and ftp will have the quite different output form only if
+the remote host is different.
+  In above example, the format string is shown for the rather
+popular output form. For more practical, you should register
+the multiple format strings in order to support more various
+remote hosts.
+  Like this, you should also register the multiple -i options
+and -e options.
+
+
+11.Kana-Kanji Translation Dictionary
+
+  In the standard state, the included mktankan.c makes the
+text dictionary for the Tan-Kanji translation to make
+fd-dict.tbl, the Kana-Kanji translation dictionary, from it.
+  In this state, fd-dict.tbl does not include any Hinsi
+information. Then you will be able to use only the Tan-Kanji
+translation in the Kana-Kanji IME mode, if you use this as
+is.
+  The internal translation engine supports the Tan-Bunsetsu
+translation based on the Hinsi translation. If you prepare
+the other text dictionary with the Hinsi information, you
+can use Ren-Bubsetsu translation in the Kana-Kanji IME mode.
+
+  The supported dictionary form is the pubdic form. And you
+can also use the text converted from the dictionary of Wnn,
+Canna and SJ3.
+  If you describe these dictionaries as DICTSRC in Makefile.in
+at compile time, fd-dict.tbl, the Kana-Kanji translation
+dictionary, will be based on these dictionaries.
+
+  When you describe it as DICTSRC, you should describe it
+with the absolute path or the relative path from the
+directory where they are compiled. You may describe only the
+filename, of cource, when you place them at the same
+directory.
+  When you describe multiple dictionaries, you should
+separate them with spaces. You can not choose one of them
+at execution, so that the translation candidate will be
+selected from all of them.
+  You can specify it from the command line of 'make' such as
+"make DICTSRC=./puvdic.p", in the case of a single
+dictionary.
+
+  When you change the dictionary specification after once
+compiling, you must delete the compiled fd-dict.tbl and
+compile it.
+  In this case, you can execute "make rmdict".  Then only
+the files related to the dictionary will be deleted, and
+the other compile results will be leaved as they were.
+
+
+12.Message Catalog
+
+  In the standard state, the included mkcat.c makes fd-cat.ja
+as the Japanese message catalog and fd-cat.C as the English
+message catalog, based on message strings written in kanji.hin.
+  If these message catalogs exist in the same directory as
+the executable binary of fd, you can specify its extension
+string for MESSAGELANG the internal variable to replace
+displaying messages to contents of the catalog.
+
+  If you want to use the original message catalog, you can
+edit the standard message catalog to make the new message
+catalog.
+  On the way to compile fd, _fd-cat.ja and _fd-cat.C as the
+text file will be auto-generated.  These are the source file
+for each message catalogs.
+  You must describe these source files in Shift JIS or EUC-
+JP.  EUC-JP is selected when CODEEUC the identifier is set,
+otherwise Shift JIS is selected.
+  If you make the message catalog with single byte characters,
+you need not care about its Kanji code.  The message catalog
+with multi byte characters except Japanese is not supported
+now.
+
+  You can use mkcat.c to generate the message catalog.  The
+following process will generate fd-cat.fr from the source of
+_fd-cat.fr for example.
+  You can execute the next command in the directory where fd
+was compiled.  And you will copy generated fd-cat.fr to the
+same directory as the executable binary of fd, to use it as
+an additional message catalog.
+	./mkcat _fd-cat.fr fd-cat.fr
+
+  But, you must be careful when USEDATADIR the identifier had
+been defined before fd was compiled.
+  In this case, the message catalog must be placed in not
+the same directory as the executable binary of fd, but the
+directory which is specified by DATADIR in Makefile.in.
+  You will make the directory under DATADIR for each fd
+versions.  Suppose DATADIR=/fd and version is 3.00, the
+directory name will be /fd/3.00.
+  This directory for message catalogs will be auto-generated
+with installation.  Then you should execute installation
+once.

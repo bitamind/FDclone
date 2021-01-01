@@ -1,0 +1,572 @@
+Ver. 3.01j	Bug that symbolic link is copied as absolute path is fixed.
+ (07/27/19)	Failure to convert Kanji of symbolic link body is fixed.
+
+Ver. 3.01i	Support Android 9.0.
+ (05/25/19)	Failure to cross-compile with some clang is fixed.
+
+Ver. 3.01h	Keep one-on-one UTF-8 table with filename Kanji conversion.
+ (08/11/18)	Bug that previous job never become current job is fixed.
+		Lack of output rarely with command termination is fixed.
+
+Ver. 3.01g	Failure to display file system info. on WSL is fixed.
+ (06/02/18)	Broken display of error message is fixed.
+		Illegal syntax error caused with the internal shell is fixed.
+		Broken Kanji with some builtins is fixed.
+		Broken Kanji with internal commands via EXECUTE_SH is fixed.
+
+Ver. 3.01f	Support FreenBSD 11.1.
+ (04/14/18)	Support NetBSD 7.1.
+		Support OpenBSD 6.2.
+		Support MINIX 3.3.
+		Failure to compile with some clang is fixed.
+		Failure to compile on some POSIX environments is fixed.
+
+Ver. 3.01e	Support Cygwin 2.5.1.
+ (01/20/18)	Wrong display width of some Kanji when PTYMODE=1 is fixed.
+		Broken display of Kanji with the internal shell is fixed.
+		Japanese documents are fixed from EUC-JP to Shift_JIS. (MS-DOS)
+
+Ver. 3.01d	Needless file included in the source package is deleted.
+ (12/25/17)	Omission to update fd.spec is fixed.
+
+Ver. 3.01c	Overflowed MD5 with 'checkid' builtin on 64bits OS is fixed.
+ (12/23/17)	Wrong terminal size got on some environments is fixed.
+		Broken display when internal shell resized is fixed.
+		Some broken Kanji with fd invoked by fdsh is fixed.
+
+Ver. 3.01b	Abortion with sparc64 architecture is fixed.
+ (05/06/14)	Failure to expand macros with Linux kernel >=2.6.23 is fixed.
+		Failure to overwrite some macro with 'bind' is fixed.
+		Infinite loop by some builtin with %M macro is fixed.
+
+Ver. 3.01a	Change 'IMELARNING' internal variable to 'IMELEARNING'.
+ (06/08/13)	Sorting rule for tree screen is adjusted to browser screen.
+		Bug that any invalid UID/GID breaks file list is fixed.
+		Bug that file list is not updated with lost directory is fixed.
+		Failure to compile with environments using termio is fixed.
+
+Ver. 3.01	Add 'WIDEDIGIT', 'SIZEUNIT' internal variables.
+ (08/03/12)	Add 'HISTUMASK', 'DIRHISTUMASK' internal variables.
+		Add 'IMELARNING', 'FREQFILE', 'FREQUMASK' internal variables.
+		Add 'getfreq', 'setfreq' builtins.
+		The object tables of 'IMEBUFFER' internal variable is extended.
+
+Ver. 3.00m	Add the identifier UTF8LANG for compile.
+ (07/27/12)	Abortion when save file on customizer with some OS is fixed.
+		Wrong priority with IME translation candidates is fixed.
+		Unavailable dictionary in DICTSRC with ShiftJIS OS is fixed.
+		Failure to compile with gcc-4.2 is fixed.
+		Bug that some pipes cause infinite loop is fixed.
+		Ineffective suspend key in any pipes is fixed.
+		Wrong manual page for 'wait' builtin with no argument is fixed.
+
+Ver. 3.00l	Support Android 4.0.
+ (06/30/12)	Support MINIX 3.2.
+		Add the identifiers DEFKCODE, UTF8DOC, LANGWIDTH for compile.
+		Add the identifiers _NOUNICDTBL, _NODICTTBL for compile.
+		The cross-compiling is supported more carefully.
+		Strange attribute-changing screen in narrow terminal is fixed.
+		Some abortion when open archive browser is fixed.
+		Some abortion when access MS-DOS formed path is fixed.
+		Persistence of "Wait a minute" when TRADLAYOUT=1 is fixed.
+		Ineffective sequence to save cursor when PTYMODE=1 is fixed.
+		Unreadable file starting with "./" in archive browser is fixed.
+
+Ver. 3.00k	Support Cygwin 1.7.13.
+ (04/21/12)	The cursor position after changing directory upward is changed.
+		Failure by PageUp/PageDown key on the tree screen is fixed.
+		Unsupported second resolution on the floppy drive is fixed.
+		Some abortions by Bs key on the tree screen is fixed.
+		Broken tree screen on the MS-DOS formed path is fixed.
+		Failure to get HTTP log on some environments is fixed.
+		Ineffective command result just before NEXT_WINDOW is fixed.
+		Abortion with LOG_DIR in archive browser is fixed.
+		Unexpected result of LOG_DIR in archive browser is fixed.
+		Overflow by the too long path name is suppressed.
+		Some commands in archive browser is restricted.
+
+Ver. 3.00j	Failure of some HTTP redirection is fixed.
+ (09/25/10)	Needless network access when URLDRIVE=1 is suppressed.
+		Mis-parsing of the file list from some HTTP servers is fixed.
+		Failure of INFO_FILESYS on MINIX is fixed.
+
+Ver. 3.00i	Support MINIX 3.
+ (07/24/10)	Support NetBSD 5.0.
+		Changing to directory on some pseudo file system is allowed.
+		Freezing of pseudo terminal with utf8-mac is fixed.
+		Failure to convert Kanji code of startup argument is fixed.
+		Broken shell output string with effective DEFKCODE is fixed.
+		Failure to convert case letter on ShiftJIS is fixed.
+		Miscount of items on customizer when changing tab is fixed.
+		Misprint of string to map key code is fixed.
+		Column overflow of Japanese filename on status line is fixed.
+		Wrong cursor position when closing archive browser is fixed.
+		Failed archive browser with here-document is fixed.
+		Illegal newline code with archive browser is fixed. (MS-DOS)
+		Invalid terminal input with internal shell on DJGPP is fixed.
+		Unloadable newline (^J) from command history file is fixed.
+
+Ver. 3.00h	Hang-up when 'PS1' internal variable includes \[...\] is fixed.
+ (06/14/10)	Failure to compile with non-standard C compiler is fixed.
+		Recursive call of malloc() in abortion is fixed.
+
+Ver. 3.00g	Broken tree screen with unprintable directory name is fixed.
+ (06/04/10)	Abortion when accessing directory with Japanese is fixed.
+		Buffer overflow in Japanese string parser is fixed.
+
+Ver. 3.00f	Mis-action of 'dir' builtin which differs from MS-DOS is fixed.
+ (05/29/10)	Invalidated default attribute mask of 'dir' builtin is fixed.
+		Abortion when canceling in COPY_TREE/MOVE_TREE is fixed.
+
+Ver. 3.00e	Add mkdir_p.c for installation.
+ (02/27/10)	Support Cygwin 1.7.1.
+		Failure to compile with some non-ANSI C compilers is fixed.
+
+Ver. 3.00d	Freezing by filename completion on some environments is fixed.
+ (11/30/08)	Mis-identified path invoked as login shell via su(1) is fixed.
+		Freezing by the large value set as 'HISTSIZE' is fixed.
+		Bug that 'echo' builtin ignores anyone starts with - is fixed.
+		Support function keys with some VT100 compatible terminals.
+		Warning by ioctl() on 64bits BSDs is fixed.
+
+Ver. 3.00c	Bug to garble the pasted string when INPUTKCODE=utf8 is fixed.
+ (07/27/08)	Failure to access the root directory is fixed. (MS-DOS)
+		Failure to be invoked on Windows NT is fixed. (MS-DOS)
+		Illegal newline code for input/output is fixed. (MS-DOS)
+		Failure to replace some strings in 'fc' builtin is fixed.
+
+Ver. 3.00b	Failure to replace with $()/$(()) is fixed.
+ (07/06/08)	Bug that some temporary files may remain is fixed.
+		Freezing by here-document with huge size is fixed.
+		Mis-substitution of variables with exit status is fixed.
+		Failure to treat argument with '=' as substitution is fixed.
+		Buffer overflow with the undefined floppy drive is fixed.
+		Mis-operation for redirections with complex sentences is fixed.
+		Bug that trap on exit cannot be executed suitably is fixed.
+		Inaccurate value of 'LINENO' internal variable is fixed.
+		Bug that newline cannot be allowed in 'case' sentence is fixed.
+		Bug that ${} cannot include meta characters within "" is fixed.
+		Mis-replacement for meta characters in here-document is fixed.
+		Adjust representations for 'FD_VERSION' of each documents.
+		Bug that 'FD_VERSION' may not be set is fixed.
+
+Ver. 3.00a	Failure to replace the alias with no argument is fixed.
+ (06/21/08)	Abortion with recursively invoked archive browser is fixed.
+		Resolve a directory traversal vulnerability on the URL drive.
+		Mis-implementation of telnet commands in FTP is fixed.
+		Failure to compile on Solaris 8 is fixed.
+		Adjust representations of each documents to Ver. 3.00.
+
+Ver. 3.00	Add the URL drive function.
+ (05/31/08)	Add scheme moditiers to access socket as redirect file.
+		Support the message catalog.
+		Abolish limits of each registrations.
+		Support argument of EDIT_CONFIG as environment variable name.
+		Add 'AUTOUPDATE' internal variable.
+		Add 'VERSION' internal variable.
+		Add 'URLDRIVE', 'URLKCODE', 'HIDEPASSWD' internal variables.
+		Add 'URLOPTIONS', 'URLTIMEOUT' internal variables.
+		Add 'FTPPROXY', 'FTPLOGFILE', 'FTPADDRESS' internal variables.
+		Add 'HTTPPROXY', 'HTTPLOGFILE' internal variables.
+		Add 'HTMLLOGFILE' internal variable.
+		Add 'accept', 'socketinfo', 'addcr' builtins.
+		Add -N option in 'echo' builtin.
+		Add -N option in 'read' builtin.
+		Add the formats of %w, %p, %B, %b, %/, %! for archive browser.
+		Add the redirectees of '<>&', '><&' for duplication.
+		Add the redirectees of '<>-', '<>&-', '><-', '><&-' for close.
+		Change default file descriptor of '><' redirectee to stdout.
+
+Ver. 2.09i	Failure to compile on Darwin 9.x (Mac OS X 10.5) is fixed.
+ (04/19/08)	Odd screen when displaying some long file names is fixed.
+		Failure to write directory for FAT file system is fixed.
+
+Ver. 2.09h	Bug that ATTR_FILE/ATTR_DIR have sometimes no effect is fixed.
+ (03/15/08)	Unsuitable error message with no controlling terminal is fixed.
+		Odd completion choice list while shifting filename is fixed.
+
+Ver. 2.09g	Abortion with no controlling terminal is fixed.
+ (01/26/08)	Failure to find the startup directory is resolved partly.
+		Failure to input some special keys is reduced.
+
+Ver. 2.09f	Bug to garble the pasted string in some environments is fixed.
+ (10/28/07)	Mis-inputted keys after dynamic variation of 'TERM' is fixed.
+		Bug to ignore some configuration files on NFS is fixed.
+		Failure with some builtins in non-interactive shell is fixed.
+		Bug not to expand variables after '~' is fixed.
+
+Ver. 2.09e	Freezing sometimes caused in 'copy' builtin is fixed.
+ (09/16/07)	Abortion when missing the current directory is fixed.
+		Wrong default file descriptor of '<>'/'><' redirectee is fixed.
+		Incomplete check for the supplementary group is fixed.
+
+Ver. 2.09d	Support Linux kernel 2.6.20.
+ (04/26/07)	Progress key responses when INPUTKCODE=utf8.
+		Abortion with accessing the empty directory is fixed.
+		Inaccessiblity of the floppy drive with large size is fixed.
+
+Ver. 2.09c	Failure to support Linux kernel 2.6.18 is fixed.
+ (01/17/07)
+
+Ver. 2.09b	Support Linux kernel 2.6.18.
+ (12/22/06)	Bug that '..' is not accessible in floppy drive is fixed.
+
+Ver. 2.09a	Support hard-linked archive files with GNU tar.
+ (10/31/06)	Support timeout of locking files.
+		Bug that shared folder cannot be accessed on Cygwin is fixed.
+		Bug that UTF8-mac cannot work in some code settings is fixed.
+		Bug that some Japanese input is broken on PTYMODE=1 is fixed.
+		Mis-sorting order for filenames on IGNORECASE=1 is fixed.
+		Bug that function keys cannot work in some terminals is fixed.
+
+Ver. 2.09	Add 'IMEKEY', 'IMEBUFFER' internal variables.
+ (08/22/06)	Add 'BASICCUSTOM' internal variable.
+		Add 'PROGRESSBAR', 'PRECOPYMENU' internal variables.
+		Add 'SAVEDIRHIST', 'DIRHISTFILE' internal variables.
+		Add 'FUNCLAYOUT' internal variable.
+		Add 'MESSAGELANG' internal variable.
+		'LANGUAGE' etc. support the value of UTF8-iconv.
+		Add 'UTF8ICONVPATH' internal variable.
+		Add %JI macro.
+		'SORTTYPE' supports preserving sort type in archive browser.
+		'ANSIPALETTE' supports the color of executable files.
+		Add 'setroman', 'printroman' builtins.
+		Support specifying key comment up to F20 with 'bind' builtin.
+		Add Kanji input to the pseudo terminal menu.
+		Support Kanji code on 'InputCode' of the pseudo terminal menu.
+		Freezing when PTYMODE=1 on Cygwin is fixed.
+		Abortion when the log file is specified is fixed.
+		Bug that no UTF8 filename can be treated is fixed.
+		Abortion with the UTF8 environment on UNICODEBUFFER=1 is fixed.
+
+Ver. 2.08f	Support locking on NFS to protect the command history file.
+ (08/08/06)	Failure to compile on the non-ANSI environment is fixed.
+		Support Cygwin 1.5.21.
+		Mis-sorting for Japanese filenames on IGNORECASE=1 is fixed.
+		Broken UNICODE table is fixed. (MS-DOS)
+
+Ver. 2.08e	Support the menu method for 'ANSIPALETTE' on customizer.
+ (07/28/06)	Support the key-input method for 'PTYMENUKEY' on customizer.
+		Support the setting of "EDITOR", "PAGER", etc. on customizer.
+		Bug that the setting of 'SORTTYPE' takes no effect is fixed.
+		Abortion with sparc64 architecture is fixed.
+		Unsuitable cursor position with UTF8 on PTYMODE=1 is fixed.
+		Failure to copy/move the unwritable directory is fixed.
+		Failure to complete the filename with a drive name is fixed.
+		Failure to change timespamp of SFN directory is fixed. (MS-DOS)
+
+Ver. 2.08d	Bug that command line rejects any Japanese on the pty is fixed.
+ (06/13/06)	Bug that command line rejects any Kana is fixed.
+		Mis-indicating for the incremental history search is fixed.
+		Bug that the history file on NFS is deadlocked is fixed.
+
+Ver. 2.08c	Bug that the command history file on NFS is truncated is fixed.
+ (05/24/06)	Support some OSs displaying every archived file size as 0.
+
+Ver. 2.08b	Support Cygwin 1.5.19.
+ (03/30/06)	Support internal commands with the command line on PTYMODE=1.
+		Bug that inputted key is dropped in some environments is fixed.
+		Abortion when "!string"-type history is not found is fixed.
+		Unsuitable filename completion with meta characters is fixed.
+		Bug that macros ignore any mark files on PTYMODE=1 is fixed.
+		Bug that ANSICOLOR=2 is ineffective on PTYMODE=1 is fixed.
+		Bug that current directory is not passed on PTYMODE=1 is fixed.
+		Bug that terminal status of mlterm will be broken is fixed.
+		Bug that OUT_DIR is ineffective with no file is fixed.
+		Bug that 'bgnotify' is ineffective out of EXECUTE_SH is fixed.
+		Bug that some background jobs output strange string is fixed.
+
+Ver. 2.08a	Support NetBSD 3.0.
+ (02/07/06)	Failure to work according to 'PTYINKCODE' setting is fixed.
+		Failure to compile on some environments using varargs is fixed.
+		Failure to compile on some environments using sgtty is fixed.
+		Failure to input keys on fdsh with unregistered TERM is fixed.
+		Bug that 'echo' builtin does not refer to 'DEFKCODE' is fixed.
+
+Ver. 2.08	Add 'PTYINKCODE' and 'PTYOUTKCODE' internal variables.
+ (12/26/05)	Add 'LOGFILE', 'LOGSIZE' and 'USESYSLOG' internal variables.
+		Add 'LOGLEVEL' and 'ROOTLOGLEVEL' internal variables.
+		Add 'THRUARGS' internal variable.
+		Add 'savetty' builtin.
+		Add -o autosavetty and -S options in 'set' builtin.
+		Add -o ptyshell and -T options in 'set' builtin.
+		Add -P option in 'set' builtin as an alias of -o physical.
+		Add ATTR_DIR command.
+		Support changing file owner/group in ATTR_FILE.
+		Bug that some files may be lost in writing directory is fixed.
+
+Ver. 2.07c	Support archive list terminated with duplicate path delimiters.
+ (12/13/05)	Bug that arguments of fd from fdsh are re-evaluated is fixed.
+		Bug that customizer cannot set HEX/CAP as FNAMEKCODE is fixed.
+		Bug that select menus are sometimes broken is fixed.
+		Mis-handling dynamic change of LANGUAGE on PTYMODE=1 is fixed.
+		Abortion when fdsh is invoked with -N option is fixed.
+		Support file lock to protect the command history file.
+		Bug that fdsh cannot validate ADJTTY is fixed.
+
+Ver. 2.07b	Bug that some pipes cause suspention is fixed.
+ (09/14/05)	Failure to do make with tail(1) strict on POSIX is fixed.
+
+Ver. 2.07a	Bug that the screen is not updated with no file is fixed.
+ (06/22/05)	Failure to be invoked on Darwin (Mac OS X) is fixed.
+		Allow evaluation of \ included in `` with the internal shell.
+		Faliure to redirect to a new file descriptor is fixed.
+
+Ver. 2.07	Add 'PTYMODE', 'PTYTERM' and 'PTYMENUKEY' internal variables.
+ (05/26/05)	Add 'DEFKCODE' internal variable.
+		Expand the maximum number of split windows into 5.
+		Add WIDEN_WINDOW/NARROW_WINDOW/KILL_WINDOW commands.
+		Support dynamic 'COLUMNS' and 'LINES' environment variables.
+
+Ver. 2.06d	The directory for /etc/fd2rc becomes specifiable in compile.
+ (05/10/05)	Add the inhibited filenames COM5-COM9 in floppy drive.
+		Bug that here-document is unavailable in functions is fixed.
+		Bug that completion sometimes causes strange display is fixed.
+		Abortion of child process with pipe of builtin is fixed.
+		Abortion when invoked from directory with Japanese is fixed.
+		Abortion when exit fd with split windows via fdsh is fixed.
+		Support changing screen size while child process is executed.
+
+Ver. 2.06c	Add the function to unset variables on customizer.
+ (02/23/05)	Mis-handling for archived file with meta characters is fixed.
+
+Ver. 2.06b	Support the key input by UTF-8 code.
+ (12/14/04)	Support some OS environments displaying every file size as 0.
+		Suppress the useless access to FDD on Cygwin.
+		Bug that some kanji cannot be inputted on ShiftJIS is fixed.
+
+Ver. 2.06a	Validate interrupt key at question in marked file operations.
+ (09/08/04)	Broken copy into the file linked the same entity is fixed.
+		Bug that symbolic link cannot overwrite existent file is fixed.
+		Mis-expansion of the macro with Japanese string is fixed.
+		Mis-completion of symbolic link name without entity is fixed.
+		Mis-position of cursor when cancel to move files is fixed.
+
+Ver. 2.06	Add the second startup argument for supplemental directory.
+ (08/10/04)	Add the incremental history search in the string input.
+		Add 'builtin', 'enable' builtins.
+		Add the startup options -l, -N.
+		Allow `` included in "" with the internal shell.
+
+Ver. 2.05h	Freezing fd invoked from fdsh with any arguments is fixed.
+ (07/27/04)	Mis-handling for the archived file with '.' or '..' is fixed.
+		Bug to garble symbolic link to Japanese filename is fixed.
+		Mis-location of cursor in case conversion of string is fixed.
+		Mis-location of cursor in filename incremental search is fixed.
+
+Ver. 2.05g	Bug that startup options with directory cannot work is fixed.
+ (07/07/04)	Strange sorted order in the filename completion is fixed.
+		Delete 'mkdir'/'rmdir' builtin commands for UNIX.
+		Support the kernel who handles SIGSTOP/SIGCONT in own style.
+
+Ver. 2.05f	Failure to treat the command line ending with '\' is fixed.
+ (06/23/04)	Failure to launch archived file with any marked files is fixed.
+		Bug that USEGETCURSOR cannot work is fixed.
+		Bug that the startup option -r cannot work is fixed.
+		Refine line editing in vi mode.
+		Ingore unsupported error for the new tty line discipline.
+
+Ver. 2.05e	Failure to copy files to destination suffixed by '/' is fixed.
+ (06/09/04)	Bug that wildcard out of quotation cannot be expanded is fixed.
+		Make meta characters in directory history to be escaped.
+		Invalidate filename completion in input unrelated to filename.
+		Bug to call chflags() in ATTR_FILE for marked files is fixed.
+		Allow ext2 file system to write directory.
+
+Ver. 2.05d	Bug that ineffective \$ in PS1 is fixed.
+ (05/12/04)	Bug that \~ in PS1 is sometimes expanded incorrectly is fixed.
+		Bug that fd invoked by fdsh changes current directory is fixed.
+		Add notice when temporary directory is selected to expand file.
+
+Ver. 2.05c	Bug that 'bind' binds a wrong macro to the bound key is fixed.
+ (02/04/04)	Failure to do 'make install' on Cygwin is fixed.
+
+Ver. 2.05b	Abortion with InsLine key in the string input is fixed.
+ (01/14/04)	Bug that option letter for 'getopt' is lowercase only is fixed.
+		Bug to bind commands to no Katakana key on EUC is fixed.
+		Bug that strange error string for initialize in 16bit based OS.
+		Bug that cursor cannot back on string input without CODEEUC.
+		Strange display on some terminals with terminfo is fixed.
+
+Ver. 2.05a	Bug that 'checkid' builtin outputs a wrong value is fixed.
+ (12/10/03)
+
+Ver. 2.05	Support 'utf8-mac' as an additional Kanji code.
+ (12/03/03)	Add 'LOOPCURSOR' and 'TRADLAYOUT' internal variables.
+		Add 'UNICODEBUFFER' internal variable.
+		Add builtin commands in COMMAND.COM also for UNIX.
+		Abortion when some file group differs from others is fixed.
+		Bug that customizer sets key binding incorrectly is fixed.
+		Bug that customizer overwrites a file destructively is fixed.
+
+Ver. 2.04c	Support Cygwin.
+ (10/15/03)	Strange behaviors with redirected stdin are fixed.
+		Invisible file info. when set 'PRECEDEPATH' is fixed. (MS-DOS)
+		Strange information in archive browser on IRIX is fixed.
+		Freezing in archive browser with some format is fixed.
+		Freezing in 'exec' builtin with redirection is fixed.
+
+Ver. 2.04b	Failure to execute fdsh with no terminal is fixed.
+ (09/17/03)	Freezing when use any history in -c option of fdsh is fixed.
+
+Ver. 2.04a	Failure to compile on some environments using varargs is fixed.
+ (07/24/03)	Failure to compile on FreeBSD 5.x is fixed.
+		Failure to count amount of file system on Linux/Alpha is fixed.
+		Bug that 'dir' builtin shows wrong timestamp is fixed. (MS-DOS)
+
+Ver. 2.04	Add 'DUMBSHELL' and 'HISTFILE' internal variables.
+ (06/25/03)	Add 'ENV'/'LINENO'/'PPID'/'PS4' internal variables for POSIX.
+		Support dynamic variation of 'TERM' internal variable.
+		Support 'PWD' internal varable for current directory.
+		Support the variable completion with Tab on string input.
+		Support Large File Summit (over 2GB) for some OS.
+		The screen columns limit for file size is enlarged.
+		Prepare some substitute functions for System V.
+		Bug that no child can be executed on some System V is fixed.
+		Bug that no control works when invoked from GNU Emacs is fixed.
+		Bug that some customizer functions work incorrectly is fixed.
+		Bug that some symbolic links is followed incorrectly is fixed.
+		Bug that Kanji code in floppy drive on fdsh is wrong is fixed.
+		Bug that some OS cannot write directory correctly is fixed.
+
+Ver. 2.03b	Bug that %T, %M macros cannot be except in arguments is fixed.
+ (05/15/03)	Bug that Japanese filename in floppy drive is broken is fixed.
+		Bug that directory in floppy drive cannot be written is fixed.
+		Abortion when the directory has some symbolic links is fixed.
+		Support the unreliable signal() on System V.
+		Bug that ${%}/${#} for null variable work strangely is fixed.
+
+Ver. 2.03a	Bug that the default palette differs in color mode is fixed.
+ (04/15/03)	Bug that the function name can include any character is fixed.
+		Some troubles when missing the current directory is fixed.
+
+Ver. 2.03	Add 'browse' builtin.
+ (03/26/03)	Add 'readline', 'yesno' builtins.
+		Add 'ANSIPALETTE' internal variable.
+		Add 'TMPUMASK' internal variable.
+		Add -f, -i, -e, -t, -b options in 'launch' builtin.
+		Add %l, * in the format for archive browser registration.
+		%T, %M macros are refined to be used in any statements.
+		The maximum 1023 characters for a command macro is abolished.
+		The maximum 255 characters for an input line is abolished.
+		The archive browser is refined to refer FNAMEKCODE.
+		Bug that FIND_FILE with '/' sometimes fails is fixed.
+		Abortion in the wildcard with more than 31 characters is fixed.
+		Bug that some pipes cannot close safely is fixed.
+		Bug that some temporary directories remain is fixed.
+		Support invoking from the shell with lazy terminal control.
+		Some incompletion when reading recursive directories is fixed.
+		Abortion in EDIT_CONFIG with the minimum screen size is fixed.
+		Broken select menus with the minimum screen size is fixed.
+		Bug that '%' cannot kill meta characters on MS-DOS is fixed.
+
+Ver. 2.02b	Support cross-compiling.
+ (02/26/03)	Support 64bit based OS.
+		Reduce the minimum columns of a terminal to 34.
+		The terminal erase character will be treated as a BS key.
+		Bug for symbolic links in the archive file is fixed.
+		Bug for symbolic links in the pseudo RockRidge is fixed.
+		Abortion when failing to change directory is fixed.
+		Bug that logical changing directory works incorrectly is fixed.
+		The terminal control with suspending in shell will be strict.
+		Bug that '\' cannot kill meta characters in wildcards is fixed.
+		Mis-evaluation for && and || is fixed.
+		Bug that a variable name cannot contain numerals is fixed.
+		Bug that ${##} cannot work legally is fixed.
+		Bug that the operator '|' of $(()) is treated as '^' is fixed.
+		Bug that $(()) cannot treat negative values is fixed.
+		Bug that $(()) cannot use octal/hexadecimal numbers is fixed.
+
+Ver. 2.02a	Allow pack/unpack archive files into floppy drives.
+ (12/25/02)	Temporary directory names will be generated randomly.
+		Interruption in some internal commands via EXECUTE_SH is fixed.
+		Abortion when reading recursive directories is fixed.
+		Abortion when changing file attributions on some OS is fixed.
+
+Ver. 2.02	Add 'pushd', 'popd' and 'dirs' builtins.
+ (11/26/02)	Add -L, -P options in 'cd', 'pwd' builtins.
+		Add -o physical option in 'set' builtin.
+		Add %JA macro.
+		Add 'MAIL', 'MAILPATH', 'MAILCHECK' internal variables.
+		Add ${#foo}, ${foo%bar}, ${foo#bar} substitutions for POSIX.
+		Add $(command), $((expression)) expansions for POSIX.
+		Add 'dtype' builtin. (MS-DOS)
+		Add /S, /4 options in 'dir' builtin. (MS-DOS)
+		Expand the length of fdsh's command line into 255 characters.
+		Temporary filenames will be generated randomly for security.
+		Bug that '.' and '..' are invisible on floppy drives is fixed.
+		Bug that no here-document can be used in statements is fixed.
+		Broken path when invoked with a floppy drive argument is fixed.
+		Bug that file preceding makes some commands illegal is fixed.
+		Evaluation for arguments in shell command line is revised.
+		Bug that each RRPATH and FNAMEKCODE works exclusively is fixed.
+		Useless redirected CON on DJGPP and Borland C++ is fixed.
+		Miscalculation of free disk space on floppy drives is fixed.
+		Bug that customizer cannot save configurations is fixed.
+		Bug that pure MS-DOS cannot write some directories is fixed.
+
+Ver. 2.01c	Enlarge range of the filename shift for symbolic link.
+ (10/01/02)	Mis-parsing for the archived file with '.' directory is fixed.
+		Trivial fixes about the filename completion.
+		Mis-repeating for the shell delimiter before/after %T is fixed.
+		Stop evaluating any meta characters in renaming filename.
+		Add the default archiver registration for .taz, .tgz.
+		Mistaken format strings for .zip, .zoo are fixed.
+
+Ver. 2.01b	Allow LOG_DIR in archive browser.
+ (07/10/02)	Abortion in archive browser with inappropriate format is fixed.
+		Bug not to extract directory in archive browser is fixed.
+		Trivial fixes about the filename completion.
+
+Ver. 2.01a	Abortion when accessing filenames like as "a:" is fixed.
+ (06/10/02)	Freezing caused by syntax error in 'case' is fixed.
+
+Ver. 2.01	Add true/false/command/getopts/newgrp/fc builtins for POSIX.
+ (05/08/02)	Add -o, -b, -C options in 'set' builtin for POSIX.
+		Add the redirectees of '>|', '&>|' for -C option.
+		Add the redirectee of '&>>'.
+		Add 'login', 'logout' and 'disown' builtins.
+		Add the command separator '&|'.
+		Change the old pipe identifier '&|' to '|&'.
+		Change the overlapped variable name COLUMNS to DEFCOLUMNS.
+		Escape from depending on ANSI.SYS. (MS-DOS)
+		Missing .. on Windows NT is fixed. (MS-DOS)
+		Missing LFN on Windows 2000/XP is fixed. (MS-DOS)
+		Reference error of the history number is fixed.
+		Untermination error of the builtin 'execmacro' is fixed.
+		Unavailability of %M macro enclosed by %J macro is fixed.
+		Unrepeated error for the description before/after %T is fixed.
+		Illegal execution of 'trap 0' is fixed.
+		Misjudgment for the exit status of child process is fixed.
+		Abortion sometimes caused by filename completion is fixed.
+		Mismatching [] with dot files is fixed.
+		Bug that the last component of 'case' cannot omit ;; is fixed.
+		Bug that alias name cannot consist every character is fixed.
+		Support Linux/ia64.
+
+Ver. 2.00b	Allow ambiguity in decoding JIS type encoded strings.
+ (03/27/02)	Support to decode ISO-2022-JP-3 encoding.
+		The different rule from Windows in generating LFN is adjusted.
+		Evaluation error for shell variables is fixed.
+		Bug that ADJTTY has been always effective is fixed.
+		Probe error of readonly attribute in mount option is fixed.
+		An expanding error of continuous wildcards is fixed.
+
+Ver. 2.00a	Some fixes for HP-UX.
+ (02/06/02)	Support terminfo(5) library.
+		Restriction error of fd invoked from fdsh is fixed.
+		Redirection on fdsh supports floppy drives.
+		Strange display of filename completion list on fdsh is fixed.
+		Support the terminal whose columns are over 255.
+		Adjust some behaviors with a sub shell to Bourne shell.
+		Substitution error of $$ in a sub shell is fixed.
+		Some expanding errors of wildcards are fixed.
+		Displaying error of some special keys in HELP_MESSAGE is fixed.
+		Bug when select unsupported items in customizer is fixed.
+		Bug when set INPUTKCODE in customizer is fixed.
+		Bug that "make install" could not overwrite is fixed.
+		Misspelling for several documents is fixed.
+		Comment out all written in _fdrc for safety.
+
+Ver. 2.00	The second edition release.
+ (01/11/02)	Includes English documents.
